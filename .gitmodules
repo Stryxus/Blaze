@@ -1,3 +1,3 @@
-[submodule "Blaze/BinaryStarLib"]
-	path = Blaze/BinaryStarLib
+[submodule "BinaryStarLib"]
+	path = BinaryStarLib
 	url = https://github.com/Star-Athenaeum/BinaryStarLib
