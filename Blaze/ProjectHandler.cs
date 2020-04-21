@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using Stryxus.IO;
+using BSL.FileSystem;
 
 namespace Blaze
 {
@@ -19,17 +20,17 @@ namespace Blaze
             throw new FileNotFoundException("Main project not found in the selected solution!");
         }
 
-        internal static FileInfo GetMainProjectMainSCSSFile()
+        internal static async Task<FileInfo> GetMainProjectMainSCSSFile()
         {
             FileInfo inf = new FileInfo(Path.Combine(Store.ProjectDirectory.FullName, "wwwroot", "css", "bundle.scss"));
-            if (FileSystem.Exists(inf)) return inf;
+            if (await FileSystemIO.Exists(inf)) return inf;
             throw new FileNotFoundException("No bundle.scss was found in " + Store.CSSDirectory.FullName);
         }
 
-        internal static FileInfo GetMainProjectMainJSFile()
+        internal static async Task<FileInfo> GetMainProjectMainJSFile()
         {
             FileInfo inf = new FileInfo(Path.Combine(Store.ProjectDirectory.FullName, "wwwroot", "js", "bundle.js"));
-            if (FileSystem.Exists(inf)) return inf;
+            if (await FileSystemIO.Exists(inf)) return inf;
             throw new FileNotFoundException("No bundle.js was found in " + Store.JSDirectory.FullName);
         }
 

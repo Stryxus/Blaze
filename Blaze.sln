@@ -9,9 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		.gitmodules = .gitmodules
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryStarLib", "BinaryStarLib\BinaryStarLib\BinaryStarLib.csproj", "{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryStarLib.FileSystem", "BinaryStarLib\BinaryStarLib.FileSystem\BinaryStarLib.FileSystem.csproj", "{6CA659DC-1282-4328-B9E7-5B4A45F43F63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +34,20 @@ Global
 		{165EEAA9-E982-4586-B8BE-699016C042BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{165EEAA9-E982-4586-B8BE-699016C042BF}.Release|x64.ActiveCfg = Release|x64
 		{165EEAA9-E982-4586-B8BE-699016C042BF}.Release|x64.Build.0 = Release|x64
+		{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}.Debug|x64.ActiveCfg = Debug|x64
+		{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}.Debug|x64.Build.0 = Debug|x64
+		{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}.Release|Any CPU.ActiveCfg = Release|x64
+		{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}.Release|x64.ActiveCfg = Release|x64
+		{350E1E12-8BF1-4D0A-B9B0-3D22C90B441A}.Release|x64.Build.0 = Release|x64
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Debug|x64.ActiveCfg = Debug|x64
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Debug|x64.Build.0 = Debug|x64
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Release|x64.ActiveCfg = Release|x64
+		{6CA659DC-1282-4328-B9E7-5B4A45F43F63}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

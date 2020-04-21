@@ -4,21 +4,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 
-using Stryxus.IO;
-using Stryxus.Formats;
-
-using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
-using ImageProcessor.Plugins.WebP.Imaging.Formats;
+using BSL.FileSystem;
 
 using NUglify;
-using NUglify.Css;
-using NUglify.Helpers;
-using NUglify.Html;
 using NUglify.JavaScript;
 
 using LibSassHost;
@@ -27,11 +17,11 @@ namespace Blaze
 {
     internal static class OptimizationTools
     {
-        private static List<FileSystemWatcher> Watchers = new List<FileSystemWatcher>();
+        private static readonly List<FileSystemWatcher> Watchers = new List<FileSystemWatcher>();
 
         internal static async Task RunOptimizationTools(bool FirstRun = false)
         {
-            if (FirstRun) Logger.DivideBuffer();
+            if (FirstRun) await Logger.DivideBuffer();
             foreach (FileSystemWatcher w in Watchers) w.Dispose();
             Watchers.Clear();
 
@@ -44,7 +34,7 @@ namespace Blaze
 
                     if (inf.ContainsDirectory("css"))
                     {
-                        AddAssetListener(inf,
+                        await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformSCSSChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformSCSSChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => { }
@@ -53,7 +43,7 @@ namespace Blaze
                     }
                     else if (inf.ContainsDirectory("js"))
                     {
-                        AddAssetListener(inf,
+                        await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformJSChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformJSChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => { }
@@ -62,7 +52,7 @@ namespace Blaze
                     }
                     else if (inf.ContainsAnyDirectory("image", "img"))
                     {
-                        AddAssetListener(inf,
+                        await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformImgChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformImgChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => { }
@@ -71,7 +61,7 @@ namespace Blaze
                     }
                     else if (inf.ContainsAnyDirectory("video", "vid"))
                     {
-                        AddAssetListener(inf,
+                        await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformVidChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformVidChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => { }
@@ -80,7 +70,7 @@ namespace Blaze
                     }
                     else if (inf.ContainsDirectory("audio"))
                     {
-                        AddAssetListener(inf,
+                        await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformAudioChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformAudioChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => { }
@@ -91,13 +81,11 @@ namespace Blaze
             }
             if (FirstRun)
             {
-                Logger.DivideBuffer();
-                Logger.SetForegroundColor(ConsoleColor.DarkGreen);
-                Logger.LogInfo("To restart, type 'restart'. To recompile a file manually, type the 're' command followed by the file name with the extension.");
-                Logger.SetForegroundColor(ConsoleColor.White);
-                Logger.DivideBuffer();
-                Logger.LogInfo("Waiting for file updates...", false, false);
-                Logger.NewLine();
+                await Logger.DivideBuffer();
+                await Logger.Log(LogLevel.Info, "To restart, type 'restart'. To recompile a file manually, type the 're' command followed by the file name with the extension.");
+                await Logger.DivideBuffer();
+                await Logger.Log(LogLevel.Info, "Waiting for file updates...");
+                await Logger.NewLine();
 
                 await OptimizeJS().ConfigureAwait(false);
                 await OptimizeSCSS(Store.SCSSCoreFile).ConfigureAwait(false);
@@ -109,21 +97,21 @@ namespace Blaze
                 }
             }
 
-            static void AddAssetListener(DirectoryInfo directory, FileSystemEventHandler change, FileSystemEventHandler created, FileSystemEventHandler deleted, RenamedEventHandler renamed)
+            static async Task AddAssetListener(DirectoryInfo directory, FileSystemEventHandler change, FileSystemEventHandler created, FileSystemEventHandler deleted, RenamedEventHandler renamed)
             {
                 if (!Watchers.Any(o => o.Path == directory.FullName))
                 {
-                    FileSystemWatcher watcher = new FileSystemWatcher(directory.FullName);
-                    watcher.NotifyFilter = NotifyFilters.Size | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                    FileSystemWatcher watcher = new FileSystemWatcher(directory.FullName)
+                    {
+                        NotifyFilter = NotifyFilters.Size | NotifyFilters.FileName | NotifyFilters.DirectoryName
+                    };
                     watcher.Changed += change;
                     watcher.Created += created;
                     watcher.Deleted += deleted;
                     watcher.Renamed += renamed;
                     watcher.EnableRaisingEvents = true;
                     Watchers.Add(watcher);
-                    Logger.SetForegroundColor(ConsoleColor.Cyan);
-                    Logger.LogInfo("Added Listener -> " + watcher.Path);
-                    Logger.SetForegroundColor(ConsoleColor.White);
+                    await Logger.Log(LogLevel.Info, "Added Listener -> " + watcher.Path);
                 }
             }
         }
@@ -144,66 +132,41 @@ namespace Blaze
 
         private static async void PerformSCSSChecks(string path)
         {
-            if (FileSystem.IsPathDirectory(path)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeSCSS(new FileInfo(path)).ConfigureAwait(false);
+            await RunOptimizationTools().ConfigureAwait(false);
+            await OptimizeSCSS(new FileInfo(path));
         }
 
         private static async void PerformJSChecks(string path)
         {
-            if (FileSystem.IsPathDirectory(path)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeJS(new FileInfo(path)).ConfigureAwait(false);
+            await RunOptimizationTools().ConfigureAwait(false);
+            await OptimizeJS(new FileInfo(path));
         }
 
         private static async void PerformImgChecks(string path)
         {
-            if (FileSystem.IsPathDirectory(path)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeImage(new FileInfo(path)).ConfigureAwait(false);
+            await RunOptimizationTools();
+            await OptimizeImage(new FileInfo(path));
         }
 
         private static async void PerformVidChecks(string path)
         {
-            if (FileSystem.IsPathDirectory(path)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeVideo(new FileInfo(path)).ConfigureAwait(false);
+            await RunOptimizationTools().ConfigureAwait(false);
+            await OptimizeVideo(new FileInfo(path));
         }
 
         private static async void PerformAudioChecks(string path)
         {
-            if (FileSystem.IsPathDirectory(path)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeAudio(new FileInfo(path)).ConfigureAwait(false);
+            await RunOptimizationTools().ConfigureAwait(false);
+            await OptimizeAudio(new FileInfo(path));
         }
 
         private static async Task OptimizeImage(FileInfo info)
         {
             if (Store.compilableImageContainers.Contains(info.Extension))
             {
-                Logger.LogInfo("Processing Asset: " + info.FullName);
-                List<byte> photoBytes = FileSystem.ReadBytesSync(info);
-
-                ISupportedImageFormat format = new WebPFormat { Quality = 75 };
-                using (MemoryStream inStream = new MemoryStream(photoBytes.ToArray()))
-                {
-                    using (MemoryStream outStream = new MemoryStream())
-                    {
-                        try
-                        {
-                            LoadAndWriteImage();
-                        }
-                        catch (IOException)
-                        {
-                            Logger.LogError("Processing image from file " + info.FullName + " failed. Attempting again...");
-                            for (int i = 0; i < Store.FileAccessRetries; i++) LoadAndWriteImage();
-                        }
-
-                        void LoadAndWriteImage()
-                        {
-                            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: false)) imageFactory.Load(inStream)
-                                    .BitDepth((long)PixelFormat.Format16bppRgb555).Format(format).Save(outStream);
-                            FileInfo outFile = new FileInfo(info.FullName.Replace(info.Extension, string.Empty) + ".webp");
-                            if (!FileSystem.Exists(outFile)) FileSystem.Create(outFile);
-                            FileSystem.WriteBytesSync(outStream, outFile);
-                        }
-                    }
-                }
+                await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
+                // Needs re-implementing
+                throw new NotImplementedException();
             }
         }
 
@@ -211,7 +174,7 @@ namespace Blaze
         {
             if (Store.compilableVideoContainers.Contains(info.Extension))
             {
-                Logger.LogInfo("Processing Asset: " + info.FullName);
+                await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
                 // Needs re-implementing
                 throw new NotImplementedException();
             }
@@ -221,7 +184,7 @@ namespace Blaze
         {
             if (Store.compilableAudioContainers.Contains(info.Extension))
             {
-                Logger.LogInfo("Processing Asset: " + info.FullName);
+                await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
                 // Needs re-implementing
                 throw new NotImplementedException();
             }
@@ -231,7 +194,7 @@ namespace Blaze
         {
             if (actualFile != Store.SCSSOutputFile && actualFile.Extension == ".scss")
             {
-                Logger.LogInfo("Processing CSS...");
+                await Logger.Log(LogLevel.Info, "Processing CSS...");
                 CompilationResult resultThirdParty = null;
                 CompilationResult result = null;
                 CompilationOptions compilation = null;
@@ -245,17 +208,17 @@ namespace Blaze
                         SourceComments = false,
                         OutputStyle = OutputStyle.Compressed
                     };
-                    string cssContent = ReadCSSContent();
-                    if (!cssContent.IsEmpty() && cssContent != null) resultThirdParty = SassCompiler.Compile(cssContent, compilation);
+                    string cssContent = await ReadCSSContent();
+                    if (!string.IsNullOrEmpty(cssContent) && cssContent != null) resultThirdParty = SassCompiler.Compile(cssContent, compilation);
                     result = SassCompiler.CompileFile(Store.SCSSCoreFile.FullName, null, null, compilation);
                 }
                 catch (SassException e)
                 {
-                    Logger.LogError(e.Description);
+                    await Logger.Log(LogLevel.Error, e.Description);
                 }
                 catch (IOException)
                 {
-                    Logger.LogError("Processing SCSS from file " + Store.SCSSCoreFile.FullName + " failed. Attempting again...");
+                    await Logger.Log(LogLevel.Info, "Processing SCSS from file " + Store.SCSSCoreFile.FullName + " failed. Attempting again...");
                     for (int i = 0; i < Store.FileAccessRetries; i++)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
@@ -264,40 +227,40 @@ namespace Blaze
                 }
                 catch (ArgumentException e)
                 {
-                    Logger.LogError(e.Message);
+                    await Logger.Log(LogLevel.Error, e.Message);
                 }
                 if (result != null)
                 {
                     try
                     {
-                        WriteCSSAndMap();
+                        await WriteCSSAndMap();
                     }
-                    catch (IOException e)
+                    catch (IOException)
                     {
-                        Logger.LogError("Saving CSS from " + Store.SCSSCoreFile.FullName + " failed. Attempting again...");
+                        await Logger.Log(LogLevel.Error, "Saving CSS from " + Store.SCSSCoreFile.FullName + " failed. Attempting again...");
                         for (int i = 0; i < Store.FileAccessRetries; i++)
                         {
                             await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
-                            WriteCSSAndMap();
+                            await WriteCSSAndMap();
                         }
                     }
-                    void WriteCSSAndMap()
+                    async Task WriteCSSAndMap()
                     {
                         if (!Store.SCSSOutputFile.Exists) Store.SCSSOutputFile.Create();
-                        else FileSystem.NullifyFileSync(Store.SCSSOutputFile);
-                        FileSystem.WriteSync(Regex.Replace(resultThirdParty != null ? resultThirdParty.CompiledContent + result.CompiledContent : result.CompiledContent, @"/\*.+?\*/", string.Empty, RegexOptions.Singleline), Store.SCSSOutputFile, Encoding.UTF8);
+                        else await FileIO.NullifyFile(Store.SCSSOutputFile);
+                        await FileIO.WriteText(Store.SCSSOutputFile, Regex.Replace(resultThirdParty != null ? resultThirdParty.CompiledContent + result.CompiledContent : result.CompiledContent, @"/\*.+?\*/", string.Empty, RegexOptions.Singleline), Encoding.UTF8);
                         if (!Store.SCSSSourceMapFile.Exists) Store.SCSSSourceMapFile.Create();
-                        else FileSystem.NullifyFileSync(Store.SCSSSourceMapFile);
-                        FileSystem.WriteSync(result.SourceMap, Store.SCSSSourceMapFile, Encoding.UTF8);
+                        else await FileIO.NullifyFile(Store.SCSSSourceMapFile);
+                        await FileIO.WriteText(Store.SCSSSourceMapFile, result.SourceMap, Encoding.UTF8);
                     }
                 }
             }
 
-            string ReadCSSContent()
+            static async Task<string> ReadCSSContent()
             {
                 string content = string.Empty;
                 foreach (FileInfo s in Store.CSSDirectory.GetFiles("*.*", SearchOption.AllDirectories)
-                    .Where(o => o.FullName.EndsWith(".css") && !o.FullName.EndsWith(".min.css"))) content += FileSystem.ReadSync(s, Encoding.UTF8);
+                    .Where(o => o.FullName.EndsWith(".css") && !o.FullName.EndsWith(".min.css"))) content += await FileIO.ReadText(s);
                 return content;
             }
         }
@@ -306,34 +269,26 @@ namespace Blaze
         {
             if (actualFile == null || (actualFile != Store.JSOutputFile && actualFile.Extension == ".js"))
             {
-                Logger.LogInfo("Processing Javascript...");
+                await Logger.Log(LogLevel.Info, "Processing Javascript...");
                 string jsContent = string.Empty;
                 foreach (FileInfo jsFile in Store.JSDirectory.GetFiles("*.*", SearchOption.AllDirectories)
                     .Where(o => o.FullName.EndsWith(".third.js")))
                 {
                     if (jsFile == Store.JSOutputFile) continue;
-                    jsContent += FileSystem.ReadSync(jsFile, Encoding.UTF8);
+                    jsContent += FileIO.ReadText(jsFile);
                 }
                 foreach (FileInfo jsFile in Store.JSDirectory.GetFiles("*.*", SearchOption.AllDirectories)
                     .Where(o => o.FullName.EndsWith(".js") && !o.FullName.EndsWith(".third.js") && !o.FullName.EndsWith(".min.js")))
                 {
                     if (jsFile == Store.JSOutputFile) continue;
-                    jsContent += FileSystem.ReadSync(jsFile, Encoding.UTF8);
+                    jsContent += FileIO.ReadText(jsFile);
                 }
-                FileSystem.NullifyFileSync(Store.JSOutputFile);
-                FileSystem.WriteSync(Uglify.Js(jsContent, new CodeSettings
+                await FileIO.NullifyFile(Store.JSOutputFile);
+                await FileIO.WriteText(Store.JSOutputFile, Uglify.Js(jsContent, new CodeSettings
                 {
                     ScriptVersion = ScriptVersion.EcmaScript6,
                     PreserveImportantComments = false
-                }).Code, Store.JSOutputFile, Encoding.UTF8);
-            }
-
-            string ReadJSContent()
-            {
-                string content = string.Empty;
-                foreach (FileInfo s in Store.JSDirectory.GetFiles("*.*", SearchOption.AllDirectories)
-                    .Where(o => o.FullName.EndsWith(".min.js"))) content += FileSystem.ReadSync(s, Encoding.UTF8);
-                return content;
+                }).Code, Encoding.UTF8);
             }
         }
     }
