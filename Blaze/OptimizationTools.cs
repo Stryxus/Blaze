@@ -275,19 +275,20 @@ namespace Blaze
                     .Where(o => o.FullName.EndsWith(".third.js")))
                 {
                     if (jsFile == Store.JSOutputFile) continue;
-                    jsContent += FileIO.ReadText(jsFile);
+                    jsContent += await FileIO.ReadText(jsFile);
                 }
                 foreach (FileInfo jsFile in Store.JSDirectory.GetFiles("*.*", SearchOption.AllDirectories)
                     .Where(o => o.FullName.EndsWith(".js") && !o.FullName.EndsWith(".third.js") && !o.FullName.EndsWith(".min.js")))
                 {
                     if (jsFile == Store.JSOutputFile) continue;
-                    jsContent += FileIO.ReadText(jsFile);
+                    jsContent += await FileIO.ReadText(jsFile);
                 }
                 await FileIO.NullifyFile(Store.JSOutputFile);
                 await FileIO.WriteText(Store.JSOutputFile, Uglify.Js(jsContent, new CodeSettings
                 {
                     ScriptVersion = ScriptVersion.EcmaScript6,
-                    PreserveImportantComments = false
+                    PreserveImportantComments = false,
+                    AmdSupport = false
                 }).Code, Encoding.UTF8);
             }
         }
