@@ -196,7 +196,8 @@ namespace Blaze
                 FileInfo output = new FileInfo(info.FullName.Replace(info.Extension, ".webp"));
                 using (Bitmap bitmap = (Bitmap)Image.FromFile(info.FullName))
                 {
-                    using (WebP webp = new WebP()) rawWebP = webp.Encode(bitmap);
+                    using WebP webp = new WebP();
+                    rawWebP = webp.Encode(bitmap);
                 }
                 if (!await FileSystemIO.Exists(output)) await FileSystemIO.Create(output);
                 else await FileIO.NullifyFile(output);
