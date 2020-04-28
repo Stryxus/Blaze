@@ -10,7 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="libwebp_x64.dll" />
     <None Remove="README" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="libwebp_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

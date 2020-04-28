@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
@@ -59,7 +61,7 @@ namespace Blaze
                             , (object sender, RenamedEventArgs args) => PerformImgChecks(args.FullPath)
                         );
                     }
-                    else if (inf.ContainsAnyDirectory("video", "vid"))
+                    /*else if (inf.ContainsAnyDirectory("video", "vid"))
                     {
                         await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformVidChecks(args.FullPath)
@@ -67,7 +69,7 @@ namespace Blaze
                             , (object sender, FileSystemEventArgs args) => { }
                             , (object sender, RenamedEventArgs args) => PerformVidChecks(args.FullPath)
                         );
-                    }
+                    }*/
                     else if (inf.ContainsDirectory("audio"))
                     {
                         await AddAssetListener(inf,
@@ -92,7 +94,7 @@ namespace Blaze
                 foreach (FileInfo f in Store.WebsiteRootDirectory.GetFiles("*.*", SearchOption.AllDirectories).Where(c => !c.ContainsAnyDirectory("bin", "obj") && c.ContainsDirectory("wwwroot")))
                 {
                     await OptimizeImage(f).ConfigureAwait(false);
-                    await OptimizeVideo(f).ConfigureAwait(false);
+                    //await OptimizeVideo(f).ConfigureAwait(false);
                     await OptimizeAudio(f).ConfigureAwait(false);
                 }
             }
@@ -132,32 +134,32 @@ namespace Blaze
 
         private static async void PerformSCSSChecks(string path)
         {
-            await RunOptimizationTools().ConfigureAwait(false);
-            await OptimizeSCSS(new FileInfo(path));
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+            else await OptimizeSCSS(new FileInfo(path));
         }
 
         private static async void PerformJSChecks(string path)
         {
-            await RunOptimizationTools().ConfigureAwait(false);
-            await OptimizeJS(new FileInfo(path));
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+            else await OptimizeJS(new FileInfo(path));
         }
 
         private static async void PerformImgChecks(string path)
         {
-            await RunOptimizationTools();
-            await OptimizeImage(new FileInfo(path));
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+            else await OptimizeImage(new FileInfo(path));
         }
 
         private static async void PerformVidChecks(string path)
         {
-            await RunOptimizationTools().ConfigureAwait(false);
-            await OptimizeVideo(new FileInfo(path));
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+            else await OptimizeVideo(new FileInfo(path));
         }
 
         private static async void PerformAudioChecks(string path)
         {
-            await RunOptimizationTools().ConfigureAwait(false);
-            await OptimizeAudio(new FileInfo(path));
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+            else await OptimizeAudio(new FileInfo(path));
         }
 
         private static async Task OptimizeImage(FileInfo info)
@@ -165,8 +167,15 @@ namespace Blaze
             if (Store.compilableImageContainers.Contains(info.Extension))
             {
                 await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
-                // Needs re-implementing
-                throw new NotImplementedException();
+                byte[] rawWebP;
+                FileInfo output = new FileInfo(info.FullName.Replace(info.Extension, ".webp"));
+                using (Bitmap bitmap = (Bitmap)Image.FromFile(info.FullName))
+                {
+                    using (WebP webp = new WebP()) rawWebP = webp.Encode(bitmap);
+                }
+                if (!await FileSystemIO.Exists(output)) await FileSystemIO.Create(output);
+                else await FileIO.NullifyFile(output);
+                await File.WriteAllBytesAsync(output.FullName, rawWebP);
             }
         }
 
