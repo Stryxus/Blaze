@@ -134,37 +134,62 @@ namespace Blaze
 
         private static async void PerformSCSSChecks(string path)
         {
-            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeSCSS(new FileInfo(path));
+            try
+            {
+                if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+                else await OptimizeSCSS(new FileInfo(path));
+            }
+            catch (FileNotFoundException) { }
+            catch (DirectoryNotFoundException) { }
         }
 
         private static async void PerformJSChecks(string path)
         {
-            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeJS(new FileInfo(path));
+            try
+            {
+                if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+                else await OptimizeJS(new FileInfo(path));
+            }
+            catch (FileNotFoundException) { }
+            catch (DirectoryNotFoundException) { }
         }
 
         private static async void PerformImgChecks(string path)
         {
-            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeImage(new FileInfo(path));
+            try
+            {
+                if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+                else await OptimizeImage(new FileInfo(path));
+            }
+            catch (FileNotFoundException) { }
+            catch (DirectoryNotFoundException) { }
         }
 
         private static async void PerformVidChecks(string path)
         {
-            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeVideo(new FileInfo(path));
+            try
+            {
+                if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+                else await OptimizeVideo(new FileInfo(path));
+            }
+            catch (FileNotFoundException) { }
+            catch (DirectoryNotFoundException) { }
         }
 
         private static async void PerformAudioChecks(string path)
         {
-            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-            else await OptimizeAudio(new FileInfo(path));
+            try
+            {
+                if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
+                else await OptimizeAudio(new FileInfo(path));
+            } 
+            catch (FileNotFoundException) { }
+            catch (DirectoryNotFoundException) { }
         }
 
         private static async Task OptimizeImage(FileInfo info)
         {
-            if (Store.compilableImageContainers.Contains(info.Extension))
+            if (info.Extension.EndsWithAny(Store.compilableImageContainers))
             {
                 await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
                 byte[] rawWebP;
@@ -201,7 +226,7 @@ namespace Blaze
 
         private static async Task OptimizeSCSS(FileInfo actualFile)
         {
-            if (actualFile != Store.SCSSOutputFile && actualFile.Extension == ".scss")
+            if (actualFile == null || (actualFile != Store.SCSSOutputFile && actualFile.FullName.EndsWith(".scss") && actualFile.Extension == ".scss"))
             {
                 await Logger.Log(LogLevel.Info, "Processing CSS...");
                 CompilationResult resultThirdParty = null;
@@ -267,7 +292,7 @@ namespace Blaze
 
         private static async Task OptimizeJS(FileInfo actualFile = null)
         {
-            if (actualFile == null || (actualFile != Store.JSOutputFile && actualFile.Extension == ".js"))
+            if (actualFile == null || (actualFile != Store.JSOutputFile && actualFile.FullName.EndsWith(".js") && actualFile.Extension == ".js"))
             {
                 await Logger.Log(LogLevel.Info, "Processing Javascript...");
                 string jsContent = string.Empty;
