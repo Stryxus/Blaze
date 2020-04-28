@@ -61,7 +61,7 @@ namespace Blaze
                             , (object sender, RenamedEventArgs args) => PerformImgChecks(args.FullPath)
                         );
                     }
-                    /*else if (inf.ContainsAnyDirectory("video", "vid"))
+                    else if (inf.ContainsAnyDirectory("video", "vid"))
                     {
                         await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformVidChecks(args.FullPath)
@@ -69,7 +69,7 @@ namespace Blaze
                             , (object sender, FileSystemEventArgs args) => { }
                             , (object sender, RenamedEventArgs args) => PerformVidChecks(args.FullPath)
                         );
-                    }*/
+                    }
                     else if (inf.ContainsDirectory("audio"))
                     {
                         await AddAssetListener(inf,
@@ -94,7 +94,7 @@ namespace Blaze
                 foreach (FileInfo f in Store.WebsiteRootDirectory.GetFiles("*.*", SearchOption.AllDirectories).Where(c => !c.ContainsAnyDirectory("bin", "obj") && c.ContainsDirectory("wwwroot")))
                 {
                     await OptimizeImage(f).ConfigureAwait(false);
-                    //await OptimizeVideo(f).ConfigureAwait(false);
+                    await OptimizeVideo(f).ConfigureAwait(false);
                     await OptimizeAudio(f).ConfigureAwait(false);
                 }
             }
@@ -210,8 +210,8 @@ namespace Blaze
             if (Store.compilableVideoContainers.Contains(info.Extension))
             {
                 await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
-                // Needs re-implementing
-                throw new NotImplementedException();
+                await Store.ProcessingProcess.StartThenWaitRefreshAsync(Path.Combine(FileSystemIO.ApplicationDirectory.FullName, "ffmpeg") +
+                    " -y -i \"" + info.FullName + "\" -c:v libvpx-vp9 -crf 20 -b:v 2000k -maxrate 2500k \"" + info.FullName.Replace(info.Extension, ".webm") + "\"");
             }
         }
 
@@ -220,8 +220,8 @@ namespace Blaze
             if (Store.compilableAudioContainers.Contains(info.Extension))
             {
                 await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
-                // Needs re-implementing
-                throw new NotImplementedException();
+                await Store.ProcessingProcess.StartThenWaitRefreshAsync(Path.Combine(FileSystemIO.ApplicationDirectory.FullName, "ffmpeg") +
+                    " -y -i\"" + info.FullName + "\" \"" + info.FullName.Replace(info.Extension, ".aac") + "\"");
             }
         }
 

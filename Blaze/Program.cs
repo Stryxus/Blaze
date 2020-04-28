@@ -25,7 +25,7 @@ namespace Blaze
             {
                 FileName = "cmd.exe",
                 WorkingDirectory = FileSystemIO.ApplicationDirectory.FullName,
-                CreateNoWindow = false
+                CreateNoWindow = true
             };
 
             await ArgumentHandler.ParseArgumentsFromArray(args, out List<ParsedArgument> arguments);
