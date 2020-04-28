@@ -242,25 +242,16 @@ namespace Blaze
                 {
                     try
                     {
-                        await WriteCSSAndMap();
-                    }
-                    catch (IOException)
-                    {
-                        await Logger.Log(LogLevel.Error, "Saving CSS from " + Store.SCSSCoreFile.FullName + " failed. Attempting again...");
-                        for (int i = 0; i < Store.FileAccessRetries; i++)
-                        {
-                            await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
-                            await WriteCSSAndMap();
-                        }
-                    }
-                    async Task WriteCSSAndMap()
-                    {
                         if (!Store.SCSSOutputFile.Exists) Store.SCSSOutputFile.Create();
                         else await FileIO.NullifyFile(Store.SCSSOutputFile);
                         await FileIO.WriteText(Store.SCSSOutputFile, Regex.Replace(resultThirdParty != null ? resultThirdParty.CompiledContent + result.CompiledContent : result.CompiledContent, @"/\*.+?\*/", string.Empty, RegexOptions.Singleline), Encoding.UTF8);
                         if (!Store.SCSSSourceMapFile.Exists) Store.SCSSSourceMapFile.Create();
                         else await FileIO.NullifyFile(Store.SCSSSourceMapFile);
                         await FileIO.WriteText(Store.SCSSSourceMapFile, result.SourceMap, Encoding.UTF8);
+                    }
+                    catch (IOException)
+                    {
+                        await Logger.Log(LogLevel.Error, "Saving CSS from " + Store.SCSSCoreFile.FullName + " failed. Will attempt again on change...");
                     }
                 }
             }
