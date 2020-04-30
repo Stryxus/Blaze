@@ -94,7 +94,7 @@ namespace Blaze
                 foreach (FileInfo f in Store.WebsiteRootDirectory.GetFiles("*.*", SearchOption.AllDirectories).Where(c => !c.ContainsAnyDirectory("bin", "obj") && c.ContainsDirectory("wwwroot")))
                 {
                     await OptimizeImage(f).ConfigureAwait(false);
-                    await OptimizeVideo(f).ConfigureAwait(false);
+                    //await OptimizeVideo(f).ConfigureAwait(false);
                     await OptimizeAudio(f).ConfigureAwait(false);
                 }
             }
@@ -170,7 +170,7 @@ namespace Blaze
             try
             {
                 if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-                else await OptimizeVideo(new FileInfo(path));
+                //else await OptimizeVideo(new FileInfo(path));
             }
             catch (FileNotFoundException) { }
             catch (DirectoryNotFoundException) { }
