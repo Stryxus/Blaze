@@ -39,7 +39,7 @@ namespace Blaze
                         await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformSCSSChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformSCSSChecks(args.FullPath)
-                            , (object sender, FileSystemEventArgs args) => { }
+                            , (object sender, FileSystemEventArgs args) => PerformSCSSChecks(args.FullPath)
                             , (object sender, RenamedEventArgs args) => PerformSCSSChecks(args.FullPath)
                         );
                     }
@@ -48,7 +48,7 @@ namespace Blaze
                         await AddAssetListener(inf,
                               (object sender, FileSystemEventArgs args) => PerformJSChecks(args.FullPath)
                             , (object sender, FileSystemEventArgs args) => PerformJSChecks(args.FullPath)
-                            , (object sender, FileSystemEventArgs args) => { }
+                            , (object sender, FileSystemEventArgs args) => PerformJSChecks(args.FullPath)
                             , (object sender, RenamedEventArgs args) => PerformJSChecks(args.FullPath)
                         );
                     }
