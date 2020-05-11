@@ -170,7 +170,7 @@ namespace Blaze
             try
             {
                 if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) await RunOptimizationTools().ConfigureAwait(false);
-                //else await OptimizeVideo(new FileInfo(path));
+                else await OptimizeVideo(new FileInfo(path));
             }
             catch (FileNotFoundException) { }
             catch (DirectoryNotFoundException) { }
