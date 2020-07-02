@@ -2,9 +2,9 @@
 
 using namespace System;
 
-namespace BlazeNativeBridge {
+namespace Blaze {
 
-	public ref class Class1
+	public ref class NativeBridge
 	{
 
 	};
