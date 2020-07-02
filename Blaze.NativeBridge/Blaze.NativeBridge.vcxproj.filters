@@ -18,9 +18,6 @@
     <ClInclude Include="Blaze.NativeBridge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
