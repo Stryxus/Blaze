@@ -211,7 +211,7 @@ namespace Blaze
             {
                 await Logger.Log(LogLevel.Info, "Processing Asset: " + info.FullName);
                 await Store.ProcessingProcess.StartThenWaitRefreshAsync(Path.Combine(FileSystemIO.ApplicationDirectory.FullName, "ffmpeg") +
-                    " -y -i \"" + info.FullName + "\" -c:v libvpx-vp9 -crf 10 -b:v 6000k -maxrate 10000k \"" + info.FullName.Replace(info.Extension, ".webm") + "\"");
+                    " -y -i \"" + info.FullName + "\" -r 24 -c:v libvpx-vp9 -crf 10 -b:v 4000k -maxrate 6000k \"" + info.FullName.Replace(info.Extension, ".webm") + "\"");
             }
         }
 
