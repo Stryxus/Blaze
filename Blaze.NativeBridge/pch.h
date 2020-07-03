@@ -3,6 +3,9 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include <stdlib.h>
+#include <vector>
+
 extern "C" {
 	#include "webp/decode.h"
 	#include "webp/encode.h"
