@@ -7,6 +7,3 @@
 [submodule "libwebp"]
 	path = libwebp
 	url = https://github.com/webmproject/libwebp/
-[submodule "FFmpeg"]
-	path = FFmpeg
-	url = https://github.com/FFmpeg/FFmpeg

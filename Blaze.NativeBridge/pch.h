@@ -1,3 +1,5 @@
+#pragma error(disable : 1189)
+
 #ifndef PCH_H
 #define PCH_H
 
