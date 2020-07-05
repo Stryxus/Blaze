@@ -126,21 +126,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Blaze.h" />
+    <ClInclude Include="audioprocessor.h" />
+    <ClInclude Include="blazecore.h" />
+    <ClInclude Include="cssprocessor.h" />
+    <ClInclude Include="imageprocessor.h" />
+    <ClInclude Include="javascriptprocessor.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="videoprocessor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="Blaze.cpp" />
+    <ClCompile Include="audioprocessor.cpp" />
+    <ClCompile Include="blazecore.cpp" />
+    <ClCompile Include="cssprocessor.cpp" />
+    <ClCompile Include="imageprocessor.cpp" />
+    <ClCompile Include="javascriptprocessor.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="videoprocessor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NUglify\src\NUglify\NUglify.csproj">
+      <Project>{488bfd8b-6f9d-4154-83c5-34d65c5fccb8}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

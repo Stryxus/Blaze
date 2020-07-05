@@ -10,3 +10,6 @@
 [submodule "libsass"]
 	path = libsass
 	url = https://github.com/sass/libsass
+[submodule "NUglify"]
+	path = NUglify
+	url = https://github.com/trullock/NUglify
