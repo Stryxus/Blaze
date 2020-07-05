@@ -85,11 +85,11 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\StarAthenaeum\Blaze\libsass\include;D:\Projects\StarAthenaeum\Blaze\libwebp\src;D:\Projects\StarAthenaeum\Blaze\FFmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\StarAthenaeum\Blaze\libsass\include;D:\Projects\StarAthenaeum\Blaze\libwebp\src;D:\Projects\StarAthenaeum\Blaze\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
-      <AdditionalLibraryDirectories>D:\Projects\StarAthenaeum\Blaze\libwebp\output\release-static\x64\lib;D:\Projects\StarAthenaeum\Blaze\FFmpeg\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Projects\StarAthenaeum\Blaze\libwebp\output\release-static\x64\lib;D:\Projects\StarAthenaeum\Blaze\ffmpeg\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
