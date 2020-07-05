@@ -6,8 +6,6 @@
 
 #include "imageprocessor.h"
 
-using namespace std;
-
 using namespace System;
 
 using namespace Blaze;

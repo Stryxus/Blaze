@@ -30,6 +30,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blaze", "Blaze\Blaze.vcxpro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUglify", "NUglify\src\NUglify\NUglify.csproj", "{488BFD8B-6F9D-4154-83C5-34D65C5FCCB8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlazeApp", "BlazeApp\BlazeApp.vcxproj", "{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +120,16 @@ Global
 		{488BFD8B-6F9D-4154-83C5-34D65C5FCCB8}.Release|x64.Build.0 = Release|Any CPU
 		{488BFD8B-6F9D-4154-83C5-34D65C5FCCB8}.Release|x86.ActiveCfg = Release|Any CPU
 		{488BFD8B-6F9D-4154-83C5-34D65C5FCCB8}.Release|x86.Build.0 = Release|Any CPU
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Debug|x64.ActiveCfg = Debug|x64
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Debug|x64.Build.0 = Debug|x64
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Debug|x86.ActiveCfg = Debug|Win32
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Debug|x86.Build.0 = Debug|Win32
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Release|Any CPU.ActiveCfg = Release|Win32
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Release|x64.ActiveCfg = Release|x64
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Release|x64.Build.0 = Release|x64
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Release|x86.ActiveCfg = Release|Win32
+		{11F4515E-9728-4C6E-B2A4-56BE6C06E9D8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

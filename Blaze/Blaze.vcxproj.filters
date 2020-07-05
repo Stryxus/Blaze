@@ -20,9 +20,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="blazecore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="videoprocessor.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
@@ -44,9 +41,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="blazecore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="videoprocessor.cpp">

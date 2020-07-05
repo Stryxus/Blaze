@@ -1,5 +1,7 @@
 #pragma once
 
+using namespace std;
+
 namespace Blaze {
 
 	public ref class ImageProcessor
@@ -11,8 +13,6 @@ namespace Blaze {
 		static vector<uint8_t> ConvertToWebP(vector<uint8_t>* data);
 		static vector<uint8_t> ResizeWebP(vector<uint8_t>* data);
 		static vector<uint8_t> CompressWebP(vector<uint8_t>* data);
-
-		// FFmpeg
 
 	private:
 
