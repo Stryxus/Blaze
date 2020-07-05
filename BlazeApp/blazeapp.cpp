@@ -1,5 +1,4 @@
 #include "pch.h"
-
 #include "blazeapp.h"
 
 using namespace std;
