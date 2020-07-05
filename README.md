@@ -8,6 +8,4 @@ Everyone is welcome to contribute if interested. There are no instructions but t
 There is no set code style, everyone can contribute in their own prefered ways as long as it isnt complicated enough that it isnt universally understood across all contributors.
 #### Requirements
 - Windows 10 1909 or later
-- Visual Studio 2019 with .NET and C++
-- .NET 5 Preview SDK
-- NUglify -> Change its target framework to net5 due to its incompatibility
+- Visual Studio 2019 with C++
