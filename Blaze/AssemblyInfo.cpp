@@ -7,11 +7,11 @@ using namespace System::Runtime::InteropServices;
 using namespace System::Security::Permissions;
 
 [assembly:AssemblyTitleAttribute(L"Blaze")];
-[assembly:AssemblyDescriptionAttribute(L"")];
+[assembly:AssemblyDescriptionAttribute(L"The optimization and delivery tool for Star Athenaeum's Blazor projects")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
 [assembly:AssemblyProductAttribute(L"Blaze")];
-[assembly:AssemblyCopyrightAttribute(L"Copyright (c)  2020")];
+[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Connor 'Stryxus' Shearer 2020")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];
 
