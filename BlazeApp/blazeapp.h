@@ -1,6 +1,3 @@
 #pragma once
 
-class BlazorApp
-{
-
-};
+int main(int argc, const char* argv[]);
