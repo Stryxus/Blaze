@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "Blaze.h"
+#include "blazecore.h"
 
 using namespace Blaze;
 
