@@ -3,4 +3,7 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
+
 #include <vector>
+#include <string>
