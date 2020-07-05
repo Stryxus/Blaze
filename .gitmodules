@@ -7,3 +7,6 @@
 [submodule "libwebp"]
 	path = libwebp
 	url = https://github.com/webmproject/libwebp/
+[submodule "libsass"]
+	path = libsass
+	url = https://github.com/sass/libsass
