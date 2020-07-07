@@ -13,3 +13,6 @@
 [submodule "NUglify"]
 	path = NUglify
 	url = https://github.com/trullock/NUglify
+[submodule "json"]
+	path = json
+	url = https://github.com/nlohmann/json
