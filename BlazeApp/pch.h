@@ -1,5 +1,7 @@
 #define WIN32_LEAN_AND_MEAN
 
+using namespace std;
+
 #include <Windows.h>
 #include <stdlib.h>
 #include <iostream>

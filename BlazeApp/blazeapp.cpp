@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "blazeapp.h"
 
-using namespace std;
-
 HMODULE nuglify;
 
 int main(int argc, const char* argv[]) 
