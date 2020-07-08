@@ -118,15 +118,15 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Projects\StarAthenaeum\Blaze\BlazeLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Projects\StarAthenaeum\Blaze\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.0\NUglify.dll" "$(OutputPath)"</Command>
+      <Command>copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll" "$(OutputPath)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,9 +150,9 @@
     <ClInclude Include="blazeapp.h" />
     <ClInclude Include="cssproc.h" />
     <ClInclude Include="imageproc.h" />
+    <ClInclude Include="ioutils.h" />
     <ClInclude Include="jsproc.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="settings.h" />
     <ClInclude Include="videoproc.h" />
   </ItemGroup>
   <ItemGroup>
@@ -160,11 +160,22 @@
     <ClCompile Include="blazeapp.cpp" />
     <ClCompile Include="cssproc.cpp" />
     <ClCompile Include="imageproc.cpp" />
+    <ClCompile Include="ioutils.cpp" />
     <ClCompile Include="jsproc.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="settings.cpp" />
     <ClCompile Include="videoproc.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\nlohmann.json.3.7.3\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.7.3\build\native\nlohmann.json.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.7.3\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.7.3\build\native\nlohmann.json.targets'))" />
+  </Target>
 </Project>

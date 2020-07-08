@@ -38,7 +38,7 @@
     <ClInclude Include="audioproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="settings.h">
+    <ClInclude Include="ioutils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -64,8 +64,11 @@
     <ClCompile Include="cssproc.cpp">
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
-    <ClCompile Include="settings.cpp">
+    <ClCompile Include="ioutils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
