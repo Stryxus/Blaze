@@ -1,7 +1,7 @@
 # Blaze
 The optimization and delivery tool for Star Athenaeum's Blazor projects.
 ## Distribution
-There will be distribution of this project when it reaches extension form. Until then, you will have to build it yourself.
+There will be distribution of Blaze through this repository on the releases page eventually.
 ## Contributing
 Everyone is welcome to contribute if interested. There are no instructions but there are requirements, obviously.
 #### Code Style
