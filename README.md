@@ -13,4 +13,4 @@ Memory management is dealt with by coding freely, then afterwards doing a 'memor
 - Visual Studio 2019 with C++
 - Change NUglify to .netstandard2.1
 - Download FFmpeg Dev for Windows x64 and extract the 'include' and 'lib' folders into the 'ffmpeg' folder under the solution directory
-- Build libwebp through the 'Build_LibWebP.cmd' file
+- Build libwebp through the 'build_webp.cmd' file through the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs)
