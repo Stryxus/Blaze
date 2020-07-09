@@ -14,4 +14,3 @@ Memory management is dealt with by coding freely, then afterwards doing a 'memor
 - Change NUglify to .netstandard2.1
 - [Download FFmpeg 4.3](https://ffmpeg.zeranoe.com/builds/) Dev for Windows x64 and extract the 'include' and 'lib' folders into the 'ffmpeg' folder under the solution directory
 - [Download libssh 2.1.9.0](https://www.libssh2.org/) and extract its 'include' folder into the 'libssh' folder under the solution director
-- Build libwebp through the 'build_webp.cmd' file through the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs)
