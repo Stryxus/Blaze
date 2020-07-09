@@ -49,7 +49,7 @@ int main(int argc, const char* argv[])
 	}
 	else
 	{
-		cout << "No blaze-settings.json exists in the specified project. Please check if all settings are correct being running again. Pree any key to close." << endl;
+		cout << "No blaze-settings.json exists in the specified path so one was created. Please check if all settings are correct being running again. Pree any key to close." << endl;
 		getchar();
 		FreeLibrary(nuglify);
 		createFile(Globals::specifiedProjectDirectoryPath);
