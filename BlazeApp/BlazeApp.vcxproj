@@ -149,10 +149,12 @@
     <ClInclude Include="audioproc.h" />
     <ClInclude Include="blazeapp.h" />
     <ClInclude Include="cssproc.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="imageproc.h" />
     <ClInclude Include="ioutils.h" />
     <ClInclude Include="jsproc.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="settings.h" />
     <ClInclude Include="stringutils.h" />
     <ClInclude Include="videoproc.h" />
   </ItemGroup>
@@ -160,10 +162,12 @@
     <ClCompile Include="audioproc.cpp" />
     <ClCompile Include="blazeapp.cpp" />
     <ClCompile Include="cssproc.cpp" />
+    <ClCompile Include="globals.cpp" />
     <ClCompile Include="imageproc.cpp" />
     <ClCompile Include="ioutils.cpp" />
     <ClCompile Include="jsproc.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="settings.cpp" />
     <ClCompile Include="stringutils.cpp" />
     <ClCompile Include="videoproc.cpp" />
   </ItemGroup>

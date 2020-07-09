@@ -18,5 +18,6 @@ using namespace std;
 #include <nlohmann/json.hpp>
 using JSON = nlohmann::json;
 
+#include "globals.h"
 #include "ioutils.h"
 #include "stringutils.h"
