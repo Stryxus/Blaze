@@ -54,7 +54,7 @@ int BlazeSettings::SetSettings(bool setDefaultSettings)
 		ofstream settingsFile(Globals::specifiedProjectDirectoryPath);
 		if (settingsFile.is_open())
 		{
-			if (BlazeSettings::settings.empty() || setDefaultSettings) settingsFile << BlazeSettings::defaultSettings.dump();
+			if (BlazeSettings::settings.empty() || setDefaultSettings) settingsFile << BlazeSettings::defaultSettings.dump(4);
 			else settingsFile << BlazeSettings::settings.dump(4);
 			settingsFile.close();
 		}
