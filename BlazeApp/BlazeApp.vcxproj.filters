@@ -15,6 +15,12 @@
     <Filter Include="Source Files\Processors">
       <UniqueIdentifier>{7fcf4461-2aea-4b7a-b6ed-8ddd487a569d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{4c154e11-7ef1-48e3-b02e-22e3483a7a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{932af3cc-6a65-4e08-aed2-882568608468}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blazeapp.h">
@@ -38,11 +44,11 @@
     <ClInclude Include="audioproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="ioutils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stringutils.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ioutils.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,10 +74,10 @@
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
     <ClCompile Include="ioutils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="stringutils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
