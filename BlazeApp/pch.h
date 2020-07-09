@@ -9,6 +9,8 @@ using namespace std;
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <clocale>
+#include <locale>
 
 #include <vector>
 #include <string>
@@ -17,3 +19,4 @@ using namespace std;
 using JSON = nlohmann::json;
 
 #include "ioutils.h"
+#include "stringutils.h"
