@@ -55,7 +55,7 @@ int BlazeSettings::SetSettings(bool setDefaultSettings)
 		if (settingsFile.is_open())
 		{
 			if (BlazeSettings::settings.empty() || setDefaultSettings) settingsFile << BlazeSettings::defaultSettings.dump();
-			else settingsFile << BlazeSettings::settings.dump();
+			else settingsFile << BlazeSettings::settings.dump(4);
 			settingsFile.close();
 		}
 	}
