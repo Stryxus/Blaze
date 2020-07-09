@@ -153,6 +153,7 @@
     <ClInclude Include="ioutils.h" />
     <ClInclude Include="jsproc.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="stringutils.h" />
     <ClInclude Include="videoproc.h" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
     <ClCompile Include="ioutils.cpp" />
     <ClCompile Include="jsproc.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="stringutils.cpp" />
     <ClCompile Include="videoproc.cpp" />
   </ItemGroup>
   <ItemGroup>
