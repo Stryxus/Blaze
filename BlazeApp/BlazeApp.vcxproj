@@ -118,12 +118,12 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Projects\StarAthenaeum\Blaze\libwebp\src;D:\Projects\StarAthenaeum\Blaze\libssh\include;D:\Projects\StarAthenaeum\Blaze\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Blaze\libwebp\src;$(SolutionDir)Blaze\libssh\include;$(SolutionDir)Blaze\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Projects\StarAthenaeum\Blaze\ffmpeg\lib;D:\Projects\StarAthenaeum\Blaze\libwebp\output\release-static\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Blaze\ffmpeg\lib;$(SolutionDir)Blaze\libwebp\output\release-static\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll" "$(OutputPath)"</Command>
