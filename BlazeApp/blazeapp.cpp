@@ -81,9 +81,11 @@ HMODULE nuglify;
 
 int main(int argc, const char* argv[])
 {
-	SetConsoleTitle(L"Blaze - Starting...");
+	setlocale(LC_ALL, "");
+	SetConsoleTitle(L"Blaze - Initializing...");
 	MoveWindow(GetConsoleWindow(), 20, 20, 1200, 1000, TRUE);
 
+	/*Clear Console******************************************************************************/
 	COORD tl = { 0,0 };
 	CONSOLE_SCREEN_BUFFER_INFO s;
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -93,8 +95,9 @@ int main(int argc, const char* argv[])
 	FillConsoleOutputCharacter(console, ' ', cells, tl, &written);
 	FillConsoleOutputAttribute(console, s.wAttributes, cells, tl, &written);
 	SetConsoleCursorPosition(console, tl);
+	/*******************************************************************************************/
 
-	Globals::specifiedProjectDirectoryPath = string(argv[2], strlen(argv[2]));
+	Globals::specifiedProjectDirectoryPath = argv[1];
 	Globals::specifiedProjectDirectoryPath = Globals::specifiedProjectDirectoryPath.back() != '\\' ? Globals::specifiedProjectDirectoryPath + "\\blaze-settings.json" : Globals::specifiedProjectDirectoryPath + "blaze-settings.json";
 
 	if (fileExists(Globals::specifiedProjectDirectoryPath))
@@ -108,6 +111,7 @@ int main(int argc, const char* argv[])
 			getchar();
 			return -1;
 		}
+		SetConsoleTitle(stringTowstring(string("Blaze - Working on: " + Globals::specifiedProjectDirectoryPath)).c_str());
 		cout << endl;
 		cout << "Preparing data processors..." << endl;
 
