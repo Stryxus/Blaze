@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "settings.h"
 
-JSON BlazeSettings::defaultSettings =
+JSON Settings::defaultSettings =
 {
 	// Must be the directory to the website root of source files. They will be copied over or converted and copies over to the projects website root.
 	{"sourceResourcesDir", ""},
@@ -13,9 +13,9 @@ JSON BlazeSettings::defaultSettings =
 	{"fileConfigs", {}}
 };
 
-JSON BlazeSettings::settings = nullptr;
+JSON Settings::settings = nullptr;
 
-int BlazeSettings::GetSettings()
+int Settings::GetSettings()
 {
 	string settingsRead;
 	string currentLine;
@@ -36,7 +36,7 @@ int BlazeSettings::GetSettings()
 	}
 	try
 	{
-		BlazeSettings::settings = JSON::parse(settingsRead);
+		Settings::settings = JSON::parse(settingsRead);
 	}
 	catch (exception e)
 	{
@@ -47,15 +47,15 @@ int BlazeSettings::GetSettings()
 	return 0;
 }
 
-int BlazeSettings::SetSettings(bool setDefaultSettings)
+int Settings::SetSettings(bool setDefaultSettings)
 {
 	try
 	{
 		ofstream settingsFile(Globals::specifiedProjectDirectoryPath);
 		if (settingsFile.is_open())
 		{
-			if (BlazeSettings::settings.empty() || setDefaultSettings) settingsFile << BlazeSettings::defaultSettings.dump(4);
-			else settingsFile << BlazeSettings::settings.dump(4);
+			if (Settings::settings.empty() || setDefaultSettings) settingsFile << Settings::defaultSettings.dump(4);
+			else settingsFile << Settings::settings.dump(4);
 			settingsFile.close();
 		}
 	}

@@ -1,6 +1,6 @@
 #pragma once
 
-class BlazeSettings
+class Settings
 {
 public:
 	static JSON defaultSettings;
