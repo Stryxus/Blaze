@@ -4,6 +4,8 @@
 
 void start_project_processing()
 {
+	cout << "Starting..." << endl << endl;
+
 	string sourceDir(Settings::settings["sourceResourcesDir"]);
 	bool purgeWWWROOT(Settings::settings["formatWebsiteRoot"]);
 
@@ -24,9 +26,38 @@ void start_project_processing()
 	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(sourceDir))
 	{
 		string path = entry.path().string();
-		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(sourceDir.c_str()));
-		cout << "Copying File: " + copyToPath << endl;
-		if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+		string relativePath = path.substr(strlen(sourceDir.c_str()));
+		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relativePath;
+
+		filesystem::path ctp(copyToPath);
+		if (ctp.has_extension() && ctp.extension() != "")
+		{
+			if (ctp.extension() == ".png" || ctp.extension() == ".jpg" || ctp.extension() == ".bmp" || ctp.extension() == ".gif")
+			{
+				if (Settings::settings["fileConfigs"].find(relativePath) != Settings::settings["fileConfigs"].end())
+				{
+					auto &config = Settings::settings["fileConfigs"][relativePath];
+
+					bool enabled = false;
+					if (config.find("enabled") != config.end()) enabled = static_cast<bool>(config["enabled"]);
+
+					if (enabled) 
+					{
+						cout << "Converting: " + relativePath << endl;
+					}
+				}
+			}
+			else
+			{
+				cout << "Copying File: " + relativePath << endl;
+				if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+			}
+		}
+		else
+		{
+			cout << "Copying File: " + relativePath << endl;
+			if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+		}
 	}
 }
 
@@ -79,8 +110,7 @@ int main(int argc, const char* argv[])
 			return -1;
 		}
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
-		cout << endl;
-		cout << "Preparing data processors..." << endl;
+		cout << endl << "Preparing data processors..." << endl;
 		if (Settings::GetSettings() == -1) return -1;
 		start_project_processing();
 		getchar();
