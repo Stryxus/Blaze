@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "stringutils.h"
 
-wstring string_to_wstring(const string& str)
+static wstring string_to_wstring(const string& str)
 {
 	wstring title(str.length(), L' ');
 	copy(str.begin(), str.end(), back_inserter(title));
