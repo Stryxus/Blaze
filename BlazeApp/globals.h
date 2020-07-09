@@ -10,5 +10,7 @@ public:
 class Globals
 {
 public:
-	static string specifiedProjectDirectoryPath;
+	static string SPECIFIED_PROJECT_DIRECTORY_PATH;
+	static string SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT;
+	static string SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH;
 };

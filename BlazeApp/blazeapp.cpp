@@ -2,6 +2,47 @@
 #include "blazeapp.h"
 #include "settings.h"
 
+void start_project_processing()
+{
+	string sourceDir(Settings::settings["sourceResourcesDir"]);
+	bool purgeWWWROOT(Settings::settings["formatWebsiteRoot"]);
+
+	if (purgeWWWROOT) 
+	{
+		filesystem::remove_all(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
+		filesystem::create_directory(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
+	}
+
+	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(sourceDir))
+	{
+		string path = entry.path().string();
+		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(sourceDir.c_str()));
+		cout << "Creating Directory: " + copyToPath << endl;
+		if (is_directory(entry)) filesystem::create_directory(copyToPath); 
+	}
+
+	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(sourceDir))
+	{
+		string path = entry.path().string();
+		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(sourceDir.c_str()));
+		cout << "Copying File: " + copyToPath << endl;
+		if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 HMODULE nuglify;
 
 int main(int argc, const char* argv[])
@@ -22,10 +63,11 @@ int main(int argc, const char* argv[])
 	SetConsoleCursorPosition(console, tl);
 	/*******************************************************************************************/
 
-	Globals::specifiedProjectDirectoryPath = argv[1];
-	Globals::specifiedProjectDirectoryPath = Globals::specifiedProjectDirectoryPath.back() != '\\' ? Globals::specifiedProjectDirectoryPath + "\\blaze-settings.json" : Globals::specifiedProjectDirectoryPath + "blaze-settings.json";
+	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH = argv[1];
+	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\wwwroot" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "wwwroot";
+	Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\blaze-settings.json" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "blaze-settings.json";
 
-	if (fileExists(Globals::specifiedProjectDirectoryPath))
+	if (fileExists(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH))
 	{
 		cout << "Initializing..." << endl;
 		cout << "Loading Dependencies..." << endl;
@@ -36,14 +78,12 @@ int main(int argc, const char* argv[])
 			getchar();
 			return -1;
 		}
-		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::specifiedProjectDirectoryPath).c_str());
+		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		cout << endl;
 		cout << "Preparing data processors..." << endl;
-
-		if (BlazeSettings::GetSettings() == -1) return -1;
-
+		if (Settings::GetSettings() == -1) return -1;
+		start_project_processing();
 		getchar();
-
 		FreeLibrary(nuglify);
 		return 1;
 	}
@@ -52,7 +92,7 @@ int main(int argc, const char* argv[])
 		cout << "No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close." << endl;
 		getchar();
 		FreeLibrary(nuglify);
-		createFile(Globals::specifiedProjectDirectoryPath);
-		return BlazeSettings::SetSettings(true);
+		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
+		return Settings::SetSettings(true);
 	}
 }

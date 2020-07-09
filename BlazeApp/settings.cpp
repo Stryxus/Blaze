@@ -21,7 +21,7 @@ int Settings::GetSettings()
 	string currentLine;
 	try
 	{
-		ifstream settingsFile(Globals::specifiedProjectDirectoryPath);
+		ifstream settingsFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (settingsFile.is_open())
 		{
 			while (getline(settingsFile, currentLine)) settingsRead += currentLine;
@@ -51,7 +51,7 @@ int Settings::SetSettings(bool setDefaultSettings)
 {
 	try
 	{
-		ofstream settingsFile(Globals::specifiedProjectDirectoryPath);
+		ofstream settingsFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (settingsFile.is_open())
 		{
 			if (Settings::settings.empty() || setDefaultSettings) settingsFile << Settings::defaultSettings.dump(4);
