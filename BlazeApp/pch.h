@@ -11,6 +11,8 @@ using namespace std;
 #include <fstream>
 #include <clocale>
 #include <locale>
+#include <algorithm> 
+#include <cctype>
 
 #include <vector>
 #include <string>
