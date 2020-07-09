@@ -8,7 +8,7 @@ int main(int argc, const char* argv[])
 {
 	setlocale(LC_ALL, "");
 	SetConsoleTitle(L"Blaze - Initializing...");
-	MoveWindow(GetConsoleWindow(), 20, 20, 1200, 1000, TRUE);
+	MoveWindow(GetConsoleWindow(), 20, 20, 1400, 1000, TRUE);
 
 	/*Clear Console******************************************************************************/
 	COORD tl = { 0,0 };
