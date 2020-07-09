@@ -111,7 +111,7 @@ int main(int argc, const char* argv[])
 			getchar();
 			return -1;
 		}
-		SetConsoleTitle(stringTowstring(string("Blaze - Working on: " + Globals::specifiedProjectDirectoryPath)).c_str());
+		SetConsoleTitle(stringTowstring("Blaze - Working on: " + Globals::specifiedProjectDirectoryPath).c_str());
 		cout << endl;
 		cout << "Preparing data processors..." << endl;
 
