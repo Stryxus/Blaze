@@ -1,1 +1,0 @@
-nmake /f libwebp/Makefile.vc CFG=release-static RTLIBCFG=static OBJDIR=output/webp

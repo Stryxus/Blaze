@@ -351,3 +351,4 @@ MigrationBackup/
 
 ffmpeg/
 libssh/
+build/
