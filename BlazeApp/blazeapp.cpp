@@ -2,6 +2,8 @@
 #include "blazeapp.h"
 #include "settings.h"
 
+#include "imageproc.h"
+
 void start_project_processing()
 {
 	cout << "Starting..." << endl << endl;
@@ -32,7 +34,8 @@ void start_project_processing()
 		filesystem::path ctp(copyToPath);
 		if (ctp.has_extension() && ctp.extension() != "")
 		{
-			if (ctp.extension() == ".png" || ctp.extension() == ".jpg" || ctp.extension() == ".bmp" || ctp.extension() == ".gif")
+			// Only support PNG for now
+			if (ctp.extension() == ".png")
 			{
 				if (Settings::settings["fileConfigs"].find(relativePath) != Settings::settings["fileConfigs"].end())
 				{
@@ -44,6 +47,7 @@ void start_project_processing()
 					if (enabled) 
 					{
 						cout << "Converting: " + relativePath << endl;
+						convert_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), static_cast<int>(config["width"]), static_cast<int>(config["height"]), static_cast<float>(config["quality"]));
 					}
 				}
 			}
@@ -62,18 +66,8 @@ void start_project_processing()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+HMODULE zlib;
+HMODULE libpng;
 HMODULE nuglify;
 
 int main(int argc, const char* argv[])
@@ -102,6 +96,8 @@ int main(int argc, const char* argv[])
 	{
 		cout << "Initializing..." << endl;
 		cout << "Loading Dependencies..." << endl;
+		nuglify = LoadLibrary(L"zlibd.dll");
+		nuglify = LoadLibrary(L"libpng16d.dll");
 		nuglify = LoadLibrary(L"NUglify.dll");
 		if (nuglify == nullptr)
 		{
@@ -114,6 +110,8 @@ int main(int argc, const char* argv[])
 		if (Settings::GetSettings() == -1) return -1;
 		start_project_processing();
 		getchar();
+		FreeLibrary(zlib);
+		FreeLibrary(libpng);
 		FreeLibrary(nuglify);
 		return 1;
 	}
@@ -121,6 +119,8 @@ int main(int argc, const char* argv[])
 	{
 		cout << "No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close." << endl;
 		getchar();
+		FreeLibrary(zlib);
+		FreeLibrary(libpng);
 		FreeLibrary(nuglify);
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		return Settings::SetSettings(true);

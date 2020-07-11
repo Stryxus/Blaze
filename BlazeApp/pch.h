@@ -7,6 +7,8 @@ using namespace std;
 
 #include <Windows.h>
 #include <stdlib.h>
+#include <comdef.h>
+#include <wchar.h>
 #include <iostream>
 #include <fstream>
 #include <clocale>

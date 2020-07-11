@@ -3,43 +3,49 @@
 
 #include <imageio\image_dec.h>
 #include <imageio\imageio_util.h>
-#include <src\webp\mux.h>
 #include <src\webp\encode.h>
+#include <src\webp\decode.h>
+#include <src\webp\mux_types.h>
+#include <src\webp\mux.h>
+#include <src\webp\demux.h>
+#include <src\webp\types.h>
+#include <src\webp\format_constants.h>
 
-vector<char> convert_to_webp(const char* filepath, int width, int height, float quality)
+void convert_to_webp(const char* from, const char* to, int width, int height, float quality)
 {
-	WebPAnimEncoder* enc = NULL;
-	WebPAnimEncoderOptions anim_config;
 	WebPConfig config;
 	WebPPicture pic;
-	WebPData webp_data;
-
-	WebPDataInit(&webp_data);
-	WebPAnimEncoderOptionsInit(&anim_config);
-	WebPConfigInit(&config);
+	WebPConfigPreset(&config, WEBP_PRESET_DEFAULT, quality);
 	WebPPictureInit(&pic);
-	WebPValidateConfig(&config);
 	pic.use_argb = 1;
-	config.lossless = 1;
+	WebPPictureAlloc(&pic);
 
-	const uint8_t* data = NULL;
+	char* fileData = NULL;
+	const uint8_t* data{};
 	size_t data_size = 0;
-	WebPImageReader reader = nullptr;
-	ImgIoUtilReadFile(filepath, &data, &data_size);
-	reader = WebPGuessImageReader(data, data_size);
-	reader(data, data_size, &pic, 1, NULL);
+
+	ifstream fileIn(string(from), ios_base::binary);
+	fileIn.seekg(0, ios_base::end);
+	data_size = fileIn.tellg();
+	fileIn.seekg(0, ios_base::beg);
+	fileData = (char*)malloc(data_size + 1);
+	fileIn.read(fileData, data_size);
+	fileIn.close();
+
+	data = reinterpret_cast<uint8_t*>(fileData);
+	ReadPNG(data, data_size, &pic, 1, NULL);
 	free((void*)data);
 
-	enc = WebPAnimEncoderNew(width, height, &anim_config);
+	WebPMemoryWriter writer{};
+	WebPMemoryWriterInit(&writer);
+	pic.writer = WebPMemoryWrite;
+	pic.custom_ptr = &writer;
 
-	WebPAnimEncoderAdd(enc, &pic, 0, &config);
-
+	WebPPictureRescale(&pic, width, height);
+	WebPEncode(&config, &pic);
 	WebPPictureFree(&pic);
 
-	WebPAnimEncoderAssemble(enc, &webp_data);
-
-	vector<char> res{};
-	res.reserve(webp_data.size);
-	memcpy(&res, &webp_data.bytes, webp_data.size);
-	return res;
+	ofstream fileOut(string(to), ios_base::binary);
+	fileOut.write((char*)writer.mem, writer.size);
+	fileOut.close();
 }
