@@ -2,7 +2,6 @@
 
 project ("Blaze")
 
-add_compile_definitions(WEBP_HAVE_PNG)
 set(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/zlib/Debug/zlibd.lib")
 set(ZLIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/zlib;${CMAKE_BINARY_DIR}/zlib")
 set(PNG_LIBRARY "${CMAKE_BINARY_DIR}/libpng/Debug/libpng16d.lib;${CMAKE_BINARY_DIR}/libpng/Debug/libpng16_staticd.lib")

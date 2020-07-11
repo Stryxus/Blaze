@@ -1,5 +1,6 @@
 @echo off
 cls
+setlocal
 color 0F
 echo.
 echo --- Blaze Dependency Build Tool ---  
@@ -29,19 +30,26 @@ echo Starting to build projects.
 echo.
 echo.
 echo.
-%executionPath% --build . --target %~dp0/build/zlib/ALL_BUILD
+%executionPath% --build . --target %~dp0\build\zlib\ALL_BUILD
 echo.
 echo.
 echo.
-%executionPath% --build . --target %~dp0/build/libpng/ALL_BUILD
+%executionPath% --build . --target %~dp0\build\libpng\ALL_BUILD
 echo.
 echo.
 echo.
-%executionPath% --build . --target %~dp0/build/libwebp/ALL_BUILD
+%executionPath% --build . --target %~dp0build\libwebp\ALL_BUILD
 echo.
 echo.
 echo.
 echo Build Finished!
 echo.
 PAUSE
-exit 0
+endlocal
+goto :eof
+
+:dequote
+setlocal
+set thestring=%~1
+endlocal&set ret=%thestring%
+goto :eof
