@@ -1,19 +1,19 @@
 #include "pch.h"
 #include "stringutils.h"
 
-void string_to_wstring(string& str)
+wstring string_to_wstring_copy(const string& str)
 {
-	wstring title(str.length(), L' ');
-	copy(str.begin(), str.end(), back_inserter(title));
-	trim(title);
+	int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
+	wstring wstrTo(size_needed, 0);
+	MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &wstrTo[0], size_needed);
+	return wstrTo;
 }
 
-wstring string_to_wstring_copy(string str)
+string wstring_to_string_copy(const wstring& str)
 {
-	wstring title(str.length(), L' ');
-	copy(str.begin(), str.end(), back_inserter(title));
-	trim(title);
-	return title;
+	_bstr_t b(str.c_str());
+	const char* c = b;
+	return string(c);
 }
 
 // Trim string

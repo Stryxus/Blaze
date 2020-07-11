@@ -1,8 +1,8 @@
 #pragma once
 
-void string_to_wstring(string& str);
+wstring string_to_wstring_copy(const string& str);
 
-wstring string_to_wstring_copy(string str);
+string wstring_to_string_copy(const wstring& str);
 
 // Trim string
 
