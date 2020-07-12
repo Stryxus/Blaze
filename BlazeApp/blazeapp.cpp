@@ -50,6 +50,11 @@ void start_project_processing()
 						convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), static_cast<int>(config["width"]), static_cast<int>(config["height"]), static_cast<float>(config["quality"]));
 					}
 				}
+				else
+				{
+					cout << "Copying File: " + relativePath << endl;
+					if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+				}
 			}
 			else
 			{
