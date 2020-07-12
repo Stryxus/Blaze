@@ -3,17 +3,18 @@
 
 wstring string_to_wstring_copy(const string& str)
 {
-	int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
-	wstring wstrTo(size_needed, 0);
-	MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &wstrTo[0], size_needed);
+	int size = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
+	wstring wstrTo(size, 0);
+	MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &wstrTo[0], size);
 	return wstrTo;
 }
 
 string wstring_to_string_copy(const wstring& str)
 {
-	_bstr_t b(str.c_str());
-	const char* c = b;
-	return string(c);
+	int size = WideCharToMultiByte(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0, NULL, NULL);
+	string strTo(size, 0);
+	WideCharToMultiByte(CP_UTF8, 0, &str[0], (int)str.size(), &strTo[0], size, NULL, NULL);
+	return strTo;
 }
 
 // Trim string
