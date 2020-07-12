@@ -5,7 +5,8 @@
 
 void start_project_processing()
 {
-	cout << "Starting..." << endl << endl;
+	Logger::log_info("Starting...");
+	Logger::log_nl(2);
 
 	if (Settings::formatWebsiteRoot) 
 	{
@@ -21,7 +22,11 @@ void start_project_processing()
 
 		if (is_directory(entry)) {
 			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
-			cout << "Creating Directory: " + copyToPath << endl;
+			Logger::log_nl();
+			Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
+			Logger::log_info("Creating Directory: [wwwroot]:" + relativePath);
+			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+			Logger::log_divide();
 			filesystem::create_directory(copyToPath);
 		}
 		else
@@ -42,7 +47,7 @@ void start_project_processing()
 
 						if (enabled)
 						{
-							cout << "Converting: " + relativePath << endl;
+							Logger::log_info("Converting: [wwwroot]:" + relativePath);
 							convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(),
 								static_cast<int>(fileConfig["width"]),
 								static_cast<int>(fileConfig["height"]),
@@ -51,19 +56,19 @@ void start_project_processing()
 					}
 					else
 					{
-						cout << "Copying File: " + relativePath << endl;
+						Logger::log_info("Copying File: [wwwroot]:" + relativePath);
 						filesystem::copy(path, copyToPath);
 					}
 				}
 				else
 				{
-					cout << "Copying File: " + relativePath << endl;
+					Logger::log_info("Copying File: [wwwroot]:" + relativePath);
 					filesystem::copy(path, copyToPath);
 				}
 			}
 			else
 			{
-				cout << "Copying File: " + relativePath << endl;
+				Logger::log_info("Copying File: [wwwroot]:" + relativePath);
 				filesystem::copy(path, copyToPath);
 			}
 		}
@@ -77,21 +82,11 @@ HMODULE nuglify;
 
 int main(int argc, const char* argv[])
 {
-	setlocale(LC_ALL, "");
 	SetConsoleTitle(L"Blaze - Initializing...");
 	MoveWindow(GetConsoleWindow(), 20, 20, 1400, 1000, TRUE);
 
-	/*Clear Console******************************************************************************/
-	COORD tl = { 0,0 };
-	CONSOLE_SCREEN_BUFFER_INFO s;
-	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfo(console, &s);
-	DWORD written;
-	DWORD cells = s.dwSize.X * s.dwSize.Y;
-	FillConsoleOutputCharacter(console, ' ', cells, tl, &written);
-	FillConsoleOutputAttribute(console, s.wAttributes, cells, tl, &written);
-	SetConsoleCursorPosition(console, tl);
-	/*******************************************************************************************/
+	Logger::flush_log_buffer();
+	Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 
 	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH = argv[1];
 	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\wwwroot" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "wwwroot";
@@ -99,21 +94,26 @@ int main(int argc, const char* argv[])
 
 	if (fileExists(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH))
 	{
-		cout << "Initializing..." << endl;
-		cout << "Loading Dependencies..." << endl;
+		Logger::log_info("Initializing...");
+		Logger::log_info("Loading Dependencies...");
+		Logger::log_divide();
 		nuglify = LoadLibrary(L"zlibd.dll");
 		nuglify = LoadLibrary(L"libpng16d.dll");
 		nuglify = LoadLibrary(L"NUglify.dll");
 		if (nuglify == nullptr)
 		{
-			cout << "There was an error loading the JS and CSS library NUglify! Check if NUglify.dll exists in the same directory as this exe." << endl;
+			Logger::log_error("There was an error loading the JS and CSS library NUglify! Check if NUglify.dll exists in the same directory as this exe.");
 			getchar();
 			return -1;
 		}
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
-		cout << endl << "Preparing data processors..." << endl;
+		Logger::log_info("Preparing data processors...");
 		if (!Settings::get_settings()) return -1;
 		start_project_processing();
+		Logger::log_nl();
+		Logger::log_divide();
+		Logger::log_nl();
+		Logger::log_info("Processing has finished! - Press any key to exit.");
 		getchar();
 		FreeLibrary(zlib);
 		FreeLibrary(libpng);
@@ -122,7 +122,10 @@ int main(int argc, const char* argv[])
 	}
 	else
 	{
-		cout << "No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close." << endl;
+		Logger::log_nl();
+		Logger::log_divide();
+		Logger::log_nl();
+		Logger::log_error("No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close.");
 		getchar();
 		FreeLibrary(zlib);
 		FreeLibrary(libpng);

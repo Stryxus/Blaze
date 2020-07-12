@@ -161,6 +161,7 @@ copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll"
     <ClInclude Include="ioutils.h" />
     <ClInclude Include="jsonutils.h" />
     <ClInclude Include="jsproc.h" />
+    <ClInclude Include="logger.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="stringutils.h" />
@@ -175,6 +176,7 @@ copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll"
     <ClCompile Include="ioutils.cpp" />
     <ClCompile Include="jsonutils.cpp" />
     <ClCompile Include="jsproc.cpp" />
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="stringutils.cpp" />

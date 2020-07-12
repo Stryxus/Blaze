@@ -32,7 +32,7 @@ bool Settings::get_settings()
 	}
 	catch (exception e)
 	{
-		cout << "An error has occured while reading the specified blaze-settings.json file! " + *e.what() << endl;
+		Logger::log_error("An error has occured while reading the specified blaze-settings.json file! " + *e.what());
 		getchar();
 		return false;
 	}
@@ -47,7 +47,7 @@ bool Settings::get_settings()
 	}
 	catch (exception e)
 	{
-		cout << "An error occurred while parsing the specified blaze-settings.json file! This is most likely caused by incorrect formatting. " + *e.what() << endl;
+		Logger::log_error("An error occurred while parsing the specified blaze-settings.json file! This is most likely caused by incorrect formatting. " + *e.what());
 		getchar();
 		return false;
 	}
@@ -73,7 +73,7 @@ bool Settings::set_settings(bool setDefaultSettings)
 	}
 	catch (exception e)
 	{
-		cout << "An error has occured while writing to the specified blaze-settings.json " + *e.what() << endl;
+		Logger::log_error("An error has occured while writing to the specified blaze-settings.json " + *e.what());
 		getchar();
 		return false;
 	}
