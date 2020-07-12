@@ -16,55 +16,56 @@ void start_project_processing()
 	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::sourceResourcesDir))
 	{
 		string path = entry.path().string();
-		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
-		cout << "Creating Directory: " + copyToPath << endl;
-		if (is_directory(entry)) filesystem::create_directory(copyToPath); 
-	}
-
-	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::sourceResourcesDir))
-	{
-		string path = entry.path().string();
 		string relativePath = path.substr(strlen(Settings::sourceResourcesDir.c_str()));
-		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relativePath;
+		string copyToPath = "";
 
-		filesystem::path ctp(copyToPath);
-		if (ctp.has_extension() && ctp.extension() != "")
+		if (is_directory(entry)) {
+			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
+			cout << "Creating Directory: " + copyToPath << endl;
+			filesystem::create_directory(copyToPath);
+		}
+		else
 		{
-			// Only support PNG for now
-			if (ctp.extension() == ".png")
+			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relativePath;
+			filesystem::path ctp(copyToPath);
+			if (ctp.has_extension() && ctp.extension() != "")
 			{
-				if (json_entry_exists(Settings::fileConfigs, relativePath))
+				// Only support PNG for now
+				if (ctp.extension() == ".png")
 				{
-					JSON fileConfig = Settings::fileConfigs[relativePath];
-
-					bool enabled = false;
-					if (json_entry_exists(fileConfig, "enabled")) enabled = static_cast<bool>(fileConfig["enabled"]);
-
-					if (enabled) 
+					if (json_entry_exists(Settings::fileConfigs, relativePath))
 					{
-						cout << "Converting: " + relativePath << endl;
-						convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), 
-							static_cast<int>(fileConfig["width"]), 
-							static_cast<int>(fileConfig["height"]), 
-							static_cast<float>(fileConfig["quality"]));
+						JSON fileConfig = Settings::fileConfigs[relativePath];
+
+						bool enabled = false;
+						if (json_entry_exists(fileConfig, "enabled")) enabled = static_cast<bool>(fileConfig["enabled"]);
+
+						if (enabled)
+						{
+							cout << "Converting: " + relativePath << endl;
+							convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(),
+								static_cast<int>(fileConfig["width"]),
+								static_cast<int>(fileConfig["height"]),
+								static_cast<float>(fileConfig["quality"]));
+						}
+					}
+					else
+					{
+						cout << "Copying File: " + relativePath << endl;
+						filesystem::copy(path, copyToPath);
 					}
 				}
 				else
 				{
 					cout << "Copying File: " + relativePath << endl;
-					if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+					filesystem::copy(path, copyToPath);
 				}
 			}
 			else
 			{
 				cout << "Copying File: " + relativePath << endl;
-				if (!is_directory(entry)) filesystem::copy(path, copyToPath);
+				filesystem::copy(path, copyToPath);
 			}
-		}
-		else
-		{
-			cout << "Copying File: " + relativePath << endl;
-			if (!is_directory(entry)) filesystem::copy(path, copyToPath);
 		}
 	}
 }
