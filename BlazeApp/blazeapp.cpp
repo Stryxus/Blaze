@@ -47,7 +47,7 @@ void start_project_processing()
 					if (enabled) 
 					{
 						cout << "Converting: " + relativePath << endl;
-						convert_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), static_cast<int>(config["width"]), static_cast<int>(config["height"]), static_cast<float>(config["quality"]));
+						convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), static_cast<int>(config["width"]), static_cast<int>(config["height"]), static_cast<float>(config["quality"]));
 					}
 				}
 			}
