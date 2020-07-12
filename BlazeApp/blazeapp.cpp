@@ -111,7 +111,7 @@ int main(int argc, const char* argv[])
 		}
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		cout << endl << "Preparing data processors..." << endl;
-		if (Settings::get_settings() == -1) return -1;
+		if (!Settings::get_settings()) return -1;
 		start_project_processing();
 		getchar();
 		FreeLibrary(zlib);
@@ -127,6 +127,7 @@ int main(int argc, const char* argv[])
 		FreeLibrary(libpng);
 		FreeLibrary(nuglify);
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
-		return Settings::set_settings(true);
+		if (!Settings::set_settings(true)) return -1;
+		else return 0;
 	}
 }

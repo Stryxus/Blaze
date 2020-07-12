@@ -34,7 +34,7 @@ bool Settings::get_settings()
 	{
 		cout << "An error has occured while reading the specified blaze-settings.json file! " + *e.what() << endl;
 		getchar();
-		return -1;
+		return false;
 	}
 	try
 	{
@@ -49,9 +49,9 @@ bool Settings::get_settings()
 	{
 		cout << "An error occurred while parsing the specified blaze-settings.json file! This is most likely caused by incorrect formatting. " + *e.what() << endl;
 		getchar();
-		return -1;
+		return false;
 	}
-	return 0;
+	return true;
 }
 
 bool Settings::set_settings(bool setDefaultSettings)
@@ -75,7 +75,7 @@ bool Settings::set_settings(bool setDefaultSettings)
 	{
 		cout << "An error has occured while writing to the specified blaze-settings.json " + *e.what() << endl;
 		getchar();
-		return -1;
+		return false;
 	}
-	return 0;
+	return true;
 }
