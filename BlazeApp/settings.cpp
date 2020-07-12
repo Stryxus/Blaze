@@ -3,15 +3,12 @@
 
 string Settings::sourceResourcesDir = "";
 bool Settings::formatWebsiteRoot = false;
-bool Settings::forceOverwrite = false;
 map<string, JSON> Settings::fileConfigs = {};
 
 JSON Settings::defaultSettings =
 {
 	// Must be the directory to the website root of source files. They will be copied over or converted and copies over to the projects website root.
 	{"sourceResourcesDir", ""},
-	// Overwrite files that already exist.
-	{"forceOverwrite", false},
 	// Delete the destination website root before starting the copy and convert process from the source website root directory.
 	{"formatWebsiteRoot", false},
 	// Every file in the website root source files must be declared here before anything will be done to it.
@@ -45,7 +42,6 @@ bool Settings::get_settings()
 
 		Settings::sourceResourcesDir = Settings::settings["sourceResourcesDir"];
 		Settings::formatWebsiteRoot = Settings::settings["formatWebsiteRoot"];
-		Settings::forceOverwrite = Settings::settings["forceOverwrite"];
 
 		Settings::fileConfigs = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
 	}
@@ -67,7 +63,6 @@ bool Settings::set_settings(bool setDefaultSettings)
 		{
 			Settings::settings["sourceResourcesDir"] = Settings::sourceResourcesDir;
 			Settings::settings["formatWebsiteRoot"] = Settings::formatWebsiteRoot;
-			Settings::settings["forceOverwrite"] = Settings::forceOverwrite;
 
 			Settings::settings["fileConfigs"] = Settings::fileConfigs;
 

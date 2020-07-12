@@ -8,7 +8,6 @@ public:
 
 	static string sourceResourcesDir;
 	static bool formatWebsiteRoot;
-	static bool forceOverwrite;
 	static map<string, JSON> fileConfigs;
 
 private:
