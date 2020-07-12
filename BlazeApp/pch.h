@@ -26,5 +26,7 @@ using namespace std;
 using JSON = nlohmann::json;
 
 #include "globals.h"
+#include "settings.h"
 #include "ioutils.h"
 #include "stringutils.h"
+#include "jsonutils.h"

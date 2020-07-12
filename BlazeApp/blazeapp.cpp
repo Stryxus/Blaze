@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "blazeapp.h"
-#include "settings.h"
 
 #include "imageproc.h"
 
@@ -8,27 +7,24 @@ void start_project_processing()
 {
 	cout << "Starting..." << endl << endl;
 
-	string sourceDir(Settings::settings["sourceResourcesDir"]);
-	bool purgeWWWROOT(Settings::settings["formatWebsiteRoot"]);
-
-	if (purgeWWWROOT) 
+	if (Settings::formatWebsiteRoot) 
 	{
 		filesystem::remove_all(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
 		filesystem::create_directory(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
 	}
 
-	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(sourceDir))
+	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::sourceResourcesDir))
 	{
 		string path = entry.path().string();
-		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(sourceDir.c_str()));
+		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
 		cout << "Creating Directory: " + copyToPath << endl;
 		if (is_directory(entry)) filesystem::create_directory(copyToPath); 
 	}
 
-	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(sourceDir))
+	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::sourceResourcesDir))
 	{
 		string path = entry.path().string();
-		string relativePath = path.substr(strlen(sourceDir.c_str()));
+		string relativePath = path.substr(strlen(Settings::sourceResourcesDir.c_str()));
 		string copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relativePath;
 
 		filesystem::path ctp(copyToPath);
@@ -37,17 +33,20 @@ void start_project_processing()
 			// Only support PNG for now
 			if (ctp.extension() == ".png")
 			{
-				if (Settings::settings["fileConfigs"].find(relativePath) != Settings::settings["fileConfigs"].end())
+				if (json_entry_exists(Settings::fileConfigs, relativePath))
 				{
-					auto &config = Settings::settings["fileConfigs"][relativePath];
+					JSON fileConfig = Settings::fileConfigs[relativePath];
 
 					bool enabled = false;
-					if (config.find("enabled") != config.end()) enabled = static_cast<bool>(config["enabled"]);
+					if (json_entry_exists(fileConfig, "enabled")) enabled = static_cast<bool>(fileConfig["enabled"]);
 
 					if (enabled) 
 					{
 						cout << "Converting: " + relativePath << endl;
-						convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), static_cast<int>(config["width"]), static_cast<int>(config["height"]), static_cast<float>(config["quality"]));
+						convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(), 
+							static_cast<int>(fileConfig["width"]), 
+							static_cast<int>(fileConfig["height"]), 
+							static_cast<float>(fileConfig["quality"]));
 					}
 				}
 				else
@@ -112,7 +111,7 @@ int main(int argc, const char* argv[])
 		}
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		cout << endl << "Preparing data processors..." << endl;
-		if (Settings::GetSettings() == -1) return -1;
+		if (Settings::get_settings() == -1) return -1;
 		start_project_processing();
 		getchar();
 		FreeLibrary(zlib);
@@ -128,6 +127,6 @@ int main(int argc, const char* argv[])
 		FreeLibrary(libpng);
 		FreeLibrary(nuglify);
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
-		return Settings::SetSettings(true);
+		return Settings::set_settings(true);
 	}
 }

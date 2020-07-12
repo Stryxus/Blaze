@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "settings.h"
 
+string Settings::sourceResourcesDir = "";
+bool Settings::formatWebsiteRoot = false;
+bool Settings::forceOverwrite = false;
+map<string, JSON> Settings::fileConfigs = {};
+
 JSON Settings::defaultSettings =
 {
 	// Must be the directory to the website root of source files. They will be copied over or converted and copies over to the projects website root.
@@ -15,7 +20,7 @@ JSON Settings::defaultSettings =
 
 JSON Settings::settings = nullptr;
 
-int Settings::GetSettings()
+bool Settings::get_settings()
 {
 	string settingsRead;
 	string currentLine;
@@ -37,6 +42,12 @@ int Settings::GetSettings()
 	try
 	{
 		Settings::settings = JSON::parse(settingsRead);
+
+		Settings::sourceResourcesDir = Settings::settings["sourceResourcesDir"];
+		Settings::formatWebsiteRoot = Settings::settings["formatWebsiteRoot"];
+		Settings::forceOverwrite = Settings::settings["forceOverwrite"];
+
+		Settings::fileConfigs = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
 	}
 	catch (exception e)
 	{
@@ -47,13 +58,19 @@ int Settings::GetSettings()
 	return 0;
 }
 
-int Settings::SetSettings(bool setDefaultSettings)
+bool Settings::set_settings(bool setDefaultSettings)
 {
 	try
 	{
 		ofstream settingsFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (settingsFile.is_open())
 		{
+			Settings::settings["sourceResourcesDir"] = Settings::sourceResourcesDir;
+			Settings::settings["formatWebsiteRoot"] = Settings::formatWebsiteRoot;
+			Settings::settings["forceOverwrite"] = Settings::forceOverwrite;
+
+			Settings::settings["fileConfigs"] = Settings::fileConfigs;
+
 			if (Settings::settings.empty() || setDefaultSettings) settingsFile << Settings::defaultSettings.dump(4);
 			else settingsFile << Settings::settings.dump(4);
 			settingsFile.close();
