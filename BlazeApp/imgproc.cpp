@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "imageproc.h"
+#include "imgproc.h"
 
 #include <imageio\image_dec.h>
 #include <imageio\imageio_util.h>

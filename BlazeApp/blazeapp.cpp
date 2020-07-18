@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "blazeapp.h"
 
-#include "imageproc.h"
+#include "imgproc.h"
 
 void start_project_processing()
 {

@@ -29,23 +29,11 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="videoproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
-    <ClInclude Include="imageproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
     <ClInclude Include="jsproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
     <ClInclude Include="cssproc.h">
       <Filter>Header Files\Processors</Filter>
-    </ClInclude>
-    <ClInclude Include="audioproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
-    <ClInclude Include="stringutils.h">
-      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="ioutils.h">
       <Filter>Header Files\utils</Filter>
@@ -62,6 +50,18 @@
     <ClInclude Include="logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="vidproc.h">
+      <Filter>Header Files\Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="imgproc.h">
+      <Filter>Header Files\Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="audproc.h">
+      <Filter>Header Files\Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="strutils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp">
@@ -70,15 +70,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="videoproc.cpp">
-      <Filter>Source Files\Processors</Filter>
-    </ClCompile>
-    <ClCompile Include="audioproc.cpp">
-      <Filter>Source Files\Processors</Filter>
-    </ClCompile>
-    <ClCompile Include="imageproc.cpp">
-      <Filter>Source Files\Processors</Filter>
-    </ClCompile>
     <ClCompile Include="jsproc.cpp">
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
@@ -86,9 +77,6 @@
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
     <ClCompile Include="ioutils.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="stringutils.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="settings.cpp">
@@ -102,6 +90,18 @@
     </ClCompile>
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="audproc.cpp">
+      <Filter>Source Files\Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="imgproc.cpp">
+      <Filter>Source Files\Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="vidproc.cpp">
+      <Filter>Source Files\Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="strutils.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
