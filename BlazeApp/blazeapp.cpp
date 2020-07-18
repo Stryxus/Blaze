@@ -105,7 +105,25 @@ int main(int argc, const char* argv[])
 		libsass = LoadLibrary(L"libsass.dll");
 		if (nuglify == nullptr)
 		{
-			Logger::log_error("There was an error loading the JS and CSS library NUglify! Check if NUglify.dll exists in the same directory as this exe.");
+			Logger::log_error("There was an error loading NUglify! Check if NUglify.dll exists in the same directory as this exe.");
+			getchar();
+			return -1;
+		}
+		if (zlib == nullptr)
+		{
+			Logger::log_error("There was an error loading zlib! Check if zlibd.dll exists in the same directory as this exe.");
+			getchar();
+			return -1;
+		}
+		if (libpng == nullptr)
+		{
+			Logger::log_error("There was an error loading libpng! Check if libpng16d.dll exists in the same directory as this exe.");
+			getchar();
+			return -1;
+		}
+		if (libsass == nullptr)
+		{
+			Logger::log_error("There was an error loading libsass! Check if libsass.dll exists in the same directory as this exe.");
 			getchar();
 			return -1;
 		}
