@@ -39,7 +39,7 @@ cmake --build . --target %~dp0build\libwebp\ALL_BUILD --config Debug
 echo.
 echo.
 echo.
-msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Release /p:Platform=Win64
+msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Release /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
 echo.
 echo.
 echo.
