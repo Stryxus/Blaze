@@ -77,10 +77,10 @@ void start_project_processing()
 	}
 }
 
-
+HMODULE nuglify;
 HMODULE zlib;
 HMODULE libpng;
-HMODULE nuglify;
+HMODULE libsass;
 
 int main(int argc, const char* argv[])
 {
@@ -99,9 +99,10 @@ int main(int argc, const char* argv[])
 		Logger::log_info("Initializing...");
 		Logger::log_info("Loading Dependencies...");
 		Logger::log_divide();
-		nuglify = LoadLibrary(L"zlibd.dll");
-		nuglify = LoadLibrary(L"libpng16d.dll");
 		nuglify = LoadLibrary(L"NUglify.dll");
+		zlib = LoadLibrary(L"zlibd.dll");
+		libpng = LoadLibrary(L"libpng16d.dll");
+		libsass = LoadLibrary(L"libsass.dll");
 		if (nuglify == nullptr)
 		{
 			Logger::log_error("There was an error loading the JS and CSS library NUglify! Check if NUglify.dll exists in the same directory as this exe.");
@@ -117,9 +118,10 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_info("Processing has finished! - Press any key to exit.");
 		getchar();
+		FreeLibrary(nuglify);
 		FreeLibrary(zlib);
 		FreeLibrary(libpng);
-		FreeLibrary(nuglify);
+		FreeLibrary(libsass);
 		return 1;
 	}
 	else
@@ -129,9 +131,10 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_error("No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close.");
 		getchar();
+		FreeLibrary(nuglify);
 		FreeLibrary(zlib);
 		FreeLibrary(libpng);
-		FreeLibrary(nuglify);
+		FreeLibrary(libsass);
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (!Settings::set_settings(true)) return -1;
 		else return 0;

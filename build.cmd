@@ -1,6 +1,5 @@
 @echo off
 cls
-setlocal
 color 0F
 echo.
 echo --- Blaze Dependency Build Tool ---  
@@ -14,42 +13,36 @@ cd %~dp0
 rd /s /q build
 mkdir build
 cd build
-set executionPath="C:\Program Files (x86)\Microsoft Visual Studio\%id%\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
 echo.
 echo -- Working at %~dp0
-echo -- Using CMake at %executionPath%
 echo.
 echo.
 echo Running CMakeLists
 echo.
 echo.
-%executionPath% ../
+cmake ../
 echo.
 echo.
 echo Starting to build projects.
 echo.
 echo.
 echo.
-%executionPath% --build . --target %~dp0\build\zlib\ALL_BUILD
+cmake --build . --target %~dp0\build\zlib\ALL_BUILD --config Debug
 echo.
 echo.
 echo.
-%executionPath% --build . --target %~dp0\build\libpng\ALL_BUILD
+cmake --build . --target %~dp0\build\libpng\ALL_BUILD --config Debug
 echo.
 echo.
 echo.
-%executionPath% --build . --target %~dp0build\libwebp\ALL_BUILD
+cmake --build . --target %~dp0build\libwebp\ALL_BUILD --config Debug
+echo.
+echo.
+echo.
+msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Release /p:Platform=Win64
 echo.
 echo.
 echo.
 echo Build Finished!
 echo.
 PAUSE
-endlocal
-goto :eof
-
-:dequote
-setlocal
-set thestring=%~1
-endlocal&set ret=%thestring%
-goto :eof
