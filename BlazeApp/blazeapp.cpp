@@ -19,6 +19,7 @@ void start_project_processing()
 		string path = entry.path().string();
 		string relativePath = path.substr(strlen(Settings::sourceResourcesDir.c_str()));
 		string copyToPath = "";
+		string copyToPathRelative = "";
 
 		if (is_directory(entry)) {
 			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
@@ -32,6 +33,7 @@ void start_project_processing()
 		else
 		{
 			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relativePath;
+			copyToPathRelative = (copyToPath.substr(0, copyToPath.find_last_of('.')) + ".web").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 			filesystem::path ctp(copyToPath);
 			if (ctp.has_extension() && ctp.extension() != "")
 			{
@@ -47,7 +49,7 @@ void start_project_processing()
 
 						if (enabled)
 						{
-							Logger::log_info("Converting: [wwwroot]:" + relativePath);
+							Logger::log_info("Converting: [wwwroot]:" + copyToPathRelative);
 							convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(),
 								static_cast<int>(fileConfig["width"]),
 								static_cast<int>(fileConfig["height"]),
