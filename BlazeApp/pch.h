@@ -1,9 +1,9 @@
-#pragma warning(disable : 6031);
-#pragma warning(disable : 4081);
-
 #define WIN32_LEAN_AND_MEAN
 
-using namespace std;
+#pragma warning(push);
+#pragma warning(disable : 6031);
+#pragma warning(disable : 26451);
+#pragma warning(disable : 28020);
 
 #include <Windows.h>
 #include <stdlib.h>
@@ -18,7 +18,14 @@ using namespace std;
 #include <map>
 
 #include <nlohmann/json.hpp>
+
+#pragma warning(pop);
+
+using namespace std;
 using JSON = nlohmann::json;
+
+#pragma warning(push);
+#pragma warning(disable : 4081);
 
 #include "globals.h"
 #include "logger.h"
@@ -26,3 +33,5 @@ using JSON = nlohmann::json;
 #include "ioutils.h"
 #include "stringutils.h"
 #include "jsonutils.h"
+
+#pragma warning(pop);
