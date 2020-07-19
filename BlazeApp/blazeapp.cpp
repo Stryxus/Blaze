@@ -59,7 +59,7 @@ void start_project_processing()
 						if (enabled)
 						{
 							copyToPathRelative = (copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
-							Logger::log_info("Converting: [wwwroot]:" + copyToPathRelative);
+							Logger::log_info("Converting File:    [wwwroot]:" + copyToPathRelative);
 							convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(),
 								static_cast<int>(fileConfig["width"]),
 								static_cast<int>(fileConfig["height"]),
@@ -68,7 +68,7 @@ void start_project_processing()
 					}
 					else
 					{
-						Logger::log_info("Copying File: [wwwroot]:" + relativePath);
+						Logger::log_info("Copying File:       [wwwroot]:" + relativePath);
 						filesystem::copy(path, copyToPath);
 					}
 				}
@@ -84,7 +84,7 @@ void start_project_processing()
 						if (enabled)
 						{
 							copyToPathRelative = (copyToPath.substr(0, copyToPath.find_last_of('.')) + ".min.css").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
-							Logger::log_info("Converting: [wwwroot]:" + copyToPathRelative);
+							Logger::log_info("Converting File:    [wwwroot]:" + copyToPathRelative);
 							convert_sass_to_css(path.c_str(), string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css").c_str(), 
 								string(Settings::sourceResourcesDir + "\\" + static_cast<string>(fileConfig["relativeIncludePath"])).c_str(),
 								static_cast<int>(fileConfig["precision"]));
@@ -98,13 +98,13 @@ void start_project_processing()
 				}
 				else 
 				{
-					Logger::log_info("Copying File: [wwwroot]:" + relativePath);
+					Logger::log_info("Copying File:       [wwwroot]:" + relativePath);
 					filesystem::copy(path, copyToPath);
 				}
 			}
 			else
 			{
-				Logger::log_info("Skipping File: [wwwroot]:" + relativePath);
+				Logger::log_info("Skipping File:      [wwwroot]:" + relativePath);
 			}
 		}
 	}
