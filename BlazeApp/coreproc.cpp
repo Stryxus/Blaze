@@ -129,6 +129,11 @@ void start_project_processing()
 							}
 						}
 					}
+					else
+					{
+						Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
+						filesystem::copy(path, copy_to_path);
+					}
 				}
 				else
 				{
