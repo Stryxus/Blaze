@@ -103,23 +103,10 @@ void start_project_processing()
 					fileIn.close();
 
 					string result = minify_js((string(*)(string&))GetProcAddress(get_library(Globals::LIB_NET_WRAPPER), "minify_js"), string(fileData));
-					if (result.empty()) 
-					{
-						LPSTR messageBuffer = nullptr;
-						size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-							NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
 
-						string message(messageBuffer, size);
-
-						LocalFree(messageBuffer);
-						Logger::log_error(message);
-					}
-					else
-					{
-						ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
-						fileOut.write(result.c_str(), result.length());
-						fileOut.close();
-					}
+					ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
+					fileOut.write(result.c_str(), result.length());
+					fileOut.close();
 				}
 				else
 				{
