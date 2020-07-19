@@ -91,7 +91,7 @@ void start_project_processing()
 				}
 				else if (ctp.extension() == ".js")
 				{
-
+					get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js");
 				}
 				else
 				{

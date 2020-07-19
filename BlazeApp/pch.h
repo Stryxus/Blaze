@@ -30,6 +30,7 @@ using JSON = nlohmann::json;
 #include "strutils.h"
 #include "ioutils.h"
 #include "jsonutils.h"
+#include "libraries.h"
 #include "globals.h"
 #include "logger.h"
 #include "settings.h"
