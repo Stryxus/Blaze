@@ -3,12 +3,17 @@
 
 map<string, HMODULE> modules;
 
-void load_libraries(vector<const string> library_names)
+void load_libraries(vector<string> library_names)
 {
-	for (string name : library_names) modules.emplace(name, LoadLibrary(string_to_wstring_copy(name).c_str()));
+	for (string name : library_names) 
+	{
+		HMODULE m = LoadLibrary(string_to_wstring_copy(name).c_str());
+		if (m == NULL) Logger::log_last_error();
+		else modules.emplace(name, m);
+	}
 }
 
-HMODULE get_library(const string lib_name)
+HMODULE get_library(string lib_name)
 {
 	return modules[lib_name];
 }
