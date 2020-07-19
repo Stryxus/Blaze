@@ -107,8 +107,7 @@ void start_project_processing()
 			}
 			else
 			{
-				Logger::log_info("Copying File: [wwwroot]:" + relativePath);
-				filesystem::copy(path, copyToPath);
+				Logger::log_info("Skipping File: [wwwroot]:" + relativePath);
 			}
 		}
 	}
