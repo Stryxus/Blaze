@@ -79,8 +79,7 @@ void start_project_processing()
 						filesystem::copy(path, copyToPath);
 					}
 				}
-
-				if ((ctp.extension() == ".sass" || ctp.extension() == ".scss") && !cssBundleCreated)
+				else if ((ctp.extension() == ".sass" || ctp.extension() == ".scss") && !cssBundleCreated)
 				{
 					if (json_entry_exists(Settings::fileConfigs, relativePath))
 					{
@@ -100,6 +99,11 @@ void start_project_processing()
 						}
 					}
 				}
+				else 
+				{
+					Logger::log_info("Copying File: [wwwroot]:" + relativePath);
+					filesystem::copy(path, copyToPath);
+				}
 			}
 			else
 			{
@@ -109,6 +113,7 @@ void start_project_processing()
 		}
 	}
 
+	Logger::log_divide();
 	Logger::log_info("Deleting empty folders...");
 	for (const filesystem::directory_entry& entry : filesystem::directory_iterator(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT))
 	{
