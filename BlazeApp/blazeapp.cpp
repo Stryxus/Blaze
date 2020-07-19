@@ -4,21 +4,6 @@
 #include "imgproc.h"
 #include "cssproc.h"
 
-bool resurse_empty_folder_deletion(const filesystem::directory_entry& entry)
-{
-	if (is_directory(entry))
-	{
-		bool isEmpty = true;
-		for (const filesystem::directory_entry& entry : filesystem::directory_iterator(entry))
-		{
-			isEmpty = resurse_empty_folder_deletion(entry);
-			break;
-		}
-		if (isEmpty) filesystem::remove_all(entry);
-	}
-	else return false;
-}
-
 void start_project_processing()
 {
 	Logger::log_info("Starting...");
@@ -30,6 +15,7 @@ void start_project_processing()
 		filesystem::create_directory(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
 	}
 
+	vector<string> directorySubExtentionExclusionFilter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js" };
 	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::sourceResourcesDir))
 	{
 		string path = entry.path().string();
@@ -41,12 +27,19 @@ void start_project_processing()
 
 		if (is_directory(entry)) {
 			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
-			Logger::log_nl();
-			Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
-			Logger::log_info("Creating Directory: [wwwroot]:" + relativePath);
-			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
-			Logger::log_divide();
-			filesystem::create_directory(copyToPath);
+			for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry)) 
+			{
+				if (!is_directory(entry2) && find(directorySubExtentionExclusionFilter.begin(), directorySubExtentionExclusionFilter.end(), entry2.path().extension()) == directorySubExtentionExclusionFilter.end())
+				{
+					Logger::log_nl();
+					Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
+					Logger::log_info("Creating Directory: [wwwroot]:" + relativePath);
+					Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+					Logger::log_divide();
+					filesystem::create_directory(copyToPath);
+					break;
+				}
+			}
 		}
 		else
 		{
@@ -99,6 +92,10 @@ void start_project_processing()
 						}
 					}
 				}
+				else if (ctp.extension() == ".js")
+				{
+
+				}
 				else 
 				{
 					Logger::log_info("Copying File: [wwwroot]:" + relativePath);
@@ -110,13 +107,6 @@ void start_project_processing()
 				Logger::log_info("Skipping File: [wwwroot]:" + relativePath);
 			}
 		}
-	}
-
-	Logger::log_divide();
-	Logger::log_info("Deleting empty folders...");
-	for (const filesystem::directory_entry& entry : filesystem::directory_iterator(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT))
-	{
-		resurse_empty_folder_deletion(entry);
 	}
 }
 
