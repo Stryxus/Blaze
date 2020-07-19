@@ -53,6 +53,8 @@ public:
 	static void log_nl(int amount = 1);
 	static void log_divide();
 
+	static void log_last_error();
+
 	static void set_log_color(COLOR color);
 
 	static void flush_log_buffer();

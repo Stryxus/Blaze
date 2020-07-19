@@ -63,6 +63,18 @@ void Logger::flush_log_buffer()
 	SetConsoleCursorPosition(console, tl);
 }
 
+void Logger::log_last_error()
+{
+	LPSTR messageBuffer = nullptr;
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+	string message(messageBuffer, size);
+
+	LocalFree(messageBuffer);
+	Logger::log_error(message);
+}
+
 string Logger::get_date_time_string()
 {
 	time_t now = chrono::system_clock::to_time_t(chrono::system_clock::now());
