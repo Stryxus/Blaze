@@ -1,11 +1,7 @@
 #pragma once
 
-namespace NETWrapper {
-
-	public ref class Wrapper
-	{
-	public:
-		static string minify_css(string& content);
-		static string minify_js(string& content);
-	};
+extern "C"
+{
+	__declspec(dllexport) string __stdcall minify_css(string& content);
+	__declspec(dllexport) string __stdcall minify_js(string& content);
 }

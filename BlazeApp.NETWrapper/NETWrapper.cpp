@@ -10,9 +10,7 @@ using namespace NUglify::Css;
 using namespace NUglify::JavaScript;
 using namespace NUglify::Helpers;
 
-using namespace NETWrapper;
-
-string Wrapper::minify_css(string& content)
+string minify_css(string& content)
 {
 	CssSettings^ css_settings = gcnew CssSettings();
 	String^ source = gcnew String(content.c_str());
@@ -29,7 +27,7 @@ string Wrapper::minify_css(string& content)
 	return rstr;
 }
 
-string Wrapper::minify_js(string& content)
+string minify_js(string& content)
 {
 	CodeSettings^ code_settings = gcnew CodeSettings();
 	String^ source = gcnew String(content.c_str());
