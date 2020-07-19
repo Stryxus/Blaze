@@ -6,9 +6,6 @@
 
 void start_project_processing()
 {
-	Logger::log_info("Starting...");
-	Logger::log_nl(2);
-
 	if (Settings::FORMAT_RESOURCE_DIR)
 	{
 		filesystem::remove_all(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);

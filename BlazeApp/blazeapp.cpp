@@ -18,13 +18,16 @@ int main(int argc, const char* argv[])
 
 	if (fileExists(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH))
 	{
+		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		Logger::log_info("Initializing...");
 		Logger::log_info("Loading Dependencies...");
-		Logger::log_divide();
 		load_libraries(vector<LPCWSTR> { L"NUglify.dll", L"zlibd.dll", L"libpng16d.dll" });
-		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		Logger::log_info("Preparing data processors...");
 		if (!Settings::get_settings()) return -1;
+		Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
+		Logger::log_divide();
+		Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+		Logger::log_nl();
 		start_project_processing();
 		Logger::log_nl();
 		Logger::log_divide();
@@ -39,7 +42,9 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_divide();
 		Logger::log_nl();
+		Logger::set_log_color(Logger::COLOR::RED_FOREGROUND);
 		Logger::log_error("No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close.");
+		Logger::log_nl();
 		getchar();
 		free_libraries();
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
