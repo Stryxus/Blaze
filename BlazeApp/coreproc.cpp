@@ -102,11 +102,16 @@ void start_project_processing()
 					fileIn.read(fileData, data_size);
 					fileIn.close();
 
-					string result = minify_js((string(*)(string&))GetProcAddress(get_library(Globals::LIB_NET_WRAPPER), "minify_js"), string(fileData));
+					auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js"));
+					if (func == NULL) Logger::log_last_error();
+					else 
+					{
+						string result = minify_js(func, string(fileData));
 
-					ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
-					fileOut.write(result.c_str(), result.length());
-					fileOut.close();
+						ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
+						fileOut.write(result.c_str(), result.length());
+						fileOut.close();
+					}
 				}
 				else
 				{
