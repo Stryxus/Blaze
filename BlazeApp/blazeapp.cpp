@@ -11,9 +11,9 @@ int main(int argc, const char* argv[])
 	Logger::flush_log_buffer();
 	Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 
-	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH = argv[1];
-	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\wwwroot" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "wwwroot";
-	Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\blaze-settings.json" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "blaze-settings.json";
+	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH = replace_copy(argv[1], "\\", "/");
+	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT = replace_copy(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\wwwroot" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "wwwroot", "\\", "/");
+	Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH = replace_copy(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\blaze-settings.json" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "blaze-settings.json", "\\", "/");
 
 	if (fileExists(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH))
 	{
