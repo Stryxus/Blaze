@@ -156,6 +156,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClInclude Include="audproc.h" />
     <ClInclude Include="blazeapp.h" />
     <ClInclude Include="coreproc.h" />
+    <ClInclude Include="jsproc.h" />
     <ClInclude Include="sassproc.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="imgproc.h" />
@@ -172,6 +173,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClCompile Include="audproc.cpp" />
     <ClCompile Include="blazeapp.cpp" />
     <ClCompile Include="coreproc.cpp" />
+    <ClCompile Include="jsproc.cpp" />
     <ClCompile Include="sassproc.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="imgproc.cpp" />

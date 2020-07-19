@@ -65,6 +65,9 @@
     <ClInclude Include="sassproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
+    <ClInclude Include="jsproc.h">
+      <Filter>Header Files\Processors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp">
@@ -107,6 +110,9 @@
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
     <ClCompile Include="sassproc.cpp">
+      <Filter>Source Files\Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="jsproc.cpp">
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
   </ItemGroup>
