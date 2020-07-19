@@ -36,7 +36,7 @@ void convert_sass_to_css(const char* from, const char* to, const char* includePa
 	if (sass_compile_data_context(data_ctx) == 0) output = sass_context_get_output_string(ctx);
 	else output = sass_context_get_error_message(ctx);
 
-	ofstream fileOut(to, ios_base::binary);
+	ofstream fileOut(to, ios_base::binary | ios_base::app);
 	fileOut.write(output, strlen(output));
 	fileOut.close();
 
