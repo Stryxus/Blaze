@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMake", "CMake", "{17CCDD7B
 		CMakeLists.txt = CMakeLists.txt
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlazeApp.NETWrapper", "BlazeApp.NETWrapper\BlazeApp.NETWrapper.vcxproj", "{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,28 @@ Global
 		{AF1FB158-D6C2-4952-A313-F9A9EEEA8E82}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
 		{AF1FB158-D6C2-4952-A313-F9A9EEEA8E82}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
 		{AF1FB158-D6C2-4952-A313-F9A9EEEA8E82}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Debug|x64.ActiveCfg = Debug|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Debug|x64.Build.0 = Debug|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Debug|x86.ActiveCfg = Debug|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Debug|x86.Build.0 = Debug|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.MinSizeRel|Any CPU.ActiveCfg = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.MinSizeRel|Any CPU.Build.0 = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.MinSizeRel|x64.Build.0 = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.MinSizeRel|x86.Build.0 = Release|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Release|Any CPU.ActiveCfg = Release|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Release|x64.ActiveCfg = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Release|x64.Build.0 = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Release|x86.ActiveCfg = Release|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.Release|x86.Build.0 = Release|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.RelWithDebInfo|Any CPU.ActiveCfg = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.RelWithDebInfo|Any CPU.Build.0 = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{1247F6BA-D8DF-4B3E-977A-B22D06CBDA98}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

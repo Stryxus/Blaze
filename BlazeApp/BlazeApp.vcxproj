@@ -189,6 +189,11 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlazeApp.NETWrapper\BlazeApp.NETWrapper.vcxproj">
+      <Project>{1247f6ba-d8df-4b3e-977a-b22d06cbda98}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\nlohmann.json.3.7.3\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.7.3\build\native\nlohmann.json.targets')" />
