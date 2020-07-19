@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "blazeapp.h"
 
+#include "libraries.h"
 #include "imgproc.h"
 #include "cssproc.h"
 
@@ -110,10 +111,6 @@ void start_project_processing()
 	}
 }
 
-HMODULE nuglify;
-HMODULE zlib;
-HMODULE libpng;
-
 int main(int argc, const char* argv[])
 {
 	SetConsoleTitle(L"Blaze - Initializing...");
@@ -131,27 +128,7 @@ int main(int argc, const char* argv[])
 		Logger::log_info("Initializing...");
 		Logger::log_info("Loading Dependencies...");
 		Logger::log_divide();
-		nuglify = LoadLibrary(L"NUglify.dll");
-		zlib = LoadLibrary(L"zlibd.dll");
-		libpng = LoadLibrary(L"libpng16d.dll");
-		if (nuglify == nullptr)
-		{
-			Logger::log_error("There was an error loading NUglify! Check if NUglify.dll exists in the same directory as this exe.");
-			getchar();
-			return -1;
-		}
-		if (zlib == nullptr)
-		{
-			Logger::log_error("There was an error loading zlib! Check if zlibd.dll exists in the same directory as this exe.");
-			getchar();
-			return -1;
-		}
-		if (libpng == nullptr)
-		{
-			Logger::log_error("There was an error loading libpng! Check if libpng16d.dll exists in the same directory as this exe.");
-			getchar();
-			return -1;
-		}
+		load_libraries(vector<LPCWSTR> { L"NUglify.dll", L"zlibd.dll", L"libpng16d.dll" });
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		Logger::log_info("Preparing data processors...");
 		if (!Settings::get_settings()) return -1;
@@ -161,9 +138,7 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_info("Processing has finished! - Press any key to exit.");
 		getchar();
-		FreeLibrary(nuglify);
-		FreeLibrary(zlib);
-		FreeLibrary(libpng);
+		free_libraries();
 		return 1;
 	}
 	else
@@ -173,9 +148,7 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_error("No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close.");
 		getchar();
-		FreeLibrary(nuglify);
-		FreeLibrary(zlib);
-		FreeLibrary(libpng);
+		free_libraries();
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (!Settings::set_settings(true)) return -1;
 		else return 0;

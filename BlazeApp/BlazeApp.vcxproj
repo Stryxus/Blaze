@@ -161,6 +161,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClInclude Include="ioutils.h" />
     <ClInclude Include="jsonutils.h" />
     <ClInclude Include="jsproc.h" />
+    <ClInclude Include="libraries.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="settings.h" />
@@ -176,6 +177,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClCompile Include="ioutils.cpp" />
     <ClCompile Include="jsonutils.cpp" />
     <ClCompile Include="jsproc.cpp" />
+    <ClCompile Include="libraries.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="settings.cpp" />
