@@ -15,7 +15,7 @@ int main(int argc, const char* argv[])
 	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT = replace_copy(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\wwwroot" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "wwwroot", "\\", "/");
 	Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH = replace_copy(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\blaze-settings.json" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "blaze-settings.json", "\\", "/");
 
-	if (fileExists(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH))
+	if (file_exists(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH))
 	{
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		Logger::log_info("Initializing...");
@@ -46,7 +46,7 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		getchar();
 		free_libraries();
-		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
+		create_file(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (!Settings::set_settings(true)) return -1;
 		else return 0;
 	}
