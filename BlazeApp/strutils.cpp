@@ -76,3 +76,19 @@ wstring right_trim_copy(wstring s)
 	right_trim(s);
 	return s;
 }
+
+// Misc
+
+void replace(string& s, string look_for, string replace_with)
+{
+	size_t pos = 0;
+	while ((pos = s.find(look_for)) != std::string::npos) s.replace(pos, 1, replace_with);
+}
+
+string replace_copy(string s, string look_for, string replace_with)
+{
+	size_t pos = 0;
+	string n = "";
+	while ((pos = s.find(look_for)) != std::string::npos) n = s.replace(pos, 1, replace_with);
+	return n;
+}

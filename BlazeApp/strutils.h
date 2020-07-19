@@ -27,3 +27,9 @@ void trim(wstring& s);
 wstring left_trim_copy(wstring s);
 
 wstring right_trim_copy(wstring s);
+
+// Misc
+
+void replace(string& s, string look_for, string replace_with);
+
+string replace_copy(string s, string look_for, string replace_with);
