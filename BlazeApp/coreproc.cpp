@@ -91,26 +91,38 @@ void start_project_processing()
 				}
 				else if (ctp.extension() == ".js")
 				{
-					char* fileData = NULL;
-					size_t data_size = 0;
-
-					ifstream fileIn(string(path.c_str()), ios_base::binary);
-					fileIn.seekg(0, ios_base::end);
-					data_size = fileIn.tellg();
-					fileIn.seekg(0, ios_base::beg);
-					fileData = (char*)malloc(data_size + 1);
-					fileIn.read(fileData, data_size);
-					fileIn.close();
-
-					auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js"));
-					if (func == NULL) Logger::log_last_error();
-					else 
+					if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
 					{
-						string result = minify_js(func, string(fileData));
+						JSON file_config = Settings::FILE_CONFIGS[relative_path];
 
-						ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
-						fileOut.write(result.c_str(), result.length());
-						fileOut.close();
+						bool enabled = false;
+						if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
+
+						if (enabled)
+						{
+							char* fileData = NULL;
+							size_t data_size = 0;
+
+							ifstream fileIn(string(path.c_str()), ios_base::binary);
+							fileIn.seekg(0, ios_base::end);
+							data_size = fileIn.tellg();
+							fileIn.seekg(0, ios_base::beg);
+							fileData = (char*)malloc(data_size + 1);
+							fileIn.read(fileData, data_size);
+							fileIn.close();
+
+							auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js"));
+							if (func == NULL) Logger::log_last_error();
+							else
+							{
+								Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+								string result = minify_js(func, string(fileData));
+
+								ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
+								fileOut.write(result.c_str(), result.length());
+								fileOut.close();
+							}
+						}
 					}
 				}
 				else
