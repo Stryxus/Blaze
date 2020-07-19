@@ -91,7 +91,35 @@ void start_project_processing()
 				}
 				else if (ctp.extension() == ".js")
 				{
-					get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js");
+					char* fileData = NULL;
+					size_t data_size = 0;
+
+					ifstream fileIn(string(path.c_str()), ios_base::binary);
+					fileIn.seekg(0, ios_base::end);
+					data_size = fileIn.tellg();
+					fileIn.seekg(0, ios_base::beg);
+					fileData = (char*)malloc(data_size + 1);
+					fileIn.read(fileData, data_size);
+					fileIn.close();
+
+					string result = minify_js((string(*)(string&))GetProcAddress(get_library(Globals::LIB_NET_WRAPPER), "minify_js"), string(fileData));
+					if (result.empty()) 
+					{
+						LPSTR messageBuffer = nullptr;
+						size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+							NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+						string message(messageBuffer, size);
+
+						LocalFree(messageBuffer);
+						Logger::log_error(message);
+					}
+					else
+					{
+						ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
+						fileOut.write(result.c_str(), result.length());
+						fileOut.close();
+					}
 				}
 				else
 				{
@@ -105,4 +133,14 @@ void start_project_processing()
 			}
 		}
 	}
+}
+
+string minify_css(string(*f)(string&), string content)
+{
+	return (*f)(content);
+}
+
+string minify_js(string(*f)(string&), string content)
+{
+	return (*f)(content);
 }
