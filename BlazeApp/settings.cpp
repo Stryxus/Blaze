@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "settings.h"
 
-string Settings::sourceResourcesDir = "";
-bool Settings::formatWebsiteRoot = false;
-map<string, JSON> Settings::fileConfigs = {};
+string Settings::SOURCE_RESOURCE_DIR = "";
+bool Settings::FORMAT_RESOURCE_DIR = false;
+map<string, JSON> Settings::FILE_CONFIGS = {};
 
-JSON Settings::defaultSettings =
+JSON Settings::default_settings =
 {
 	// Must be the directory to the website root of source files. They will be copied over or converted and copies over to the projects website root.
 	{"sourceResourcesDir", ""},
@@ -40,10 +40,10 @@ bool Settings::get_settings()
 	{
 		Settings::settings = JSON::parse(settingsRead);
 
-		Settings::sourceResourcesDir = Settings::settings["sourceResourcesDir"];
-		Settings::formatWebsiteRoot = Settings::settings["formatWebsiteRoot"];
+		Settings::SOURCE_RESOURCE_DIR = Settings::settings["sourceResourcesDir"];
+		Settings::FORMAT_RESOURCE_DIR = Settings::settings["formatWebsiteRoot"];
 
-		Settings::fileConfigs = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
+		Settings::FILE_CONFIGS = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
 	}
 	catch (exception e)
 	{
@@ -61,12 +61,12 @@ bool Settings::set_settings(bool setDefaultSettings)
 		ofstream settingsFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (settingsFile.is_open())
 		{
-			Settings::settings["sourceResourcesDir"] = Settings::sourceResourcesDir;
-			Settings::settings["formatWebsiteRoot"] = Settings::formatWebsiteRoot;
+			Settings::settings["sourceResourcesDir"] = Settings::SOURCE_RESOURCE_DIR;
+			Settings::settings["formatWebsiteRoot"] = Settings::FORMAT_RESOURCE_DIR;
 
-			Settings::settings["fileConfigs"] = Settings::fileConfigs;
+			Settings::settings["fileConfigs"] = Settings::FILE_CONFIGS;
 
-			if (Settings::settings.empty() || setDefaultSettings) settingsFile << Settings::defaultSettings.dump(4);
+			if (Settings::settings.empty() || setDefaultSettings) settingsFile << Settings::default_settings.dump(4);
 			else settingsFile << Settings::settings.dump(4);
 			settingsFile.close();
 		}

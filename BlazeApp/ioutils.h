@@ -1,4 +1,4 @@
 #pragma once
 
-bool fileExists(const string& filePath);
-void createFile(const string& filePath);
+bool fileExists(const string& file_path);
+void createFile(const string& file_path);

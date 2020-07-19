@@ -66,14 +66,14 @@ void Logger::flush_log_buffer()
 string Logger::get_date_time_string()
 {
 	time_t now = chrono::system_clock::to_time_t(chrono::system_clock::now());
-	tm currentTime{};
-	localtime_s(&currentTime , &now);
-	string year = to_string(1900 + currentTime.tm_year);
-	string month = currentTime.tm_mon > 8 ? to_string(1 + currentTime.tm_mon) : "0" + to_string(1 + currentTime.tm_mon);
-	string day = currentTime.tm_mday > 8 ? to_string(1 + currentTime.tm_mday) : "0" + to_string(1 + currentTime.tm_mday);
-	string hour = currentTime.tm_hour != 60 ? currentTime.tm_hour > 8 ? to_string(1 + currentTime.tm_hour) : "0" + to_string(1 + currentTime.tm_hour) : "00";
-	string minute = currentTime.tm_min != 60 ? currentTime.tm_min > 8 ? to_string(1 + currentTime.tm_min) : "0" + to_string(1 + currentTime.tm_min) : "00";
-	string second = currentTime.tm_sec != 60 ? currentTime.tm_sec > 8 ? to_string(1 + currentTime.tm_sec) : "0" + to_string(1 + currentTime.tm_sec) : "00";
+	tm current_time{};
+	localtime_s(&current_time, &now);
+	string year = to_string(1900 + current_time.tm_year);
+	string month = current_time.tm_mon > 8 ? to_string(1 + current_time.tm_mon) : "0" + to_string(1 + current_time.tm_mon);
+	string day = current_time.tm_mday > 8 ? to_string(1 + current_time.tm_mday) : "0" + to_string(1 + current_time.tm_mday);
+	string hour = current_time.tm_hour != 60 ? current_time.tm_hour > 8 ? to_string(1 + current_time.tm_hour) : "0" + to_string(1 + current_time.tm_hour) : "00";
+	string minute = current_time.tm_min != 60 ? current_time.tm_min > 8 ? to_string(1 + current_time.tm_min) : "0" + to_string(1 + current_time.tm_min) : "00";
+	string second = current_time.tm_sec != 60 ? current_time.tm_sec > 8 ? to_string(1 + current_time.tm_sec) : "0" + to_string(1 + current_time.tm_sec) : "00";
 	string millisecond = to_string((chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch())).count()).substr(0, 3);
 	return "[" + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second + "." + millisecond + "]";
 }

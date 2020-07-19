@@ -6,11 +6,11 @@ public:
 	static bool get_settings();
 	static bool set_settings(bool setDefaultSettings = false);
 
-	static string sourceResourcesDir;
-	static bool formatWebsiteRoot;
-	static map<string, JSON> fileConfigs;
+	static string SOURCE_RESOURCE_DIR;
+	static bool FORMAT_RESOURCE_DIR;
+	static map<string, JSON> FILE_CONFIGS;
 
 private:
-	static JSON defaultSettings;
+	static JSON default_settings;
 	static JSON settings;
 };

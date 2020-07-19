@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "ioutils.h"
 
-bool fileExists(const string& filePath)
+bool fileExists(const string& file_path)
 {
 	struct stat buffer;
-	return stat(filePath.c_str(), &buffer) == 0;
+	return stat(file_path.c_str(), &buffer) == 0;
 }
 
-void createFile(const string& filePath)
+void createFile(const string& file_path)
 {
-	ofstream(filePath).close();
+	ofstream(file_path).close();
 }
