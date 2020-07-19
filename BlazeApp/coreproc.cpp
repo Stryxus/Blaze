@@ -100,33 +100,8 @@ void start_project_processing()
 
 						if (enabled)
 						{
-							size_t data_size = 0;
-							string data = "";
-							string fileData = "";
-
-							ifstream fileIn(string(path.c_str()), ios_base::binary);
-							if (fileIn.is_open())
-							{
-								while (!fileIn.eof())
-								{
-									fileIn >> fileData;
-									data += fileData;
-								}
-								data = data.substr(0, (data.length() - 1) - (fileData.length() - 1));
-							}
-							fileIn.close();
-
-							auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_css"));
-							if (func == NULL) Logger::log_last_error();
-							else
-							{
-								Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
-								string result = minify_css(func, data);
-
-								ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css"), ios_base::binary | ios_base::app);
-								fileOut.write(result.c_str(), result.length());
-								fileOut.close();
-							}
+							Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+							minify_css(path.c_str());
 						}
 					}
 				}
@@ -188,11 +163,6 @@ void start_project_processing()
 			}
 		}
 	}
-}
-
-string minify_css(string(*f)(string&), string content)
-{
-	return (*f)(content);
 }
 
 string minify_js(string(*f)(string&), string content)
