@@ -100,15 +100,20 @@ void start_project_processing()
 
 						if (enabled)
 						{
-							char* fileData = NULL;
 							size_t data_size = 0;
+							string data = "";
+							string fileData = "";
 
 							ifstream fileIn(string(path.c_str()), ios_base::binary);
-							fileIn.seekg(0, ios_base::end);
-							data_size = fileIn.tellg();
-							fileIn.seekg(0, ios_base::beg);
-							fileData = (char*)malloc(data_size);
-							fileIn.read(fileData, data_size);
+							if (fileIn.is_open())
+							{
+								while (!fileIn.eof())
+								{
+									fileIn >> fileData;
+									data += fileData;
+								}
+								data = data.substr(0, (data.length() - 1) - (fileData.length() - 1));
+							}
 							fileIn.close();
 
 							auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js"));
@@ -116,7 +121,7 @@ void start_project_processing()
 							else
 							{
 								Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
-								string result = minify_js(func, string(fileData));
+								string result = minify_js(func, data);
 
 								ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
 								fileOut.write(result.c_str(), result.length());
