@@ -2,6 +2,22 @@
 #include "blazeapp.h"
 
 #include "imgproc.h"
+#include "cssproc.h"
+
+bool resurse_empty_folder_deletion(const filesystem::directory_entry& entry)
+{
+	if (is_directory(entry))
+	{
+		bool isEmpty = true;
+		for (const filesystem::directory_entry& entry : filesystem::directory_iterator(entry))
+		{
+			isEmpty = resurse_empty_folder_deletion(entry);
+			break;
+		}
+		if (isEmpty) filesystem::remove_all(entry);
+	}
+	else return false;
+}
 
 void start_project_processing()
 {
@@ -21,6 +37,8 @@ void start_project_processing()
 		string copyToPath = "";
 		string copyToPathRelative = "";
 
+		bool cssBundleCreated = false;
+
 		if (is_directory(entry)) {
 			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::sourceResourcesDir.c_str()));
 			Logger::log_nl();
@@ -33,11 +51,9 @@ void start_project_processing()
 		else
 		{
 			copyToPath = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relativePath;
-			copyToPathRelative = (copyToPath.substr(0, copyToPath.find_last_of('.')) + ".web").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 			filesystem::path ctp(copyToPath);
 			if (ctp.has_extension() && ctp.extension() != "")
 			{
-				// Only support PNG for now
 				if (ctp.extension() == ".png")
 				{
 					if (json_entry_exists(Settings::fileConfigs, relativePath))
@@ -49,6 +65,7 @@ void start_project_processing()
 
 						if (enabled)
 						{
+							copyToPathRelative = (copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 							Logger::log_info("Converting: [wwwroot]:" + copyToPathRelative);
 							convert_png_to_webp(path.c_str(), string(copyToPath.substr(0, copyToPath.find_last_of('.')) + ".webp").c_str(),
 								static_cast<int>(fileConfig["width"]),
@@ -62,10 +79,26 @@ void start_project_processing()
 						filesystem::copy(path, copyToPath);
 					}
 				}
-				else
+
+				if ((ctp.extension() == ".sass" || ctp.extension() == ".scss") && !cssBundleCreated)
 				{
-					Logger::log_info("Copying File: [wwwroot]:" + relativePath);
-					filesystem::copy(path, copyToPath);
+					if (json_entry_exists(Settings::fileConfigs, relativePath))
+					{
+						JSON fileConfig = Settings::fileConfigs[relativePath];
+
+						bool enabled = false;
+						if (json_entry_exists(fileConfig, "enabled")) enabled = static_cast<bool>(fileConfig["enabled"]);
+
+						if (enabled)
+						{
+							copyToPathRelative = (copyToPath.substr(0, copyToPath.find_last_of('.')) + ".min.css").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+							Logger::log_info("Converting: [wwwroot]:" + copyToPathRelative);
+							convert_sass_to_css(path.c_str(), string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css").c_str(), 
+								string(Settings::sourceResourcesDir + "\\" + static_cast<string>(fileConfig["relativeIncludePath"])).c_str(),
+								static_cast<int>(fileConfig["precision"]));
+							cssBundleCreated = true;
+						}
+					}
 				}
 			}
 			else
@@ -75,12 +108,17 @@ void start_project_processing()
 			}
 		}
 	}
+
+	Logger::log_info("Deleting empty folders...");
+	for (const filesystem::directory_entry& entry : filesystem::directory_iterator(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT))
+	{
+		resurse_empty_folder_deletion(entry);
+	}
 }
 
 HMODULE nuglify;
 HMODULE zlib;
 HMODULE libpng;
-HMODULE libsass;
 
 int main(int argc, const char* argv[])
 {
@@ -102,7 +140,6 @@ int main(int argc, const char* argv[])
 		nuglify = LoadLibrary(L"NUglify.dll");
 		zlib = LoadLibrary(L"zlibd.dll");
 		libpng = LoadLibrary(L"libpng16d.dll");
-		libsass = LoadLibrary(L"libsass.dll");
 		if (nuglify == nullptr)
 		{
 			Logger::log_error("There was an error loading NUglify! Check if NUglify.dll exists in the same directory as this exe.");
@@ -121,12 +158,6 @@ int main(int argc, const char* argv[])
 			getchar();
 			return -1;
 		}
-		if (libsass == nullptr)
-		{
-			Logger::log_error("There was an error loading libsass! Check if libsass.dll exists in the same directory as this exe.");
-			getchar();
-			return -1;
-		}
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		Logger::log_info("Preparing data processors...");
 		if (!Settings::get_settings()) return -1;
@@ -139,7 +170,6 @@ int main(int argc, const char* argv[])
 		FreeLibrary(nuglify);
 		FreeLibrary(zlib);
 		FreeLibrary(libpng);
-		FreeLibrary(libsass);
 		return 1;
 	}
 	else
@@ -152,7 +182,6 @@ int main(int argc, const char* argv[])
 		FreeLibrary(nuglify);
 		FreeLibrary(zlib);
 		FreeLibrary(libpng);
-		FreeLibrary(libsass);
 		createFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (!Settings::set_settings(true)) return -1;
 		else return 0;

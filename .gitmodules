@@ -25,3 +25,9 @@
 [submodule "libjpeg"]
 	path = libjpeg
 	url = https://github.com/thorfdbg/libjpeg
+[submodule "utfcpp"]
+	path = utfcpp
+	url = https://github.com/nemtrif/utfcpp
+[submodule "utf8proc"]
+	path = utf8proc
+	url = https://github.com/JuliaStrings/utf8proc

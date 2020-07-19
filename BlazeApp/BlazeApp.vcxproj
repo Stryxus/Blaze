@@ -131,9 +131,9 @@
       </AssemblyLinkResource>
     </Link>
     <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)build\zlib\Debug\zlibd.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)build\libpng\Debug\libpng16d.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll" "$(OutputPath)"</Command>
+      <Command>copy /Y "$(SolutionDir)build\libpng\Debug\libpng16d.dll" "$(OutputPath)"
+copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll" "$(OutputPath)"
+copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

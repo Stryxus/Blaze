@@ -11,6 +11,7 @@ echo.
 set /p id= -- Enter your Visual Studio year version (2019 etc): 
 cd %~dp0
 rd /s /q build
+rd /s /q %~dp0\libsass\win\bin
 mkdir build
 cd build
 echo.
@@ -27,19 +28,19 @@ echo Starting to build projects.
 echo.
 echo.
 echo.
-cmake --build . --target %~dp0\build\zlib\ALL_BUILD --config Debug
+cmake --build . --target %~dp0\build\zlib\ALL_BUILD
 echo.
 echo.
 echo.
-cmake --build . --target %~dp0\build\libpng\ALL_BUILD --config Debug
+cmake --build . --target %~dp0\build\libpng\ALL_BUILD
 echo.
 echo.
 echo.
-cmake --build . --target %~dp0build\libwebp\ALL_BUILD --config Debug
+cmake --build . --target %~dp0\build\libwebp\ALL_BUILD
 echo.
 echo.
 echo.
-msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Release /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
+msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Debug /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
 echo.
 echo.
 echo.
