@@ -84,7 +84,7 @@ void start_project_processing()
 							copy_to_path_relative = (copy_to_path.substr(0, copy_to_path.find_last_of('.')) + ".min.css").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 							Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
 							convert_sass_to_css(path.c_str(), string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css").c_str(),
-								string(Settings::SOURCE_RESOURCE_DIR + "\\" + static_cast<string>(file_config["relativeIncludePath"])).c_str(),
+								replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + static_cast<string>(file_config["relativeIncludePath"])), "\\", "/").c_str(),
 								static_cast<int>(file_config["precision"]));
 							css_bundle_created = true;
 						}
