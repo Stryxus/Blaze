@@ -107,7 +107,7 @@ void start_project_processing()
 							fileIn.seekg(0, ios_base::end);
 							data_size = fileIn.tellg();
 							fileIn.seekg(0, ios_base::beg);
-							fileData = (char*)malloc(data_size + 1);
+							fileData = (char*)malloc(data_size);
 							fileIn.read(fileData, data_size);
 							fileIn.close();
 
