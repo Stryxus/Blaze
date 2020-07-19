@@ -29,12 +29,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="jsproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
-    <ClInclude Include="cssproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
     <ClInclude Include="ioutils.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -68,6 +62,9 @@
     <ClInclude Include="coreproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
+    <ClInclude Include="sassproc.h">
+      <Filter>Header Files\Processors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp">
@@ -75,12 +72,6 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="jsproc.cpp">
-      <Filter>Source Files\Processors</Filter>
-    </ClCompile>
-    <ClCompile Include="cssproc.cpp">
-      <Filter>Source Files\Processors</Filter>
     </ClCompile>
     <ClCompile Include="ioutils.cpp">
       <Filter>Source Files\utils</Filter>
@@ -113,6 +104,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="coreproc.cpp">
+      <Filter>Source Files\Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="sassproc.cpp">
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
   </ItemGroup>
