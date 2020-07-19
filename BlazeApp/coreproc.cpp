@@ -16,7 +16,7 @@ void start_project_processing()
 	vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js" };
 	for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::SOURCE_RESOURCE_DIR))
 	{
-		string path = entry.path().string();
+		string path = replace_copy(entry.path().string(), "\\", "/");
 		string relative_path = path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str()));
 		string copy_to_path = "";
 		string copy_to_path_relative = "";
