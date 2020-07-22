@@ -36,6 +36,8 @@ string minify_js(string& content)
 	code_settings->Format = JavaScriptFormat::Normal;
 	code_settings->OutputMode = OutputMode::SingleLine;
 	code_settings->PreserveImportantComments = false;
+	code_settings->MinifyCode = true;
+	code_settings->RemoveUnneededCode = false;
 
 	UglifyResult result = Uglify::Js(source, code_settings);
 
