@@ -15,7 +15,7 @@ void minify_js()
 	else
 	{
 		string result = minify_js_interface(func, jsdata);
-		ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary | ios_base::app);
+		ofstream fileOut(string(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js"), ios_base::binary);
 		fileOut.write(result.c_str(), result.length());
 		fileOut.close();
 	}
@@ -31,7 +31,7 @@ void add_js_for_minification(const char* from)
 		while (!fileIn.eof())
 		{
 			fileIn >> fileData;
-			jsdata += fileData;
+			jsdata += + " " + fileData + " ";
 		}
 	}
 	fileIn.close();
