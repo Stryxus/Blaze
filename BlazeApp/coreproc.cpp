@@ -118,7 +118,7 @@ void start_project_processing()
 						if (enabled)
 						{
 							Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
-							minify_js(path.c_str());
+							add_js_for_minification(path.c_str());
 						}
 					}
 					else
@@ -139,6 +139,8 @@ void start_project_processing()
 			}
 		}
 	}
+
+	minify_js();
 }
 
 string minify_js(string(*f)(string&), string content)
