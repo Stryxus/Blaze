@@ -23,7 +23,6 @@ void minify_js()
 
 void add_js_for_minification(const char* from)
 {
-	size_t data_size = 0;
 	string fileData = "";
 
 	ifstream fileIn(string(from), ios_base::binary);
@@ -34,7 +33,7 @@ void add_js_for_minification(const char* from)
 			fileIn >> fileData;
 			jsdata += fileData;
 		}
-		jsdata = jsdata.substr(0, (jsdata.length() - 1) - (fileData.length() - 1));
+		//jsdata = jsdata.substr(0, (jsdata.length() - 1) - (fileData.length() - 1));
 	}
 	fileIn.close();
 }

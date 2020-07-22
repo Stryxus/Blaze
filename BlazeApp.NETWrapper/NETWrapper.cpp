@@ -32,7 +32,7 @@ string minify_js(string& content)
 	CodeSettings^ code_settings = gcnew CodeSettings();
 	String^ source = gcnew String(content.c_str());
 
-	code_settings->AmdSupport = true;
+	code_settings->AmdSupport = false;
 	code_settings->Format = JavaScriptFormat::Normal;
 	code_settings->OutputMode = OutputMode::SingleLine;
 	code_settings->PreserveImportantComments = false;
