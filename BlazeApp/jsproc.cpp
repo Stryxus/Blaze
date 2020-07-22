@@ -33,7 +33,6 @@ void add_js_for_minification(const char* from)
 			fileIn >> fileData;
 			jsdata += fileData;
 		}
-		//jsdata = jsdata.substr(0, (jsdata.length() - 1) - (fileData.length() - 1));
 	}
 	fileIn.close();
 }
