@@ -31,7 +31,7 @@ void add_js_for_minification(const char* from)
 		while (!fileIn.eof())
 		{
 			fileIn >> fileData;
-			jsdata += + " " + fileData + " ";
+			jsdata += fileData + " ";
 		}
 	}
 	fileIn.close();
