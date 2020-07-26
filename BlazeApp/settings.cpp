@@ -3,6 +3,7 @@
 
 string Settings::SOURCE_RESOURCE_DIR = "";
 bool Settings::FORMAT_RESOURCE_DIR = false;
+vector<string> Settings::BLACKLISTED_DIRECTORIES = {};
 map<string, JSON> Settings::FILE_CONFIGS = {};
 
 JSON Settings::default_settings =
@@ -11,6 +12,7 @@ JSON Settings::default_settings =
 	{"sourceResourcesDir", ""},
 	// Delete the destination website root before starting the copy and convert process from the source website root directory.
 	{"formatWebsiteRoot", false},
+	{"blacklistedDirectories", {}},
 	// Every file in the website root source files must be declared here before anything will be done to it.
 	{"fileConfigs", {}}
 };
@@ -42,6 +44,7 @@ bool Settings::get_settings()
 
 		Settings::SOURCE_RESOURCE_DIR = Settings::settings["sourceResourcesDir"];
 		Settings::FORMAT_RESOURCE_DIR = Settings::settings["formatWebsiteRoot"];
+		Settings::BLACKLISTED_DIRECTORIES = Settings::settings["blacklistedDirectories"].get<vector<string>>();
 
 		Settings::FILE_CONFIGS = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
 	}
@@ -63,6 +66,7 @@ bool Settings::set_settings(bool setDefaultSettings)
 		{
 			Settings::settings["sourceResourcesDir"] = Settings::SOURCE_RESOURCE_DIR;
 			Settings::settings["formatWebsiteRoot"] = Settings::FORMAT_RESOURCE_DIR;
+			Settings::settings["blacklistedDirectories"] = Settings::BLACKLISTED_DIRECTORIES;
 
 			Settings::settings["fileConfigs"] = Settings::FILE_CONFIGS;
 
