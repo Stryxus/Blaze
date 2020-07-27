@@ -149,7 +149,7 @@ void process_entry(const filesystem::directory_entry& entry)
 					if (extension == ".png")
 					{
 						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
-						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()), strlen(copy_to_path.c_str()) - strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()) - 3);
+						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 					}
 					else if (extension == ".sass" || extension == ".scss")
 					{

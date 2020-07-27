@@ -81,14 +81,19 @@ wstring right_trim_copy(wstring s)
 
 void replace(string& s, string look_for, string replace_with)
 {
-	size_t pos = 0;
-	while ((pos = s.find(look_for)) != std::string::npos) s.replace(pos, 1, replace_with);
+	size_t start_pos = 0;
+	while ((start_pos = s.find(look_for, start_pos)) != string::npos) {
+		s.replace(start_pos, look_for.length(), replace_with);
+		start_pos += replace_with.length();
+	}
 }
 
 string replace_copy(string s, string look_for, string replace_with)
 {
-	size_t pos = 0;
-	string n = "";
-	while ((pos = s.find(look_for)) != std::string::npos) n = s.replace(pos, 1, replace_with);
-	return n;
+	size_t start_pos = 0;
+	while ((start_pos = s.find(look_for, start_pos)) != string::npos) {
+		s.replace(start_pos, look_for.length(), replace_with);
+		start_pos += replace_with.length();
+	}
+	return s;
 }
