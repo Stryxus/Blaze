@@ -131,10 +131,10 @@ void process_entry(const filesystem::directory_entry& entry)
 
 	if (!is_blacklisted)
 	{
-		if (is_directory(entry))
+		bool isDir = is_directory(entry);
+		filesystem::path ctp(isDir ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str())) : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path);
+		if (isDir)
 		{
-			copy_to_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str()));
-			filesystem::path ctp(copy_to_path);
 			for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
 			{
 				if (!is_directory(entry2) && find(directory_sub_extention_exclusion_filter.begin(), directory_sub_extention_exclusion_filter.end(), entry2.path().extension()) == directory_sub_extention_exclusion_filter.end())
@@ -165,8 +165,6 @@ void process_entry(const filesystem::directory_entry& entry)
 		}
 		else
 		{
-			copy_to_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path;
-			filesystem::path ctp(copy_to_path);
 			if (ctp.has_extension() && ctp.extension() != "")
 			{
 				if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
