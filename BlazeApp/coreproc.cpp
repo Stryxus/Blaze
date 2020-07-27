@@ -192,7 +192,8 @@ void process_entry(const filesystem::directory_entry& entry)
 						extension == ".aac" || 
 						extension == ".webm" || 
 						extension == ".webp" || 
-						extension == ".html"
+						extension == ".html" ||
+						extension == ".js"
 					)
 				{
 					Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
