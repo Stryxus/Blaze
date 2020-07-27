@@ -86,6 +86,8 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 	}
 }
 
+bool is_scss_bundle_compiled = false;
+
 void process_entry(const filesystem::directory_entry& entry)
 {
 	string path = replace_copy(entry.path().string(), "\\", "/");
@@ -139,7 +141,12 @@ void process_entry(const filesystem::directory_entry& entry)
 			filesystem::path extension;
 			if (ctp.has_extension() && (extension = ctp.extension()) != "")
 			{
-				if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
+				if (json_entry_exists(Settings::FILE_CONFIGS, relative_path) || 
+					extension == ".scss" ||
+					extension == ".sass" ||
+					extension == ".css" ||
+					extension == ".js"
+					)
 				{
 					if (extension == ".png")
 					{
@@ -148,13 +155,23 @@ void process_entry(const filesystem::directory_entry& entry)
 					}
 					else if (extension == ".sass" || extension == ".scss")
 					{
-						copy_to_path = ctp.string();
-						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+						if (!is_scss_bundle_compiled)
+						{
+							is_scss_bundle_compiled = true;
+							copy_to_path = ctp.string();
+							copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+						}
+						else return;
 					}
 					else if (extension == ".css")
 					{
-						copy_to_path = ctp.string();
-						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+						if (!is_scss_bundle_compiled)
+						{
+							is_scss_bundle_compiled = true;
+							copy_to_path = ctp.string();
+							copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+						}
+						else return;
 					}
 					else if (extension == ".js")
 					{
@@ -162,15 +179,7 @@ void process_entry(const filesystem::directory_entry& entry)
 						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 					}
 
-
-					if (filesystem::exists(path))
-					{
-						if (filesystem::exists(copy_to_path))
-						{
-							if (filesystem::last_write_time(path) != filesystem::last_write_time(copy_to_path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-						}
-						else process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-					}
+					if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
 					else
 					{
 						if (filesystem::exists(copy_to_path))
@@ -233,6 +242,8 @@ void start_project_processing()
 				path_access_times[path] = filesystem::last_write_time(entry);
 			}
 		}
+
+		is_scss_bundle_compiled = false;
 
 		if (should_minify_css) 
 		{
