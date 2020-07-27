@@ -72,6 +72,7 @@ void process_file(filesystem::path& ctp, string& path, string& relative_path, st
 
 			if (enabled)
 			{
+				copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
 				add_css_for_minification(path.c_str());
 				should_minify_css = true;
@@ -89,6 +90,7 @@ void process_file(filesystem::path& ctp, string& path, string& relative_path, st
 
 			if (enabled)
 			{
+				copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
 				add_js_for_minification(path.c_str());
 				should_minify_js = true;
