@@ -6,8 +6,7 @@
 #pragma warning(disable : 28020);
 
 #include <Windows.h>
-#include <iostream>
-#include <io.h>
+#include <thread>
 #include <stdlib.h>
 #include <fstream>
 #include <filesystem>

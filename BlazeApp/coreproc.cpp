@@ -243,5 +243,6 @@ void start_project_processing()
 			minify_js(js_bundle_path.c_str());
 			should_minify_js = false;
 		}
+		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 }
