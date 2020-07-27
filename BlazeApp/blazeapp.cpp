@@ -26,7 +26,6 @@ int main(int argc, const char* argv[])
 		Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
 		Logger::log_divide();
 		Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
-		Logger::log_nl();
 		start_project_processing();
 		Logger::log_nl();
 		Logger::log_divide();

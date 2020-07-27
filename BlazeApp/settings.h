@@ -8,6 +8,8 @@ public:
 
 	static string SOURCE_RESOURCE_DIR;
 	static bool FORMAT_RESOURCE_DIR;
+	static string SCSS_INCLUDE_DIR;
+	static int SCSS_PRECISION;
 	static vector<string> BLACKLISTED_DIRECTORIES;
 	static map<string, JSON> FILE_CONFIGS;
 
