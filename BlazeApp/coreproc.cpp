@@ -10,41 +10,30 @@ string minify_js(string(*f)(string&), string content)
 	return (*f)(content);
 }
 
-vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js" };
+vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js", ".wav" };
 string scss_bundle_file_path = "";
 bool should_minify_css = false;
 bool should_minify_js = false;
 
-void process_file(filesystem::path& ctp, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
+void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
-	if (ctp.extension() == ".png")
+	if (extension == ".png")
 	{
-		if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
-		{
-			JSON file_config = Settings::FILE_CONFIGS[relative_path];
+		bool enabled = false;
+		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 
-			bool enabled = false;
-			if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
-
-			if (enabled)
-			{
-				copy_to_path_relative = (copy_to_path.substr(0, copy_to_path.find_last_of('.')) + ".webp").substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
-				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
-				convert_png_to_webp(path.c_str(), string(copy_to_path.substr(0, copy_to_path.find_last_of('.')) + ".webp").c_str(),
-					static_cast<int>(file_config["width"]),
-					static_cast<int>(file_config["height"]),
-					static_cast<float>(file_config["quality"]));
-			}
-		}
-		else
+		if (enabled)
 		{
-			Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
-			filesystem::copy(path, copy_to_path);
+			Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+			convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
+				static_cast<int>(file_config["width"]),
+				static_cast<int>(file_config["height"]),
+				static_cast<float>(file_config["quality"]));
 		}
 	}
-	else if (ctp.extension() == ".sass" || ctp.extension() == ".scss")
+	else if (extension == ".sass" || extension == ".scss")
 	{
-		if (json_entry_exists(Settings::FILE_CONFIGS, relative_path) && scss_bundle_file_path.empty())
+		if (scss_bundle_file_path.empty())
 		{
 			JSON file_config = Settings::FILE_CONFIGS[relative_path];
 
@@ -53,7 +42,6 @@ void process_file(filesystem::path& ctp, string& path, string& relative_path, st
 
 			if (enabled)
 			{
-				copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
 				add_scss_for_minification(path.c_str());
 				should_minify_css = true;
@@ -67,45 +55,28 @@ void process_file(filesystem::path& ctp, string& path, string& relative_path, st
 			should_minify_css = true;
 		}
 	}
-	else if (ctp.extension() == ".css")
+	else if (extension == ".css")
 	{
-		if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
+		bool enabled = false;
+		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
+
+		if (enabled)
 		{
-			JSON file_config = Settings::FILE_CONFIGS[relative_path];
-
-			bool enabled = false;
-			if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
-
-			if (enabled)
-			{
-				copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
-				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
-				add_css_for_minification(path.c_str());
-				should_minify_css = true;
-			}
+			Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+			add_css_for_minification(path.c_str());
+			should_minify_css = true;
 		}
 	}
-	else if (ctp.extension() == ".js")
+	else if (extension == ".js")
 	{
-		if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
-		{
-			JSON file_config = Settings::FILE_CONFIGS[relative_path];
+		bool enabled = false;
+		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 
-			bool enabled = false;
-			if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
-
-			if (enabled)
-			{
-				copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
-				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
-				add_js_for_minification(path.c_str());
-				should_minify_js = true;
-			}
-		}
-		else
+		if (enabled)
 		{
-			Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
-			filesystem::copy(path, copy_to_path);
+			Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+			add_js_for_minification(path.c_str());
+			should_minify_js = true;
 		}
 	}
 	else
@@ -141,7 +112,7 @@ void process_entry(const filesystem::directory_entry& entry)
 				{
 					if (filesystem::exists(path))
 					{
-						if (!filesystem::exists(copy_to_path))
+						if (!filesystem::exists(ctp))
 						{
 							Logger::log_nl();
 							Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
@@ -153,10 +124,10 @@ void process_entry(const filesystem::directory_entry& entry)
 					}
 					else
 					{
-						if (filesystem::exists(copy_to_path))
+						if (filesystem::exists(ctp))
 						{
-							Logger::log_info("Deleting Directory: [wwwroot]:" + copy_to_path_relative);
-							filesystem::remove_all(copy_to_path);
+							Logger::log_info("Deleting Directory: [wwwroot]:" + relative_path);
+							filesystem::remove_all(ctp);
 						}
 					}
 					break;
@@ -165,18 +136,40 @@ void process_entry(const filesystem::directory_entry& entry)
 		}
 		else
 		{
-			if (ctp.has_extension() && ctp.extension() != "")
+			filesystem::path extension;
+			if (ctp.has_extension() && (extension = ctp.extension()) != "")
 			{
 				if (json_entry_exists(Settings::FILE_CONFIGS, relative_path))
 				{
-					JSON file_config = Settings::FILE_CONFIGS[relative_path];
+					if (extension == ".png")
+					{
+						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
+						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()), strlen(copy_to_path.c_str()) - strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()) - 3);
+					}
+					else if (extension == ".sass" || extension == ".scss")
+					{
+						copy_to_path = ctp.string();
+						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+					}
+					else if (extension == ".css")
+					{
+						copy_to_path = ctp.string();
+						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+					}
+					else if (extension == ".js")
+					{
+						copy_to_path = ctp.string();
+						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+					}
+
+
 					if (filesystem::exists(path))
 					{
 						if (filesystem::exists(copy_to_path))
 						{
-							if (filesystem::last_write_time(path) != filesystem::last_write_time(copy_to_path)) process_file(ctp, path, relative_path, copy_to_path, copy_to_path_relative);
+							if (filesystem::last_write_time(path) != filesystem::last_write_time(copy_to_path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
 						}
-						else process_file(ctp, path, relative_path, copy_to_path, copy_to_path_relative);
+						else process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
 					}
 					else
 					{
@@ -186,6 +179,21 @@ void process_entry(const filesystem::directory_entry& entry)
 							filesystem::remove_all(copy_to_path);
 						}
 					}
+				}
+				else if (
+						extension == ".png" || 
+						extension == ".svg" || 
+						extension == ".json" || 
+						extension == ".txt" || 
+						extension == ".woff2" || 
+						extension == ".aac" || 
+						extension == ".webm" || 
+						extension == ".webp" || 
+						extension == ".html"
+					)
+				{
+					Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
+					filesystem::copy(path, ctp.string());
 				}
 			}
 		}
