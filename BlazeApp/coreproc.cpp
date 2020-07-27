@@ -144,8 +144,7 @@ void process_entry(const filesystem::directory_entry& entry)
 				if (json_entry_exists(Settings::FILE_CONFIGS, relative_path) || 
 					extension == ".scss" ||
 					extension == ".sass" ||
-					extension == ".css" ||
-					extension == ".js"
+					extension == ".css"
 					)
 				{
 					if (extension == ".png")
@@ -165,13 +164,9 @@ void process_entry(const filesystem::directory_entry& entry)
 					}
 					else if (extension == ".css")
 					{
-						if (!is_scss_bundle_compiled)
-						{
-							is_scss_bundle_compiled = true;
-							copy_to_path = ctp.string();
-							copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
-						}
-						else return;
+						is_scss_bundle_compiled = true;
+						copy_to_path = ctp.string();
+						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 					}
 					else if (extension == ".js")
 					{
