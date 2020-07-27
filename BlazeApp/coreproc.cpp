@@ -11,7 +11,7 @@ string minify_js(string(*f)(string&), string content)
 }
 
 vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js" };
-bool is_scss_bundle_retreived = false;
+string scss_bundle_file_path = "";
 bool should_minify_css = false;
 bool should_minify_js = false;
 
@@ -44,7 +44,7 @@ void process_file(filesystem::path& ctp, string& path, string& relative_path, st
 	}
 	else if (ctp.extension() == ".sass" || ctp.extension() == ".scss")
 	{
-		if (json_entry_exists(Settings::FILE_CONFIGS, relative_path) && !is_scss_bundle_retreived)
+		if (json_entry_exists(Settings::FILE_CONFIGS, relative_path) && scss_bundle_file_path.empty())
 		{
 			JSON file_config = Settings::FILE_CONFIGS[relative_path];
 
@@ -57,8 +57,14 @@ void process_file(filesystem::path& ctp, string& path, string& relative_path, st
 				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
 				add_scss_for_minification(path.c_str());
 				should_minify_css = true;
-				is_scss_bundle_retreived = true;
+				scss_bundle_file_path = path;
 			}
+		}
+		else if (!scss_bundle_file_path.empty())
+		{
+			Logger::log_info("Converting File:    [wwwroot]:" + scss_bundle_file_path);
+			add_scss_for_minification(scss_bundle_file_path.c_str());
+			should_minify_css = true;
 		}
 	}
 	else if (ctp.extension() == ".css")
@@ -227,6 +233,7 @@ void start_project_processing()
 			string css_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css";
 			if (filesystem::exists(css_bundle_path)) filesystem::remove_all(css_bundle_path);
 			minify_css(css_bundle_path.c_str(), replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + Settings::SCSS_INCLUDE_DIR), "\\", "/").c_str(), Settings::SCSS_PRECISION);
+			should_minify_css = false;
 		}
 
 		if (should_minify_js) 
@@ -234,6 +241,7 @@ void start_project_processing()
 			string js_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js";
 			if (filesystem::exists(js_bundle_path)) filesystem::remove_all(js_bundle_path);
 			minify_js(js_bundle_path.c_str());
+			should_minify_js = false;
 		}
 	}
 }
