@@ -24,7 +24,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 
 		if (enabled)
 		{
-			Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 			convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
 				static_cast<int>(file_config["width"]),
 				static_cast<int>(file_config["height"]),
@@ -42,7 +42,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 
 			if (enabled)
 			{
-				Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 				add_scss_for_minification(path.c_str());
 				should_minify_css = true;
 				scss_bundle_file_path = path;
@@ -50,7 +50,6 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 		}
 		else if (!scss_bundle_file_path.empty())
 		{
-			Logger::log_info("Converting File:    [wwwroot]:" + scss_bundle_file_path);
 			add_scss_for_minification(scss_bundle_file_path.c_str());
 			should_minify_css = true;
 		}
@@ -62,7 +61,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 
 		if (enabled)
 		{
-			Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 			add_css_for_minification(path.c_str());
 			should_minify_css = true;
 		}
@@ -74,7 +73,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 
 		if (enabled)
 		{
-			Logger::log_info("Converting File:    [wwwroot]:" + copy_to_path_relative);
+			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 			add_js_for_minification(path.c_str());
 			should_minify_js = true;
 		}
@@ -204,6 +203,8 @@ void process_entry(const filesystem::directory_entry& entry)
 	}
 }
 
+bool first_loop = true;
+
 void start_project_processing()
 {
 	if (Settings::FORMAT_RESOURCE_DIR)
@@ -240,21 +241,49 @@ void start_project_processing()
 
 		is_scss_bundle_compiled = false;
 
-		if (should_minify_css) 
+		if (should_minify_css || should_minify_js)
 		{
-			string css_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css";
-			if (filesystem::exists(css_bundle_path)) filesystem::remove_all(css_bundle_path);
-			minify_css(css_bundle_path.c_str(), replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + Settings::SCSS_INCLUDE_DIR), "\\", "/").c_str(), Settings::SCSS_PRECISION);
-			should_minify_css = false;
+			Logger::log_nl();
+			Logger::log_divide();
+			Logger::log_nl();
+
+			if (should_minify_css)
+			{
+				string css_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css";
+				if (filesystem::exists(css_bundle_path)) filesystem::remove_all(css_bundle_path);
+				Logger::log_info("Compiling File:     [wwwroot]:" + css_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
+				minify_css(css_bundle_path.c_str(), replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + Settings::SCSS_INCLUDE_DIR), "\\", "/").c_str(), Settings::SCSS_PRECISION);
+				should_minify_css = false;
+			}
+
+			if (should_minify_js)
+			{
+				string js_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js";
+				if (filesystem::exists(js_bundle_path)) filesystem::remove_all(js_bundle_path);
+				Logger::log_info("Compiling File:     [wwwroot]:" + js_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
+				minify_js(js_bundle_path.c_str());
+				should_minify_js = false;
+			}
+
+			if (first_loop)
+			{
+				Logger::log_nl();
+				Logger::log_divide();
+				Logger::log_nl();
+				Logger::log_info("Now listening for file changes...");
+				Logger::log_nl(2);
+			}
+		}
+		else if (first_loop)
+		{
+			Logger::log_nl();
+			Logger::log_divide();
+			Logger::log_nl();
+			Logger::log_info("Now listening for file changes...");
+			Logger::log_nl(2);
 		}
 
-		if (should_minify_js) 
-		{
-			string js_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js";
-			if (filesystem::exists(js_bundle_path)) filesystem::remove_all(js_bundle_path);
-			minify_js(js_bundle_path.c_str());
-			should_minify_js = false;
-		}
+		first_loop = false;
 		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 }
