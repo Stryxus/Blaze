@@ -163,7 +163,6 @@ void process_entry(const filesystem::directory_entry& entry)
 					}
 					else if (extension == ".css")
 					{
-						is_scss_bundle_compiled = true;
 						copy_to_path = ctp.string();
 						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 					}
