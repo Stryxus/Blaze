@@ -33,25 +33,25 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 	}
 	else if (extension == ".sass" || extension == ".scss")
 	{
-		if (scss_bundle_file_path.empty())
+		JSON file_config = Settings::FILE_CONFIGS[relative_path];
+
+		bool enabled = false;
+		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
+
+		if (enabled)
 		{
-			JSON file_config = Settings::FILE_CONFIGS[relative_path];
-
-			bool enabled = false;
-			if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
-
-			if (enabled)
+			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+			if (scss_bundle_file_path.empty())
 			{
-				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 				add_scss_for_minification(path.c_str());
+				should_minify_css = true;
+			}
+			else 
+			{
+				add_scss_for_minification(scss_bundle_file_path.c_str());
 				should_minify_css = true;
 				scss_bundle_file_path = path;
 			}
-		}
-		else if (!scss_bundle_file_path.empty())
-		{
-			add_scss_for_minification(scss_bundle_file_path.c_str());
-			should_minify_css = true;
 		}
 	}
 	else if (extension == ".css")
