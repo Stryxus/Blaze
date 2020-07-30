@@ -64,13 +64,15 @@ void minify_css(const char* to, const char* include_path, int precision)
 
 	ofstream fileOut(to, ios_base::binary);
 	fileOut.write(output, strlen(output));
-
-	auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_css"));
-	if (func == NULL) Logger::log_last_error();
-	else
+	if (!css_data.empty()) 
 	{
-		string result = minify_css_interface(func, css_data);
-		fileOut.write(result.c_str(), result.length());
+		auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_css"));
+		if (func == NULL) Logger::log_last_error();
+		else
+		{
+			string result = minify_css_interface(func, css_data);
+			fileOut.write(result.c_str(), result.length());
+		}
 	}
 	fileOut.close();
 	sass_delete_data_context(data_ctx);
