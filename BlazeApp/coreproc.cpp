@@ -169,10 +169,7 @@ void process_entry(const filesystem::directory_entry& entry)
 							copy_to_path = ctp.string();
 							copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 
-							if (filesystem::exists(path)) {
-								Logger::log_info("123");
-								process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-							}
+							if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
 							else
 							{
 								if (filesystem::exists(copy_to_path))
