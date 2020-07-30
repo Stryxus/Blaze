@@ -250,7 +250,6 @@ void start_project_processing()
 			if (should_minify_css)
 			{
 				string css_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css";
-				if (filesystem::exists(css_bundle_path)) filesystem::remove_all(css_bundle_path);
 				Logger::log_info("Compiling File:     [wwwroot]:" + css_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
 				minify_css(css_bundle_path.c_str(), replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + Settings::SCSS_INCLUDE_DIR), "\\", "/").c_str(), Settings::SCSS_PRECISION);
 				should_minify_css = false;
@@ -259,7 +258,6 @@ void start_project_processing()
 			if (should_minify_js)
 			{
 				string js_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js";
-				if (filesystem::exists(js_bundle_path)) filesystem::remove_all(js_bundle_path);
 				Logger::log_info("Compiling File:     [wwwroot]:" + js_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
 				minify_js(js_bundle_path.c_str());
 				should_minify_js = false;

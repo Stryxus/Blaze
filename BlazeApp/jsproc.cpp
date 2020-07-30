@@ -31,6 +31,7 @@ void minify_js(const char* to)
 	else
 	{
 		string result = minify_js_interface(func, js_data);
+		if (filesystem::exists(to)) filesystem::remove_all(to);
 		ofstream fileOut(to, ios_base::binary);
 		fileOut.write(result.c_str(), result.length());
 		fileOut.close();

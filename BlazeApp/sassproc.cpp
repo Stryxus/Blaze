@@ -60,6 +60,8 @@ void minify_css(const char* to, const char* include_path, int precision)
 	if (sass_compile_data_context(data_ctx) == 0) output = sass_context_get_output_string(ctx);
 	else output = sass_context_get_error_message(ctx);
 
+	if (filesystem::exists(to)) filesystem::remove_all(to);
+
 	ofstream fileOut(to, ios_base::binary);
 	fileOut.write(output, strlen(output));
 
