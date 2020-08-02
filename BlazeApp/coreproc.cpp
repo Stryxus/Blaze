@@ -277,22 +277,27 @@ void start_project_processing()
 			if (should_minify_css)
 			{
 				string css_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.css";
-				Logger::log_info("Compiling File:     [wwwroot]:" + css_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
+				string css_bundle_path_alt = css_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+				Logger::log_info("Compiling File:     [wwwroot]:" + css_bundle_path_alt);
 				minify_css(css_bundle_path.c_str(), replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + Settings::SCSS_INCLUDE_DIR), "\\", "/").c_str(), Settings::SCSS_PRECISION);
 				should_minify_css = false;
+				Logger::log_info("SCSS Compiled:      [wwwroot]:" + css_bundle_path_alt);
+				Logger::log_nl();
 			}
 
 			if (should_minify_js)
 			{
 				string js_bundle_path = Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + "/bundle.min.js";
-				Logger::log_info("Compiling File:     [wwwroot]:" + js_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
+				string js_bundle_path_alt = js_bundle_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
+				Logger::log_info("Compiling File:     [wwwroot]:" + js_bundle_path_alt);
 				minify_js(js_bundle_path.c_str());
 				should_minify_js = false;
+				Logger::log_info("JS Compiled:        [wwwroot]:" + js_bundle_path_alt);
+				Logger::log_nl();
 			}
 
 			if (first_loop)
 			{
-				Logger::log_nl();
 				Logger::log_divide();
 				Logger::log_nl();
 				Logger::log_info("Now listening for file changes...");
