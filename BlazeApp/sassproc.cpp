@@ -57,23 +57,28 @@ void minify_css(const char* to, const char* include_path, int precision)
 	sass_option_set_precision(ctx_opt, precision);
 
 	const char* output = nullptr;
-	if (sass_compile_data_context(data_ctx) == 0) output = sass_context_get_output_string(ctx);
+	bool error = false;
+	if (error = sass_compile_data_context(data_ctx) == 0) output = sass_context_get_output_string(ctx);
 	else output = sass_context_get_error_message(ctx);
 
 	if (filesystem::exists(to)) filesystem::remove_all(to);
 
-	ofstream fileOut(to, ios_base::binary);
-	fileOut.write(output, strlen(output));
-	if (!css_data.empty()) 
+	if (!error)
 	{
-		auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_css"));
-		if (func == NULL) Logger::log_last_error();
-		else
+		ofstream fileOut(to, ios_base::binary);
+		fileOut.write(output, strlen(output));
+		if (!css_data.empty())
 		{
-			string result = minify_css_interface(func, css_data);
-			fileOut.write(result.c_str(), result.length());
+			auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_css"));
+			if (func == NULL) Logger::log_last_error();
+			else
+			{
+				string result = minify_css_interface(func, css_data);
+				fileOut.write(result.c_str(), result.length());
+			}
 		}
+		fileOut.close();
 	}
-	fileOut.close();
+	else Logger::log_error(output);
 	sass_delete_data_context(data_ctx);
 }
