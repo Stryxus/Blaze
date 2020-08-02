@@ -58,8 +58,12 @@ void minify_css(const char* to, const char* include_path, int precision)
 
 	const char* output = nullptr;
 	bool error = false;
-	if (error = sass_compile_data_context(data_ctx) == 0) output = sass_context_get_output_string(ctx);
-	else output = sass_context_get_error_message(ctx);
+	if (sass_compile_data_context(data_ctx) == 0) output = sass_context_get_output_string(ctx);
+	else
+	{
+		output = sass_context_get_error_message(ctx);
+		error = true;
+	}
 
 	if (filesystem::exists(to)) filesystem::remove_all(to);
 
