@@ -243,9 +243,6 @@ void start_project_processing()
 		filesystem::create_directory(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
 	}
 
-	Logger::log_info("Listening for file changes...");
-	Logger::log_nl();
-
 	unordered_map<string, filesystem::file_time_type> path_access_times;
 
 	while (TRUE) 
