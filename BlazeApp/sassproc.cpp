@@ -85,4 +85,6 @@ void minify_css(const char* to, const char* include_path, int precision)
 	}
 	else Logger::log_error(output);
 	sass_delete_data_context(data_ctx);
+	scss_data = "";
+	css_data = "";
 }
