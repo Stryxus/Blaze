@@ -36,5 +36,5 @@ void minify_js(const char* to)
 		fileOut.write(result.c_str(), result.length());
 		fileOut.close();
 	}
-	js_data = "";
+	js_data.clear();
 }

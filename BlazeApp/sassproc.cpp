@@ -47,7 +47,7 @@ void add_css_for_minification(const char* from)
 void minify_css(const char* to, const char* include_path, int precision)
 {
 	struct Sass_Data_Context* data_ctx = sass_make_data_context(sass_copy_c_string(scss_data.c_str()));
-	scss_data = "";
+	scss_data.clear();
 	struct Sass_Context* ctx = sass_data_context_get_context(data_ctx);
 	struct Sass_Options* ctx_opt = sass_context_get_options(ctx);
 
@@ -79,7 +79,7 @@ void minify_css(const char* to, const char* include_path, int precision)
 			else
 			{
 				string result = minify_css_interface(func, css_data);
-				css_data = "";
+				css_data.clear();
 				fileOut.write(result.c_str(), result.length());
 			}
 		}
