@@ -16,6 +16,18 @@ bool should_minify_css = false;
 bool should_minify_js = false;
 bool first_loop = true;
 
+void copy_file(string& path, string& copy_to_path, string& relative_path)
+{
+	Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
+	filesystem::copy(path, copy_to_path);
+}
+
+void delete_file(string& path, string& copy_to_path_relative)
+{
+	Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
+	filesystem::remove_all(path);
+}
+
 void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
 	if (extension == ".png")
@@ -88,11 +100,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 			}
 		}
 	}
-	else
-	{
-		Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
-		filesystem::copy(path, copy_to_path);
-	}
+	else copy_file(path, copy_to_path, relative_path);
 }
 
 bool is_scss_bundle_compiled = false;
@@ -115,6 +123,7 @@ void process_entry(const filesystem::directory_entry& entry)
 	{
 		bool isDir = is_directory(entry);
 		filesystem::path ctp(isDir ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str())) : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path);
+		string ctps(ctp.string());
 		if (isDir)
 		{
 			for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
@@ -133,13 +142,10 @@ void process_entry(const filesystem::directory_entry& entry)
 							filesystem::create_directory(ctp);
 						}
 					}
-					else
+					else if (filesystem::exists(ctp)) 
 					{
-						if (filesystem::exists(ctp))
-						{
-							Logger::log_info("Deleting Directory: [wwwroot]:" + relative_path);
-							filesystem::remove_all(ctp);
-						}
+						Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
+						filesystem::copy(path, copy_to_path);
 					}
 					break;
 				}
@@ -162,14 +168,7 @@ void process_entry(const filesystem::directory_entry& entry)
 						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-						else
-						{
-							if (filesystem::exists(copy_to_path))
-							{
-								Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
-								filesystem::remove_all(copy_to_path);
-							}
-						}
+						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, copy_to_path_relative);
 					}
 					else if (extension == ".sass" || extension == ".scss")
 					{
@@ -181,14 +180,7 @@ void process_entry(const filesystem::directory_entry& entry)
 							copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 
 							if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-							else
-							{
-								if (filesystem::exists(copy_to_path))
-								{
-									Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
-									filesystem::remove_all(copy_to_path);
-								}
-							}
+							else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, copy_to_path_relative);
 						}
 						else return;
 					}
@@ -198,14 +190,7 @@ void process_entry(const filesystem::directory_entry& entry)
 						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-						else
-						{
-							if (filesystem::exists(copy_to_path))
-							{
-								Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
-								filesystem::remove_all(copy_to_path);
-							}
-						}
+						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, copy_to_path_relative);
 					}
 					else if (extension == ".js")
 					{
@@ -213,14 +198,7 @@ void process_entry(const filesystem::directory_entry& entry)
 						copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
 
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, copy_to_path_relative);
-						else
-						{
-							if (filesystem::exists(copy_to_path))
-							{
-								Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
-								filesystem::remove_all(copy_to_path);
-							}
-						}
+						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, copy_to_path_relative);
 					}
 				}
 				else if (
@@ -234,11 +212,7 @@ void process_entry(const filesystem::directory_entry& entry)
 						extension == ".webp" || 
 						extension == ".html" ||
 						extension == ".js"
-					)
-				{
-					Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
-					filesystem::copy(path, ctp.string());
-				}
+					) copy_file(path, ctps, relative_path);
 			}
 		}
 	}
