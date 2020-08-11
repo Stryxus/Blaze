@@ -1,5 +1,5 @@
 # Blaze
-The optimization and delivery tool for Star Athenaeum's Blazor projects.
+The optimization and delivery tool for Star Athenaeum's Blazor projects and anything which has a wwwroot for assets.
 ## Distribution
 There will be distribution of Blaze through this repository on the releases page eventually.
 ## Contributing
