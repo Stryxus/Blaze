@@ -14,6 +14,7 @@ vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css
 string scss_bundle_file_path = "";
 bool should_minify_css = false;
 bool should_minify_js = false;
+bool first_loop = true;
 
 void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
@@ -174,6 +175,7 @@ void process_entry(const filesystem::directory_entry& entry)
 					{
 						if (!is_scss_bundle_compiled)
 						{
+							if (first_loop && !json_entry_exists(Settings::FILE_CONFIGS, relative_path)) return;
 							is_scss_bundle_compiled = true;
 							copy_to_path = ctp.string();
 							copy_to_path_relative = copy_to_path.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str()));
@@ -241,8 +243,6 @@ void process_entry(const filesystem::directory_entry& entry)
 		}
 	}
 }
-
-bool first_loop = true;
 
 void start_project_processing()
 {
