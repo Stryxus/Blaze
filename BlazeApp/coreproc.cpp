@@ -70,12 +70,21 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 	{
 		bool enabled = false;
 		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
+		int order = -1;
+		if (json_entry_exists(file_config, "order")) order = static_cast<int>(file_config["order"]);
 
 		if (enabled)
 		{
-			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
-			add_js_for_minification(path.c_str());
-			should_minify_js = true;
+			if (order != -1) 
+			{
+				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				add_js_for_minification(path.c_str(), order);
+				should_minify_js = true;
+			}
+			else 
+			{
+				Logger::log_error("File: " + path + " does not include an order value in blaze-settings.json. Ignoring...");
+			}
 		}
 	}
 	else
