@@ -12,12 +12,25 @@ string minify_js(string(*f)(string&), string content)
 
 vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js", ".wav" };
 string scss_bundle_file_path = "";
+string current_base_directory = "";
+bool is_scss_bundle_compiled = false;
 bool should_minify_css = false;
 bool should_minify_js = false;
 bool first_loop = true;
 
 void copy_file(string& path, string& copy_to_path, string& relative_path)
 {
+	string cpt_base = "";
+	if ((cpt_base = replace_copy(copy_to_path.substr(0, copy_to_path.find_last_of("/")), Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT, "")) != current_base_directory)
+	{
+		Logger::log_nl();
+		Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
+		Logger::log_info("Using Directory:    [wwwroot]:" + cpt_base);
+		Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+		Logger::log_divide();
+		current_base_directory = cpt_base;
+	}
+
 	Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
 	filesystem::copy(path, copy_to_path);
 }
@@ -30,6 +43,17 @@ void delete_file(string& path, string& copy_to_path_relative)
 
 void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
+	string cpt_base = "";
+	if ((cpt_base = replace_copy(copy_to_path.substr(0, copy_to_path.find_last_of("/")), Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT, "")) != current_base_directory)
+	{
+		Logger::log_nl();
+		Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
+		Logger::log_info("Using Directory:    [wwwroot]:" + cpt_base);
+		Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+		Logger::log_divide();
+		current_base_directory = cpt_base;
+	}
+
 	if (extension == ".png")
 	{
 		bool enabled = false;
@@ -103,8 +127,6 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 	else copy_file(path, copy_to_path, relative_path);
 }
 
-bool is_scss_bundle_compiled = false;
-
 void process_entry(const filesystem::directory_entry& entry)
 {
 	string path = replace_copy(entry.path().string(), "\\", "/");
@@ -121,26 +143,23 @@ void process_entry(const filesystem::directory_entry& entry)
 
 	if (!is_blacklisted)
 	{
-		bool isDir = is_directory(entry);
-		filesystem::path ctp(isDir ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str())) : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path);
+		bool is_dir = is_directory(entry);
+		filesystem::path ctp(is_dir ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str())) : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path);
 		string ctps(ctp.string());
-		if (isDir)
+
+		if (is_dir)
 		{
 			for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
 			{
 				if (!is_directory(entry2) && find(directory_sub_extention_exclusion_filter.begin(), directory_sub_extention_exclusion_filter.end(), entry2.path().extension()) == directory_sub_extention_exclusion_filter.end())
 				{
-					if (filesystem::exists(path))
+					if (filesystem::exists(path) && !filesystem::exists(ctp))
 					{
-						if (!filesystem::exists(ctp))
-						{
-							Logger::log_nl();
-							Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
-							Logger::log_info("Creating Directory: [wwwroot]:" + relative_path);
-							Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
-							Logger::log_divide();
-							filesystem::create_directory(ctp);
-						}
+						Logger::log_nl();
+						Logger::set_log_color(Logger::COLOR::MAGENTA_FOREGROUND);
+						Logger::log_info("Creating Directory: [wwwroot]:" + relative_path);
+						Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+						filesystem::create_directory(ctp);
 					}
 					break;
 				}
