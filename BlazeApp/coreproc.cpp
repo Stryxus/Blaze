@@ -142,11 +142,6 @@ void process_entry(const filesystem::directory_entry& entry)
 							filesystem::create_directory(ctp);
 						}
 					}
-					else if (filesystem::exists(ctp)) 
-					{
-						Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
-						filesystem::copy(path, copy_to_path);
-					}
 					break;
 				}
 			}
@@ -230,7 +225,7 @@ void start_project_processing()
 
 	while (TRUE) 
 	{
-		for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::SOURCE_RESOURCE_DIR))
+		for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::SOURCE_RESOURCE_DIR)) 
 		{
 			string path = entry.path().string();
 			if (path_access_times.find(path) != path_access_times.end())
@@ -242,7 +237,7 @@ void start_project_processing()
 					path_access_times[path] = last_write;
 				}
 			}
-			else 
+			else
 			{
 				process_entry(entry);
 				path_access_times[path] = filesystem::last_write_time(entry);
