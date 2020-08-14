@@ -4,11 +4,6 @@
 #include <sass.h>
 using namespace Sass;
 
-string minify_css_interface(string(*f)(string&), string content)
-{
-	return (*f)(content);
-}
-
 string scss_data = "";
 string css_data = "";
 
@@ -74,14 +69,9 @@ void minify_css(const char* to, const char* include_path, int precision)
 		fileOut.write(output, strlen(output));
 		if (!css_data.empty())
 		{
-			auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_css"));
-			if (func == NULL) Logger::log_last_error();
-			else
-			{
-				string result = minify_css_interface(func, css_data);
-				css_data.clear();
-				fileOut.write(result.c_str(), result.length());
-			}
+			string result = DotNetWrapper::DOTNET_MINIFY_CSS(css_data);
+			css_data.clear();
+			fileOut.write(result.c_str(), result.length());
 		}
 		fileOut.close();
 	}

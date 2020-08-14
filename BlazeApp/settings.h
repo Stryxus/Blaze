@@ -11,6 +11,7 @@ public:
 	static string SCSS_INCLUDE_DIR;
 	static int SCSS_PRECISION;
 	static vector<string> BLACKLISTED_DIRECTORIES;
+	static vector<string> JS_DEPENDENCY_LINKS;
 	static map<string, JSON> FILE_CONFIGS;
 
 private:

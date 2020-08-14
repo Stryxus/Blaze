@@ -68,6 +68,9 @@
     <ClInclude Include="jsproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
+    <ClInclude Include="netwrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp">
@@ -114,6 +117,9 @@
     </ClCompile>
     <ClCompile Include="jsproc.cpp">
       <Filter>Source Files\Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="netwrapper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

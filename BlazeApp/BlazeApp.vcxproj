@@ -168,6 +168,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClInclude Include="settings.h" />
     <ClInclude Include="strutils.h" />
     <ClInclude Include="vidproc.h" />
+    <ClInclude Include="netwrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="audproc.cpp" />
@@ -185,6 +186,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="strutils.cpp" />
     <ClCompile Include="vidproc.cpp" />
+    <ClCompile Include="netwrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

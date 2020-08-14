@@ -6,6 +6,7 @@ bool Settings::FORMAT_RESOURCE_DIR = false;
 string Settings::SCSS_INCLUDE_DIR = "";
 int Settings::SCSS_PRECISION = 3;
 vector<string> Settings::BLACKLISTED_DIRECTORIES = {};
+vector<string> Settings::JS_DEPENDENCY_LINKS = {};
 map<string, JSON> Settings::FILE_CONFIGS = {};
 
 JSON Settings::default_settings =
@@ -17,6 +18,8 @@ JSON Settings::default_settings =
 	{"scssIncludeDirectory", SCSS_INCLUDE_DIR},
 	{"scssPrecision", SCSS_PRECISION},
 	{"blacklistedDirectories", BLACKLISTED_DIRECTORIES},
+	// Links to all javascript dependencies for download
+	{"jsDependencyLinks", JS_DEPENDENCY_LINKS},
 	// Every file in the website root source files must be declared here before anything will be done to it.
 	{"fileConfigs", FILE_CONFIGS}
 };
@@ -51,6 +54,7 @@ bool Settings::get_settings()
 		Settings::SCSS_INCLUDE_DIR = Settings::settings["scssIncludeDirectory"];
 		Settings::SCSS_PRECISION = Settings::settings["scssPrecision"];
 		Settings::BLACKLISTED_DIRECTORIES = Settings::settings["blacklistedDirectories"].get<vector<string>>();
+		Settings::JS_DEPENDENCY_LINKS = Settings::settings["jsDependencyLinks"].get<vector<string>>();
 
 		Settings::FILE_CONFIGS = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
 	}
@@ -75,6 +79,7 @@ bool Settings::set_settings(bool setDefaultSettings)
 			Settings::settings["scssIncludeDirectory"] = Settings::SCSS_INCLUDE_DIR;
 			Settings::settings["scssPrecision"] = Settings::SCSS_PRECISION;
 			Settings::settings["blacklistedDirectories"] = Settings::BLACKLISTED_DIRECTORIES;
+			Settings::settings["jsDependencyLinks"] = Settings::JS_DEPENDENCY_LINKS;
 
 			Settings::settings["fileConfigs"] = Settings::FILE_CONFIGS;
 

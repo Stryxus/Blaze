@@ -1,12 +1,9 @@
 #include "pch.h"
 #include "jsproc.h"
 
-string minify_js_interface(string(*f)(string&), string content)
-{
-	return (*f)(content);
-}
-
 map<int, string> js_ordered_content;
+vector<string> currently_cached_dependencies;
+string js_dependencies;
 
 void add_js_for_minification(const char* from, int order)
 {
@@ -26,17 +23,21 @@ void add_js_for_minification(const char* from, int order)
 
 void minify_js(const char* to)
 {
-	auto func = reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "minify_js"));
-	if (func == NULL) Logger::log_last_error();
-	else
+	for (string s : Settings::JS_DEPENDENCY_LINKS) 
 	{
-		string js_data = "";
-		for (auto const& [key, val] : js_ordered_content) js_data += val;
-		string result = minify_js_interface(func, js_data);
-		if (filesystem::exists(to)) filesystem::remove_all(to);
-		ofstream fileOut(to, ios_base::binary);
-		fileOut.write(result.c_str(), result.length());
-		fileOut.close();
+		if (find(currently_cached_dependencies.begin(), currently_cached_dependencies.end(), s) != currently_cached_dependencies.end() == false) 
+		{
+			Logger::log_info("Downloading JS:     " + s);
+			js_dependencies += DotNetWrapper::DOTNET_DOWNLOAD_STRING(s);
+		}
 	}
+	currently_cached_dependencies = Settings::JS_DEPENDENCY_LINKS;
+	string js_data = js_dependencies;
+	for (auto const& [key, val] : js_ordered_content) js_data += val;
+	string result = DotNetWrapper::DOTNET_MINIFY_JS(js_data);
+	if (filesystem::exists(to)) filesystem::remove_all(to);
+	ofstream fileOut(to, ios_base::binary);
+	fileOut.write(result.c_str(), result.length());
+	fileOut.close();
 	js_ordered_content.clear();
 }

@@ -28,6 +28,7 @@ using JSON = nlohmann::json;
 #pragma warning(push);
 #pragma warning(disable : 4081);
 
+#include "netwrapper.h"
 #include "strutils.h"
 #include "ioutils.h"
 #include "jsonutils.h"

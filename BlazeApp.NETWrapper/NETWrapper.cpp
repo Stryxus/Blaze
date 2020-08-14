@@ -3,7 +3,8 @@
 #include "NETWrapper.h"
 
 using namespace System;
-using namespace Runtime::InteropServices;
+using namespace System::Net;
+using namespace System::Runtime::InteropServices;
 
 using namespace NUglify;
 using namespace NUglify::Css;
@@ -43,6 +44,16 @@ string minify_js(string& content)
 
 	string rstr;
 	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(result.Code)).ToPointer();
+	rstr = chars;
+	Marshal::FreeHGlobal(IntPtr((void*)chars));
+	return rstr;
+}
+
+string download_data(string& link)
+{
+	WebClient^ client = gcnew WebClient();
+	string rstr;
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(client->DownloadString(gcnew String(link.c_str())))).ToPointer();
 	rstr = chars;
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 	return rstr;
