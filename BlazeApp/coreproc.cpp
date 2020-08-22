@@ -39,7 +39,7 @@ void copy_file(string& path, string& copy_to_path, string& relative_path)
 	filesystem::copy(path, copy_to_path);
 }
 
-void delete_path(string& path, string& copy_to_path_relative)
+void delete_file(string& path, string& copy_to_path_relative)
 {
 	Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
 	filesystem::remove_all(path);
@@ -147,7 +147,7 @@ void process_entry(const filesystem::directory_entry& entry)
 
 		if (is_dir)
 		{
-			if (!filesystem::exists(path) && filesystem::exists(ctp)) delete_path(ctps, ctps_relative);
+			if (!filesystem::exists(path) && filesystem::exists(ctp)) delete_file(ctps, ctps_relative);
 			else 
 			{
 				for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
@@ -182,7 +182,7 @@ void process_entry(const filesystem::directory_entry& entry)
 					{
 						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-						else if (filesystem::exists(copy_to_path)) delete_path(copy_to_path, ctps_relative);
+						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 					}
 					else if (extension == ".sass" || extension == ".scss")
 					{
@@ -192,7 +192,7 @@ void process_entry(const filesystem::directory_entry& entry)
 							is_scss_bundle_compiled = true;
 							copy_to_path = ctp.string();
 							if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-							else if (filesystem::exists(copy_to_path)) delete_path(copy_to_path, ctps_relative);
+							else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 						}
 						else return;
 					}
@@ -200,13 +200,13 @@ void process_entry(const filesystem::directory_entry& entry)
 					{
 						copy_to_path = ctp.string();
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-						else if (filesystem::exists(copy_to_path)) delete_path(copy_to_path, ctps_relative);
+						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 					}
 					else if (extension == ".js")
 					{
 						copy_to_path = ctp.string();
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-						else if (filesystem::exists(copy_to_path)) delete_path(copy_to_path, ctps_relative);
+						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 					}
 				}
 				else if (
