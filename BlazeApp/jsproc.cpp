@@ -37,7 +37,7 @@ void minify_js(const char* to)
 	string js_data = js_dependencies;
 	for (auto const& [key, val] : js_ordered_content) js_data += val;
 	string result = DotNetWrapper::DOTNET_MINIFY_JS(js_data);
-	if (filesystem::exists(to)) filesystem::remove_all(to);
+	if (fs::exists(to)) fs::remove_all(to);
 	ofstream fileOut(to, ios_base::binary);
 	fileOut.write(result.c_str(), result.length());
 	fileOut.close();

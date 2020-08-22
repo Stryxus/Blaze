@@ -36,10 +36,10 @@ void copy_file(string& path, string& copy_to_path, string& relative_path)
 {
 	using_directory_check(copy_to_path);
 	Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
-	filesystem::copy(path, copy_to_path);
+	fs::copy(path, copy_to_path);
 }
 
-void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
+void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
 	if (extension == ".png")
 	{
@@ -118,7 +118,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 	else copy_file(path, copy_to_path, relative_path);
 }
 
-void process_entry(const filesystem::directory_entry& entry)
+void process_entry(const fs::directory_entry& entry)
 {
 	string path = replace_copy(entry.path().string(), "\\", "/");
 	string relative_path = path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str()));
@@ -135,25 +135,25 @@ void process_entry(const filesystem::directory_entry& entry)
 	if (!is_blacklisted)
 	{
 		bool is_dir = is_directory(entry);
-		filesystem::path ctp(is_dir ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str())) : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path);
+		fs::path ctp(is_dir ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + path.substr(strlen(Settings::SOURCE_RESOURCE_DIR.c_str())) : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT + relative_path);
 		string ctps(ctp.string());
 		string ctps_relative(ctps.substr(strlen(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT.c_str())));
 
 		if (is_dir)
 		{
-			if (filesystem::exists(path))
+			if (fs::exists(path))
 			{
-				for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
+				for (const fs::directory_entry& entry2 : fs::recursive_directory_iterator(entry))
 				{
 					if (!is_directory(entry2) && find(directory_sub_extention_exclusion_filter.begin(), directory_sub_extention_exclusion_filter.end(), entry2.path().extension()) == directory_sub_extention_exclusion_filter.end())
 					{
-						if (filesystem::exists(path) && !filesystem::exists(ctp))
+						if (fs::exists(path) && !fs::exists(ctp))
 						{
 							Logger::log_nl();
 							Logger::set_log_color(Logger::COLOR::MAGENTA_FOREGROUND);
 							Logger::log_info("Creating Directory: [wwwroot]:" + relative_path);
 							Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
-							filesystem::create_directory(ctp);
+							fs::create_directory(ctp);
 						}
 						break;
 					}
@@ -162,7 +162,7 @@ void process_entry(const filesystem::directory_entry& entry)
 		}
 		else
 		{
-			filesystem::path extension;
+			fs::path extension;
 			if (ctp.has_extension() && (extension = ctp.extension()) != "")
 			{
 				if (json_entry_exists(Settings::FILE_CONFIGS, relative_path) || 
@@ -174,7 +174,7 @@ void process_entry(const filesystem::directory_entry& entry)
 					if (extension == ".png")
 					{
 						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
-						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
+						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 					else if (extension == ".sass" || extension == ".scss")
 					{
@@ -183,19 +183,19 @@ void process_entry(const filesystem::directory_entry& entry)
 							if (first_loop && !json_entry_exists(Settings::FILE_CONFIGS, relative_path)) return;
 							is_scss_bundle_compiled = true;
 							copy_to_path = ctp.string();
-							if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
+							if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 						}
 						else return;
 					}
 					else if (extension == ".css")
 					{
 						copy_to_path = ctp.string();
-						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
+						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 					else if (extension == ".js")
 					{
 						copy_to_path = ctp.string();
-						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
+						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 				}
 				else if (
@@ -219,21 +219,21 @@ void start_project_processing()
 {
 	if (Settings::FORMAT_RESOURCE_DIR)
 	{
-		filesystem::remove_all(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
-		filesystem::create_directory(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
+		fs::remove_all(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
+		fs::create_directory(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT);
 	}
 
-	unordered_map<string, filesystem::file_time_type> path_access_times;
+	unordered_map<string, fs::file_time_type> path_access_times;
 
 	while (TRUE) 
 	{
-		for (const filesystem::directory_entry& entry : filesystem::recursive_directory_iterator(Settings::SOURCE_RESOURCE_DIR)) 
+		for (const fs::directory_entry& entry : fs::recursive_directory_iterator(Settings::SOURCE_RESOURCE_DIR)) 
 		{
 			string path = entry.path().string();
 			if (path_access_times.find(path) != path_access_times.end())
 			{
-				filesystem::file_time_type last_write;
-				if ((last_write = filesystem::last_write_time(entry)) != path_access_times[path])
+				fs::file_time_type last_write;
+				if ((last_write = fs::last_write_time(entry)) != path_access_times[path])
 				{
 					process_entry(entry);
 					path_access_times[path] = last_write;
@@ -242,7 +242,7 @@ void start_project_processing()
 			else
 			{
 				process_entry(entry);
-				path_access_times[path] = filesystem::last_write_time(entry);
+				path_access_times[path] = fs::last_write_time(entry);
 			}
 		}
 
@@ -299,6 +299,6 @@ void start_project_processing()
 		}
 
 		first_loop = false;
-		this_thread::sleep_for(chrono::milliseconds(500));
+		this_thread::sleep_for(ch::milliseconds(500));
 	}
 }

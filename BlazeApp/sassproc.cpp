@@ -61,7 +61,7 @@ void minify_css(const char* to, const char* include_path, int precision)
 		error = true;
 	}
 
-	if (filesystem::exists(to)) filesystem::remove_all(to);
+	if (fs::exists(to)) fs::remove_all(to);
 
 	if (!error)
 	{
