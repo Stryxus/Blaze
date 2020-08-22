@@ -1,9 +1,6 @@
 [submodule "BinaryStarLib"]
 	path = BinaryStarLib
 	url = https://github.com/Star-Athenaeum/BinaryStarLib
-[submodule "libavif"]
-	path = libavif
-	url = https://github.com/AOMediaCodec/libavif
 [submodule "libwebp"]
 	path = libwebp
 	url = https://github.com/webmproject/libwebp
