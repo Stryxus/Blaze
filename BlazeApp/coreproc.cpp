@@ -47,7 +47,6 @@ void delete_path(string& path, string& copy_to_path_relative)
 
 void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
-	using_directory_check(copy_to_path);
 	if (extension == ".png")
 	{
 		bool enabled = false;
@@ -55,6 +54,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 
 		if (enabled)
 		{
+			using_directory_check(copy_to_path);
 			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 			convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
 				static_cast<int>(file_config["width"]),
@@ -73,6 +73,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 		{
 			if (scss_bundle_file_path.empty())
 			{
+				using_directory_check(copy_to_path);
 				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 				add_scss_for_minification(path.c_str());
 				should_minify_css = true;
@@ -92,6 +93,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 
 		if (enabled)
 		{
+			using_directory_check(copy_to_path);
 			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 			add_css_for_minification(path.c_str());
 			should_minify_css = true;
@@ -108,6 +110,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 		{
 			if (order != -1) 
 			{
+				using_directory_check(copy_to_path);
 				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 				add_js_for_minification(path.c_str(), order);
 				should_minify_js = true;
