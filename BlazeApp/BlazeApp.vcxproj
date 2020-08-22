@@ -167,6 +167,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="strutils.h" />
+    <ClInclude Include="timeutils.h" />
     <ClInclude Include="vidproc.h" />
     <ClInclude Include="netwrapper.h" />
   </ItemGroup>
@@ -185,6 +186,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="strutils.cpp" />
+    <ClCompile Include="timeutils.cpp" />
     <ClCompile Include="vidproc.cpp" />
     <ClCompile Include="netwrapper.cpp" />
   </ItemGroup>

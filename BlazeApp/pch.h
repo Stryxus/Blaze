@@ -23,7 +23,7 @@
 #pragma warning(pop);
 
 using namespace std;
-namespace ch = std::chrono;
+namespace cr = std::chrono;
 namespace fs = std::filesystem;
 using JSON = nlohmann::json;
 
@@ -32,6 +32,7 @@ using JSON = nlohmann::json;
 
 #include "netwrapper.h"
 #include "strutils.h"
+#include "timeutils.h"
 #include "ioutils.h"
 #include "jsonutils.h"
 #include "globals.h"

@@ -50,10 +50,16 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 		{
 			using_directory_check(copy_to_path);
 			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+			cr::high_resolution_clock clock;
+			cr::steady_clock::time_point start_time = clock.now();
 			convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
 				static_cast<int>(file_config["width"]),
 				static_cast<int>(file_config["height"]),
 				static_cast<float>(file_config["quality"]));
+			cr::steady_clock::time_point end_time = clock.now();
+			Logger::set_log_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
+			Logger::log_info("Processed File:     [wwwroot]:" + copy_to_path_relative + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
+			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 		}
 	}
 	else if (extension == ".sass" || extension == ".scss")
@@ -68,7 +74,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			if (scss_bundle_file_path.empty())
 			{
 				using_directory_check(copy_to_path);
-				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative);
 				add_scss_for_minification(path.c_str());
 				should_minify_css = true;
 				scss_bundle_file_path = path;
@@ -88,7 +94,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 		if (enabled)
 		{
 			using_directory_check(copy_to_path);
-			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+			Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative);
 			add_css_for_minification(path.c_str());
 			should_minify_css = true;
 		}
@@ -105,7 +111,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			if (order != -1) 
 			{
 				using_directory_check(copy_to_path);
-				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative);
 				add_js_for_minification(path.c_str(), order);
 				should_minify_js = true;
 			}
@@ -258,10 +264,14 @@ void start_project_processing()
 				Logger::set_log_color(Logger::COLOR::BRIGHT_BLUE_FOREGROUND);
 				Logger::log_info("Compiling File:     [wwwroot]:" + css_bundle_path_alt);
 				Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+				cr::high_resolution_clock clock;
+				cr::steady_clock::time_point start_time = clock.now();
 				minify_css(css_bundle_path.c_str(), replace_copy(string(Settings::SOURCE_RESOURCE_DIR + "\\" + Settings::SCSS_INCLUDE_DIR), "\\", "/").c_str(), Settings::SCSS_PRECISION);
+				cr::steady_clock::time_point end_time = clock.now();
+				long long result_time = cr::duration_cast<cr::milliseconds>(end_time - start_time).count();
 				should_minify_css = false;
 				Logger::set_log_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
-				Logger::log_info("SCSS Compiled:      [wwwroot]:" + css_bundle_path_alt);
+				Logger::log_info("SCSS Compiled:      [wwwroot]:" + css_bundle_path_alt + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
 				Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 				Logger::log_nl();
 			}
@@ -273,10 +283,14 @@ void start_project_processing()
 				Logger::set_log_color(Logger::COLOR::BRIGHT_BLUE_FOREGROUND);
 				Logger::log_info("Compiling File:     [wwwroot]:" + js_bundle_path_alt);
 				Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+				cr::high_resolution_clock clock;
+				cr::steady_clock::time_point start_time = clock.now();
 				minify_js(js_bundle_path.c_str());
+				cr::steady_clock::time_point end_time = clock.now();
+				long long result_time = cr::duration_cast<cr::milliseconds>(end_time - start_time).count();
 				should_minify_js = false;
 				Logger::set_log_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
-				Logger::log_info("JS Compiled:        [wwwroot]:" + js_bundle_path_alt);
+				Logger::log_info("JS Compiled:        [wwwroot]:" + js_bundle_path_alt + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
 				Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 				Logger::log_nl();
 			}
@@ -299,6 +313,6 @@ void start_project_processing()
 		}
 
 		first_loop = false;
-		this_thread::sleep_for(ch::milliseconds(500));
+		this_thread::sleep_for(cr::milliseconds(500));
 	}
 }

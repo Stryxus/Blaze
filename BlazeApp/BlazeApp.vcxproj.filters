@@ -71,6 +71,9 @@
     <ClInclude Include="netwrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="timeutils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp">
@@ -120,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="netwrapper.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="timeutils.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
