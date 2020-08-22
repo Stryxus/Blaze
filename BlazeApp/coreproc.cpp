@@ -39,12 +39,6 @@ void copy_file(string& path, string& copy_to_path, string& relative_path)
 	filesystem::copy(path, copy_to_path);
 }
 
-void delete_file(string& path, string& copy_to_path_relative)
-{
-	Logger::log_info("Deleting File:      [wwwroot]:" + copy_to_path_relative);
-	filesystem::remove_all(path);
-}
-
 void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_config, string& path, string& relative_path, string& copy_to_path, string& copy_to_path_relative)
 {
 	if (extension == ".png")
@@ -217,11 +211,7 @@ void process_entry(const filesystem::directory_entry& entry)
 					extension == ".webp" ||
 					extension == ".html" ||
 					extension == ".js"
-					)
-				{
-						if (!filesystem::exists(path) && filesystem::exists(ctps)) delete_file(path, ctps_relative);
-						else copy_file(path, ctps, relative_path);
-				}
+					) copy_file(path, ctps, relative_path);
 			}
 		}
 	}
