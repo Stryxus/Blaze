@@ -43,6 +43,8 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 {
 	if (extension == ".png")
 	{
+		copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
+
 		bool enabled = false;
 		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 
@@ -64,6 +66,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 	}
 	else if (extension == ".sass" || extension == ".scss")
 	{
+		copy_to_path = ctp.string();
 		JSON file_config = Settings::FILE_CONFIGS[relative_path];
 
 		bool enabled = false;
@@ -88,6 +91,8 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 	}
 	else if (extension == ".css")
 	{
+		copy_to_path = ctp.string();
+
 		bool enabled = false;
 		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 
@@ -101,6 +106,8 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 	}
 	else if (extension == ".js")
 	{
+		copy_to_path = ctp.string();
+
 		bool enabled = false;
 		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 		int order = -1;
@@ -179,7 +186,6 @@ void process_entry(const fs::directory_entry& entry)
 				{
 					if (extension == ".png")
 					{
-						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
 						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 					else if (extension == ".sass" || extension == ".scss")
@@ -188,19 +194,16 @@ void process_entry(const fs::directory_entry& entry)
 						{
 							if (first_loop && !json_entry_exists(Settings::FILE_CONFIGS, relative_path)) return;
 							is_scss_bundle_compiled = true;
-							copy_to_path = ctp.string();
 							if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 						}
 						else return;
 					}
 					else if (extension == ".css")
 					{
-						copy_to_path = ctp.string();
 						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 					else if (extension == ".js")
 					{
-						copy_to_path = ctp.string();
 						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 				}
