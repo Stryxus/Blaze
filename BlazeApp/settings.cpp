@@ -38,6 +38,7 @@ bool Settings::get_settings()
 			while (getline(settingsFile, currentLine)) settingsRead += currentLine;
 			settingsFile.close();
 		}
+		Settings::settings = JSON::parse(settingsRead);
 	}
 	catch (exception e)
 	{
@@ -45,30 +46,66 @@ bool Settings::get_settings()
 		getchar();
 		return false;
 	}
-	try
+
+	try 
 	{
-		Settings::settings = JSON::parse(settingsRead);
-
 		Settings::SOURCE_RESOURCE_DIR = Settings::settings["sourceResourcesDir"];
-		Settings::FORMAT_RESOURCE_DIR = Settings::settings["formatWebsiteRoot"];
-		Settings::SCSS_INCLUDE_DIR = Settings::settings["scssIncludeDirectory"];
-		Settings::SCSS_PRECISION = Settings::settings["scssPrecision"];
-		Settings::BLACKLISTED_DIRECTORIES = Settings::settings["blacklistedDirectories"].get<vector<string>>();
-		Settings::JS_DEPENDENCY_LINKS = Settings::settings["jsDependencyLinks"].get<vector<string>>();
-
-		Settings::FILE_CONFIGS = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
 	}
 	catch (exception e)
 	{
-		Logger::log_error("An error occurred while parsing the specified blaze-settings.json file! This is most likely caused by incorrect formatting. " + *e.what());
+		Logger::log_error("sourceResourceDir was not set! Cannot continue! " + *e.what());
 		getchar();
 		return false;
 	}
+
+	try
+	{
+		Settings::FORMAT_RESOURCE_DIR = Settings::settings["formatWebsiteRoot"];
+	}
+	catch (exception e)
+	{ }
+
+	try
+	{
+		Settings::SCSS_INCLUDE_DIR = Settings::settings["scssIncludeDirectory"];
+	}
+	catch (exception e)
+	{ }
+
+	try
+	{
+		Settings::SCSS_PRECISION = Settings::settings["scssPrecision"];
+	}
+	catch (exception e)
+	{ }
+
+	try
+	{
+		Settings::BLACKLISTED_DIRECTORIES = Settings::settings["blacklistedDirectories"].get<vector<string>>();
+	}
+	catch (exception e)
+	{ }
+
+	try
+	{
+		Settings::JS_DEPENDENCY_LINKS = Settings::settings["jsDependencyLinks"].get<vector<string>>();
+	}
+	catch (exception e)
+	{ }
+
+	try
+	{
+		Settings::FILE_CONFIGS = Settings::settings.at("fileConfigs").get<map<string, JSON>>();
+	}
+	catch (exception e)
+	{ }
+
 	return true;
 }
 
 bool Settings::set_settings(bool setDefaultSettings)
 {
+	/*
 	try
 	{
 		ofstream settingsFile(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
@@ -94,5 +131,6 @@ bool Settings::set_settings(bool setDefaultSettings)
 		getchar();
 		return false;
 	}
+	*/
 	return true;
 }
