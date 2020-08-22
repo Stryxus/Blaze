@@ -69,7 +69,7 @@ void process_file(filesystem::path& ctp, filesystem::path& extension, JSON file_
 		bool enabled = false;
 		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 
-		if (enabled)
+		if (enabled || !scss_bundle_file_path.empty())
 		{
 			if (scss_bundle_file_path.empty())
 			{
