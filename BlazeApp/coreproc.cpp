@@ -147,8 +147,8 @@ void process_entry(const filesystem::directory_entry& entry)
 
 		if (is_dir)
 		{
-			if (!filesystem::exists(path) && filesystem::exists(ctp)) delete_file(ctps, ctps_relative);
-			else 
+			if (!filesystem::exists(path) && filesystem::exists(ctps)) delete_file(path, ctps_relative);
+			else if (filesystem::exists(path))
 			{
 				for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
 				{
@@ -178,11 +178,11 @@ void process_entry(const filesystem::directory_entry& entry)
 					extension == ".css"
 					)
 				{
-					if (extension == ".png")
+					if (!filesystem::exists(path) && filesystem::exists(ctps)) delete_file(path, ctps_relative);
+					else if (extension == ".png")
 					{
 						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 					}
 					else if (extension == ".sass" || extension == ".scss")
 					{
@@ -192,7 +192,6 @@ void process_entry(const filesystem::directory_entry& entry)
 							is_scss_bundle_compiled = true;
 							copy_to_path = ctp.string();
 							if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-							else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 						}
 						else return;
 					}
@@ -200,27 +199,29 @@ void process_entry(const filesystem::directory_entry& entry)
 					{
 						copy_to_path = ctp.string();
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 					}
 					else if (extension == ".js")
 					{
 						copy_to_path = ctp.string();
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
-						else if (filesystem::exists(copy_to_path)) delete_file(copy_to_path, ctps_relative);
 					}
 				}
 				else if (
-						extension == ".png" || 
-						extension == ".svg" || 
-						extension == ".json" || 
-						extension == ".txt" || 
-						extension == ".woff2" || 
-						extension == ".aac" || 
-						extension == ".webm" || 
-						extension == ".webp" || 
-						extension == ".html" ||
-						extension == ".js"
-					) copy_file(path, ctps, relative_path);
+					extension == ".png" ||
+					extension == ".svg" ||
+					extension == ".json" ||
+					extension == ".txt" ||
+					extension == ".woff2" ||
+					extension == ".aac" ||
+					extension == ".webm" ||
+					extension == ".webp" ||
+					extension == ".html" ||
+					extension == ".js"
+					)
+				{
+						if (!filesystem::exists(path) && filesystem::exists(ctps)) delete_file(path, ctps_relative);
+						else copy_file(path, ctps, relative_path);
+				}
 			}
 		}
 	}
