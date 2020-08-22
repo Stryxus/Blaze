@@ -141,8 +141,7 @@ void process_entry(const filesystem::directory_entry& entry)
 
 		if (is_dir)
 		{
-			if (!filesystem::exists(path) && filesystem::exists(ctps)) delete_file(path, ctps_relative);
-			else if (filesystem::exists(path))
+			if (filesystem::exists(path))
 			{
 				for (const filesystem::directory_entry& entry2 : filesystem::recursive_directory_iterator(entry))
 				{
@@ -172,8 +171,7 @@ void process_entry(const filesystem::directory_entry& entry)
 					extension == ".css"
 					)
 				{
-					if (!filesystem::exists(path) && filesystem::exists(ctps)) delete_file(path, ctps_relative);
-					else if (extension == ".png")
+					if (extension == ".png")
 					{
 						copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
 						if (filesystem::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
