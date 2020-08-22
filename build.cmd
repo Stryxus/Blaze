@@ -44,6 +44,9 @@ msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Debug /p:Platform=Win64 /p
 echo.
 echo.
 echo.
+cmake --build . --target %~dp0\build\libssh2\ALL_BUILD
+echo.
+echo.
 echo Build Finished!
 echo.
 PAUSE

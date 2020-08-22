@@ -31,3 +31,6 @@
 [submodule "utf8proc"]
 	path = utf8proc
 	url = https://github.com/JuliaStrings/utf8proc
+[submodule "libssh2"]
+	path = libssh2
+	url = https://github.com/libssh2/libssh2
