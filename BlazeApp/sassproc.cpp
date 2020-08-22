@@ -46,7 +46,7 @@ void minify_css(const char* to, const char* include_path, int precision)
 	struct Sass_Context* ctx = sass_data_context_get_context(data_ctx);
 	struct Sass_Options* ctx_opt = sass_context_get_options(ctx);
 
-	sass_option_set_include_path(ctx_opt, include_path);
+	if (!string(include_path).empty()) sass_option_set_include_path(ctx_opt, include_path);
 	sass_option_set_output_style(ctx_opt, Sass_Output_Style::SASS_STYLE_COMPRESSED);
 	sass_option_set_source_comments(ctx_opt, false);
 	sass_option_set_source_map_contents(ctx_opt, false);
