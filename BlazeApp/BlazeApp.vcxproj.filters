@@ -44,13 +44,7 @@
     <ClInclude Include="logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vidproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
     <ClInclude Include="imgproc.h">
-      <Filter>Header Files\Processors</Filter>
-    </ClInclude>
-    <ClInclude Include="audproc.h">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
     <ClInclude Include="strutils.h">
@@ -97,13 +91,7 @@
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="audproc.cpp">
-      <Filter>Source Files\Processors</Filter>
-    </ClCompile>
     <ClCompile Include="imgproc.cpp">
-      <Filter>Source Files\Processors</Filter>
-    </ClCompile>
-    <ClCompile Include="vidproc.cpp">
       <Filter>Source Files\Processors</Filter>
     </ClCompile>
     <ClCompile Include="strutils.cpp">

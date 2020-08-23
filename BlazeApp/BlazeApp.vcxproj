@@ -119,14 +119,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libssh\include;$(SolutionDir)packages\FFmpeg.Nightly.20200821.0.0\build\native\include;$(SolutionDir)libwebp;$(SolutionDir)libwebp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libssh\include;$(SolutionDir)libwebp;$(SolutionDir)libwebp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)packages\FFmpeg.Nightly.20200821.0.0\build\native\lib\x64;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swscale.lib;libsass.lib;BlazeApp.NETWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;BlazeApp.NETWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AssemblyLinkResource>
       </AssemblyLinkResource>
     </Link>
@@ -153,7 +153,6 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="audproc.h" />
     <ClInclude Include="blazeapp.h" />
     <ClInclude Include="coreproc.h" />
     <ClInclude Include="jsproc.h" />
@@ -168,11 +167,9 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClInclude Include="settings.h" />
     <ClInclude Include="strutils.h" />
     <ClInclude Include="timeutils.h" />
-    <ClInclude Include="vidproc.h" />
     <ClInclude Include="netwrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="audproc.cpp" />
     <ClCompile Include="blazeapp.cpp" />
     <ClCompile Include="coreproc.cpp" />
     <ClCompile Include="jsproc.cpp" />
@@ -187,7 +184,6 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="strutils.cpp" />
     <ClCompile Include="timeutils.cpp" />
-    <ClCompile Include="vidproc.cpp" />
     <ClCompile Include="netwrapper.cpp" />
   </ItemGroup>
   <ItemGroup>

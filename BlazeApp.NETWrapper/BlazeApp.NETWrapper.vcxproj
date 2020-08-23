@@ -180,6 +180,11 @@
   <ItemGroup>
     <Xsd Include="FFMPEG\bin\presets\ffprobe.xsd" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FFMpegCore">
+      <HintPath>..\packages\FFMpegCore.2.2.6\lib\netstandard2.0\FFMpegCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
