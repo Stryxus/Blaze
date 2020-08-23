@@ -3,6 +3,7 @@
 
 #include <imageio\image_dec.h>
 #include <imageio\imageio_util.h>
+
 #include <src\webp\encode.h>
 #include <src\webp\decode.h>
 #include <src\webp\mux_types.h>
@@ -48,4 +49,9 @@ void convert_png_to_webp(const char* from, const char* to, int width, int height
 	ofstream fileOut(string(to), ios_base::binary);
 	fileOut.write((char*)writer.mem, writer.size);
 	fileOut.close();
+}
+
+void convert_png_to_avif(const char* from, const char* to, int width, int height, float quality)
+{
+
 }

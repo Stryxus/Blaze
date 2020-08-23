@@ -73,7 +73,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 				using_directory_check(copy_to_path);
 				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 				start_time = clock.now();
-				convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
+				convert_png_to_avif(path.c_str(), copy_to_path.c_str(),
 					static_cast<int>(file_config["width"]),
 					static_cast<int>(file_config["height"]),
 					static_cast<float>(file_config["quality"]));
