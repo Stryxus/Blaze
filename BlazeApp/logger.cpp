@@ -83,7 +83,7 @@ string Logger::get_date_time_string()
 	string hour = current_time.tm_hour != 60 ? current_time.tm_hour > 8 ? to_string(1 + current_time.tm_hour) : "0" + to_string(1 + current_time.tm_hour) : "00";
 	string minute = current_time.tm_min != 60 ? current_time.tm_min > 8 ? to_string(1 + current_time.tm_min) : "0" + to_string(1 + current_time.tm_min) : "00";
 	string second = current_time.tm_sec != 60 ? current_time.tm_sec > 8 ? to_string(1 + current_time.tm_sec) : "0" + to_string(1 + current_time.tm_sec) : "00";
-	string millisecond = to_string((cr::duration_cast<cr::milliseconds>(cr::high_resolution_clock::now().time_since_epoch())).count()).substr(5, 9);
+	string millisecond = to_string((cr::duration_cast<cr::milliseconds>(cr::system_clock::now().time_since_epoch())).count()).substr(10);
 	return "[" + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second + "." + millisecond + "]";
 }
 
