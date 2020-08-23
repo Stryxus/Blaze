@@ -43,22 +43,43 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 {
 	if (extension == ".png")
 	{
-		copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
-
 		bool enabled = false;
 		if (json_entry_exists(file_config, "enabled")) enabled = static_cast<bool>(file_config["enabled"]);
 
 		if (enabled)
 		{
-			using_directory_check(copy_to_path);
-			Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
 			cr::high_resolution_clock clock;
-			cr::steady_clock::time_point start_time = clock.now();
-			convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
-				static_cast<int>(file_config["width"]),
-				static_cast<int>(file_config["height"]),
-				static_cast<float>(file_config["quality"]));
-			cr::steady_clock::time_point end_time = clock.now();
+			cr::steady_clock::time_point start_time;
+			cr::steady_clock::time_point end_time;
+
+			string format;
+			if (json_entry_exists(file_config, "format")) format = static_cast<string>(file_config["format"]);
+
+			if (!format.empty() && format == "webp") 
+			{
+				copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
+				using_directory_check(copy_to_path);
+				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				start_time = clock.now();
+				convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
+					static_cast<int>(file_config["width"]),
+					static_cast<int>(file_config["height"]),
+					static_cast<float>(file_config["quality"]));
+				end_time = clock.now();
+			}
+			else 
+			{
+				copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
+				using_directory_check(copy_to_path);
+				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				start_time = clock.now();
+				convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
+					static_cast<int>(file_config["width"]),
+					static_cast<int>(file_config["height"]),
+					static_cast<float>(file_config["quality"]));
+				end_time = clock.now();
+			}
+
 			Logger::set_log_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
 			Logger::log_info("Processed File:     [wwwroot]:" + copy_to_path_relative + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
 			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
