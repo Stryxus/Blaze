@@ -11,6 +11,16 @@ using namespace NUglify::Css;
 using namespace NUglify::JavaScript;
 using namespace NUglify::Helpers;
 
+using namespace FFMpegCore;
+using namespace FFMpegCore::Arguments;
+using namespace FFMpegCore::Enums;
+using namespace FFMpegCore::Exceptions;
+using namespace FFMpegCore::Extend;
+using namespace FFMpegCore::Helpers;
+using namespace FFMpegCore::Pipes;
+
+//
+
 string minify_css(string& content)
 {
 	CssSettings^ css_settings = gcnew CssSettings();
@@ -48,6 +58,31 @@ string minify_js(string& content)
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 	return rstr;
 }
+
+//
+
+string convert_video_to_webm(string& input_path, string& output_path, int bitrate)
+{
+	String^ in_path = gcnew String(input_path.c_str());
+	String^ out_path = gcnew String(output_path.c_str());
+	MediaAnalysis^ probe = FFProbe::Analyse(in_path, int::MaxValue);
+
+	FFMpegArguments^ args = gcnew FFMpegArguments();
+	args->FromInputFiles(in_path);
+	args->WithVideoCodec(VideoCodec::LibVpx);
+	args->WithAudioCodec(AudioCodec::LibFdk_Aac);
+	args->WithVariableBitrate(bitrate);
+	args->WithAudioBitrate(256);
+	args->UsingThreads(8);
+	args->WithSpeedPreset(Speed::VerySlow);
+	args->UsingMultithreading(true);
+	args->WithFastStart();
+	args->Scale(VideoSize::Original);
+	FFMpegArgumentProcessor^ processor = args->OutputToFile(out_path, true);
+	processor->ProcessSynchronously(false);
+}
+
+//
 
 string download_data(string& link)
 {
