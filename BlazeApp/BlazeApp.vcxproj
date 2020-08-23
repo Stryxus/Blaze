@@ -119,13 +119,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libssh\include;$(SolutionDir)ffmpeg\include;$(SolutionDir)libwebp;$(SolutionDir)libwebp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libssh\include;$(SolutionDir)packages\FFmpeg.Nightly.20200821.0.0\build\native\include;$(SolutionDir)libwebp;$(SolutionDir)libwebp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)ffmpeg\lib;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)packages\FFmpeg.Nightly.20200821.0.0\build\native\lib\x64;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swscale.lib;libsass.lib;BlazeApp.NETWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AssemblyLinkResource>
       </AssemblyLinkResource>
