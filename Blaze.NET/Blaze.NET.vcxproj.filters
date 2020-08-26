@@ -10,31 +10,31 @@
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="FFMPEG">
-      <UniqueIdentifier>{424b1476-48cc-45a7-b092-32da3fc0ff2f}</UniqueIdentifier>
+      <UniqueIdentifier>{990ae4e6-9ab1-45d0-a6ea-50a5d52c2830}</UniqueIdentifier>
     </Filter>
     <Filter Include="FFMPEG\bin">
-      <UniqueIdentifier>{37d4787c-8df1-4f2e-8d70-56e5016b215b}</UniqueIdentifier>
+      <UniqueIdentifier>{bbb99575-1e15-4278-afb8-d44f4610c245}</UniqueIdentifier>
     </Filter>
     <Filter Include="FFMPEG\bin\presets">
-      <UniqueIdentifier>{02b697c0-98e7-466e-a162-a3a6d9f82562}</UniqueIdentifier>
+      <UniqueIdentifier>{bb53fa97-7ca3-4106-ac69-cd9d65dd1e39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Blaze.NET.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NETWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Blaze.NET.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NETWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

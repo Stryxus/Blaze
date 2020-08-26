@@ -6,11 +6,11 @@ using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 using namespace System::Security::Permissions;
 
-[assembly:AssemblyTitleAttribute(L"BlazeAppNETWrapper")];
+[assembly:AssemblyTitleAttribute(L"BlazeNET")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
-[assembly:AssemblyProductAttribute(L"BlazeAppNETWrapper")];
+[assembly:AssemblyProductAttribute(L"BlazeNET")];
 [assembly:AssemblyCopyrightAttribute(L"Copyright (c) Connor 'Stryxus' Shearer 2020")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];

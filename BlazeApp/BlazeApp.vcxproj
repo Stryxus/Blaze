@@ -126,7 +126,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;BlazeApp.NETWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;Blaze.NET.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AssemblyLinkResource>
       </AssemblyLinkResource>
     </Link>
@@ -190,8 +190,8 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlazeApp.NETWrapper\BlazeApp.NETWrapper.vcxproj">
-      <Project>{1247f6ba-d8df-4b3e-977a-b22d06cbda98}</Project>
+    <ProjectReference Include="..\Blaze.NET\Blaze.NET.vcxproj">
+      <Project>{ffc1f394-36e5-4ead-a76c-8d1a583aa5eb}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
