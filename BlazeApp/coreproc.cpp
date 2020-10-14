@@ -161,7 +161,10 @@ void process_entry(const fs::directory_entry& entry)
 
 	bool is_blacklisted = false;
 
-	for (string s : Settings::IGNORE_DIRECTORIES)
+	vector<string> ignored;
+	ignored.insert(ignored.end(), Settings::IGNORE_DIRECTORIES.begin(), Settings::IGNORE_DIRECTORIES.end());
+	ignored.insert(ignored.end(), Settings::IGNORE_FILES.begin(), Settings::IGNORE_FILES.end());
+	for (string s : ignored)
 	{
 		if (is_blacklisted = path.find(s) != string::npos) break;
 	}
