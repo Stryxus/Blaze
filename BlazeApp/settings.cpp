@@ -5,8 +5,9 @@ string Settings::SOURCE_RESOURCE_DIR = "";
 bool Settings::FORMAT_RESOURCE_DIR = false;
 string Settings::SCSS_INCLUDE_DIR = "";
 int Settings::SCSS_PRECISION = 3;
-vector<string> Settings::BLACKLISTED_DIRECTORIES = {};
 vector<string> Settings::JS_DEPENDENCY_LINKS = {};
+vector<string> Settings::IGNORE_DIRECTORIES = {};
+vector<string> Settings::IGNORE_EXTENSIONS = {};
 map<string, JSON> Settings::FILE_CONFIGS = {};
 
 JSON Settings::default_settings =
@@ -17,9 +18,10 @@ JSON Settings::default_settings =
 	{"formatWebsiteRoot", FORMAT_RESOURCE_DIR},
 	{"scssIncludeDirectory", SCSS_INCLUDE_DIR},
 	{"scssPrecision", SCSS_PRECISION},
-	{"blacklistedDirectories", BLACKLISTED_DIRECTORIES},
 	// Links to all javascript dependencies for download
 	{"jsDependencyLinks", JS_DEPENDENCY_LINKS},
+	{"ignore_directories", IGNORE_DIRECTORIES},
+	{"ignore_extensions", IGNORE_EXTENSIONS},
 	// Every file in the website root source files must be declared here before anything will be done to it.
 	{"fileConfigs", FILE_CONFIGS}
 };
@@ -81,17 +83,26 @@ bool Settings::get_settings()
 
 	try
 	{
-		Settings::BLACKLISTED_DIRECTORIES = Settings::settings["blacklistedDirectories"].get<vector<string>>();
+		Settings::JS_DEPENDENCY_LINKS = Settings::settings["jsDependencyLinks"].get<vector<string>>();
+	}
+	catch (exception e)
+	{
+	}
+
+	try
+	{
+		Settings::IGNORE_DIRECTORIES = Settings::settings["ignored_directories"].get<vector<string>>();
 	}
 	catch (exception e)
 	{ }
 
 	try
 	{
-		Settings::JS_DEPENDENCY_LINKS = Settings::settings["jsDependencyLinks"].get<vector<string>>();
+		Settings::IGNORE_EXTENSIONS = Settings::settings["ignore_extensions"].get<vector<string>>();
 	}
 	catch (exception e)
-	{ }
+	{
+	}
 
 	try
 	{

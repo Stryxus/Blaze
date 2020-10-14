@@ -10,7 +10,6 @@ string minify_js(string(*f)(string&), string content)
 	return (*f)(content);
 }
 
-vector<string> directory_sub_extention_exclusion_filter{ ".scss", ".sass", ".css", ".js", ".min.css", ".min.js", ".wav" };
 string scss_bundle_file_path = "";
 string current_base_directory = "";
 bool is_scss_bundle_compiled = false;
@@ -161,7 +160,7 @@ void process_entry(const fs::directory_entry& entry)
 
 	bool is_blacklisted = false;
 
-	for (string s : Settings::BLACKLISTED_DIRECTORIES)
+	for (string s : Settings::IGNORE_DIRECTORIES)
 	{
 		if (is_blacklisted = path.find(s) != string::npos) break;
 	}
@@ -179,7 +178,7 @@ void process_entry(const fs::directory_entry& entry)
 			{
 				for (const fs::directory_entry& entry2 : fs::recursive_directory_iterator(entry))
 				{
-					if (!is_directory(entry2) && find(directory_sub_extention_exclusion_filter.begin(), directory_sub_extention_exclusion_filter.end(), entry2.path().extension()) == directory_sub_extention_exclusion_filter.end())
+					if (!is_directory(entry2) && find(Settings::IGNORE_EXTENSIONS.begin(), Settings::IGNORE_EXTENSIONS.end(), entry2.path().extension()) == Settings::IGNORE_EXTENSIONS.end())
 					{
 						if (fs::exists(path) && !fs::exists(ctp))
 						{

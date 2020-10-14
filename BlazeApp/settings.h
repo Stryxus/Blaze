@@ -10,8 +10,9 @@ public:
 	static bool FORMAT_RESOURCE_DIR;
 	static string SCSS_INCLUDE_DIR;
 	static int SCSS_PRECISION;
-	static vector<string> BLACKLISTED_DIRECTORIES;
 	static vector<string> JS_DEPENDENCY_LINKS;
+	static vector<string> IGNORE_DIRECTORIES;
+	static vector<string> IGNORE_EXTENSIONS;
 	static map<string, JSON> FILE_CONFIGS;
 
 private:
