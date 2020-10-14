@@ -227,18 +227,7 @@ void process_entry(const fs::directory_entry& entry)
 						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 				}
-				else if (
-					extension == ".png" ||
-					extension == ".svg" ||
-					extension == ".json" ||
-					extension == ".txt" ||
-					extension == ".woff2" ||
-					extension == ".aac" ||
-					extension == ".webm" ||
-					extension == ".webp" ||
-					extension == ".html" ||
-					extension == ".js"
-					) copy_file(path, ctps, relative_path);
+				else  copy_file(path, ctps, relative_path);
 			}
 		}
 	}
