@@ -7,6 +7,7 @@ string Settings::SCSS_INCLUDE_DIR = "";
 int Settings::SCSS_PRECISION = 3;
 vector<string> Settings::JS_DEPENDENCY_LINKS = {};
 vector<string> Settings::IGNORE_DIRECTORIES = {};
+vector<string> Settings::IGNORE_FILES = {};
 vector<string> Settings::IGNORE_EXTENSIONS = {};
 map<string, JSON> Settings::FILE_CONFIGS = {};
 
@@ -21,6 +22,7 @@ JSON Settings::default_settings =
 	// Links to all javascript dependencies for download
 	{"jsDependencyLinks", JS_DEPENDENCY_LINKS},
 	{"ignore_directories", IGNORE_DIRECTORIES},
+	{"ignore_files", IGNORE_FILES},
 	{"ignore_extensions", IGNORE_EXTENSIONS},
 	// Every file in the website root source files must be declared here before anything will be done to it.
 	{"fileConfigs", FILE_CONFIGS}
@@ -86,8 +88,7 @@ bool Settings::get_settings()
 		Settings::JS_DEPENDENCY_LINKS = Settings::settings["jsDependencyLinks"].get<vector<string>>();
 	}
 	catch (exception e)
-	{
-	}
+	{ }
 
 	try
 	{
@@ -98,11 +99,17 @@ bool Settings::get_settings()
 
 	try
 	{
+		Settings::IGNORE_FILES = Settings::settings["ignore_files"].get<vector<string>>();
+	}
+	catch (exception e)
+	{ }
+
+	try
+	{
 		Settings::IGNORE_EXTENSIONS = Settings::settings["ignore_extensions"].get<vector<string>>();
 	}
 	catch (exception e)
-	{
-	}
+	{ }
 
 	try
 	{

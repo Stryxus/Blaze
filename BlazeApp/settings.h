@@ -12,6 +12,7 @@ public:
 	static int SCSS_PRECISION;
 	static vector<string> JS_DEPENDENCY_LINKS;
 	static vector<string> IGNORE_DIRECTORIES;
+	static vector<string> IGNORE_FILES;
 	static vector<string> IGNORE_EXTENSIONS;
 	static map<string, JSON> FILE_CONFIGS;
 
