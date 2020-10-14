@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "Blaze.NET.h"
+#include "NativeBridge.h"
 
 using namespace System;
 using namespace System::Net;
@@ -61,14 +61,13 @@ string minify_js(string& content)
 
 //
 
-string convert_video_to_webm(string& input_path, string& output_path, int bitrate)
+void convert_video_to_webm(string& input_path, string& output_path, int bitrate)
 {
 	String^ in_path = gcnew String(input_path.c_str());
 	String^ out_path = gcnew String(output_path.c_str());
-	MediaAnalysis^ probe = FFProbe::Analyse(in_path, int::MaxValue);
+	IMediaAnalysis^ probe = FFProbe::Analyse(in_path, int::MaxValue);
 
-	FFMpegArguments^ args = gcnew FFMpegArguments();
-	args->FromInputFiles(in_path);
+	FFMpegArguments^ args = FFMpegArguments::FromInputFiles(in_path);
 	args->WithVideoCodec(VideoCodec::LibVpx);
 	args->WithAudioCodec(AudioCodec::LibFdk_Aac);
 	args->WithVariableBitrate(bitrate);

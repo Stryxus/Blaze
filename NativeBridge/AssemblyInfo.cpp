@@ -6,14 +6,17 @@ using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 using namespace System::Security::Permissions;
 
-[assembly:AssemblyTitleAttribute(L"BlazeNET")];
+[assembly:AssemblyTitleAttribute(L"NativeBridge")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
-[assembly:AssemblyProductAttribute(L"BlazeNET")];
-[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Connor 'Stryxus' Shearer 2020")];
+[assembly:AssemblyProductAttribute(L"NativeBridge")];
+[assembly:AssemblyCopyrightAttribute(L"Copyright (c)  2020")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];
+
 [assembly:AssemblyVersionAttribute("1.0.*")];
+
 [assembly:ComVisible(false)];
+
 [assembly:CLSCompliantAttribute(true)];

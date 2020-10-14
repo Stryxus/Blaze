@@ -9,7 +9,7 @@ extern "C"
 
 	//
 
-	__declspec(dllexport) string convert_video_to_webm(string& input_path, string& output_path, int& bitrate);
+	__declspec(dllexport) void convert_video_to_webm(string& input_path, string& output_path, int& bitrate);
 
 	//
 

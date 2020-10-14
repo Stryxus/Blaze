@@ -28,3 +28,6 @@
 [submodule "libssh2"]
 	path = libssh2
 	url = https://github.com/libssh2/libssh2
+[submodule "FFMpegCore"]
+	path = FFMpegCore
+	url = https://github.com/rosenbjerg/FFMpegCore

@@ -20,33 +20,40 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{FFC1F394-36E5-4EAD-A76C-8D1A583AA5EB}</ProjectGuid>
+    <ProjectGuid>{368398DA-E84A-481C-A8C7-6CF9A7E19F14}</ProjectGuid>
     <Keyword>NetCoreCProj</Keyword>
-    <RootNamespace>BlazeNET</RootNamespace>
+    <RootNamespace>NativeBridge</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>NetCore</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>NetCore</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CLRSupport>NetCore</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>NetCore</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -71,33 +78,55 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Blaze.NET.h" />
+    <ClInclude Include="NativeBridge.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="Blaze.NET.cpp" />
+    <ClCompile Include="NativeBridge.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -106,48 +135,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FFMPEG\bin\presets\libvpx-1080p.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libvpx-1080p50_60.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libvpx-360p.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libvpx-720p.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libvpx-720p50_60.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libvpx-ultrafast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-baseline.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-fast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-faster.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-faster_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-fast_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-ipod320.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-ipod640.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-lossless_fast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-lossless_max.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-lossless_medium.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-lossless_slow.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-lossless_slower.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-lossless_ultrafast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-main.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-medium.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-medium_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-placebo.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-placebo_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-slow.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-slower.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-slower_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-slow_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-superfast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-superfast_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-ultrafast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-ultrafast_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-veryfast.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-veryfast_firstpass.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-veryslow.ffpreset" />
-    <None Include="FFMPEG\bin\presets\libx264-veryslow_firstpass.ffpreset" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xsd Include="FFMPEG\bin\presets\ffprobe.xsd" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\FFMpegCore\FFMpegCore\FFMpegCore.csproj">
+      <Project>{540a7eef-9e04-44d0-9b71-5e49841ec593}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\NUglify\src\NUglify\NUglify.csproj">
       <Project>{af1fb158-d6c2-4952-a313-f9a9eeea8e82}</Project>
     </ProjectReference>
