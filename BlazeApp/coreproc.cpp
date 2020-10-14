@@ -80,7 +80,8 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			}
 
 			Logger::set_log_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
-			Logger::log_info("Processed File:     [wwwroot]:" + copy_to_path_relative + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
+			Logger::log_info("Processed File:     [wwwroot]:" + replace_copy(copy_to_path_relative, ".png", format == "webp" ? ".webp" : ".png") + 
+																				" | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
 			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 		}
 	}
@@ -227,7 +228,7 @@ void process_entry(const fs::directory_entry& entry)
 						if (fs::exists(path)) process_file(ctp, extension, Settings::FILE_CONFIGS[relative_path], path, relative_path, copy_to_path, ctps_relative);
 					}
 				}
-				else  copy_file(path, ctps, relative_path);
+				else copy_file(path, ctps, relative_path);
 			}
 		}
 	}
