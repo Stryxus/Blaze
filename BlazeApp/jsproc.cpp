@@ -7,18 +7,7 @@ string js_dependencies;
 
 void add_js_for_minification(const char* from, int order)
 {
-	string fileData = "";
-	ifstream fileIn(string(from), ios_base::binary);
-	if (fileIn.is_open())
-	{
-		js_ordered_content.insert(make_pair(order, ""));
-		while (!fileIn.eof())
-		{
-			fileIn >> fileData;
-			js_ordered_content[order] += fileData + " ";
-		}
-	}
-	fileIn.close();
+	js_ordered_content.insert(make_pair(order, from));
 }
 
 void minify_js(const char* to)
@@ -35,11 +24,25 @@ void minify_js(const char* to)
 	}
 	currently_cached_dependencies = Settings::JS_DEPENDENCY_LINKS;
 	string js_data = js_dependencies;
-	for (auto const& [key, val] : js_ordered_content) js_data += val;
+	for (auto const& [key, val] : js_ordered_content) 
+	{
+		string fileData;
+		ifstream fileIn(string(js_ordered_content[key]), ios_base::binary);
+		if (fileIn.is_open())
+		{
+			while (!fileIn.eof())
+			{
+				string data;
+				fileIn >> data;
+				fileData += data + " ";
+			}
+		}
+		fileIn.close();
+		js_data += fileData + " ";
+	}
 	string result = DotNetWrapper::DOTNET_MINIFY_JS(js_data);
 	if (fs::exists(to)) fs::remove_all(to);
 	ofstream fileOut(to, ios_base::binary);
 	fileOut.write(result.c_str(), result.length());
 	fileOut.close();
-	js_ordered_content.clear();
 }
