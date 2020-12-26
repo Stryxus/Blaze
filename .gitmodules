@@ -1,6 +1,3 @@
-[submodule "BinaryStarLib"]
-	path = BinaryStarLib
-	url = https://github.com/Star-Athenaeum/BinaryStarLib
 [submodule "libwebp"]
 	path = libwebp
 	url = https://github.com/webmproject/libwebp
@@ -19,12 +16,6 @@
 [submodule "zlib"]
 	path = zlib
 	url = https://github.com/madler/zlib
-[submodule "utfcpp"]
-	path = utfcpp
-	url = https://github.com/nemtrif/utfcpp
-[submodule "utf8proc"]
-	path = utf8proc
-	url = https://github.com/JuliaStrings/utf8proc
 [submodule "libssh2"]
 	path = libssh2
 	url = https://github.com/libssh2/libssh2

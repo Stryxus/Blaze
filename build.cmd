@@ -4,6 +4,7 @@ color 0F
 echo.
 echo --- Blaze Dependency Build Tool ---  
 echo -----------------------------------
+echo IMPORTANT: This tool MUST be opened in Visual Studio's x64 Native Dev Tools Command Prompt!!!
 echo This process may take several minutes depending on how powerful your CPU is.
 echo Entering the Visual Studio year version will delete the current build folder and begin the build process.
 echo.
@@ -42,9 +43,6 @@ echo.
 echo.
 msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Debug /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
 echo.
-echo.
-echo.
-cmake --build . --target %~dp0\build\libssh2\ALL_BUILD
 echo.
 echo.
 echo Build Finished!

@@ -119,7 +119,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libssh\include;$(SolutionDir)libwebp;$(SolutionDir)libwebp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libssh\include;D:\Projects\StarAthenaeum\Blaze\libwebp\src;D:\Projects\StarAthenaeum\Blaze\libwebp\imageio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -145,12 +145,18 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>D:\Projects\StarAthenaeum\Blaze\libsass\include;D:\Projects\StarAthenaeum\Blaze\libwebp\src;D:\Projects\StarAthenaeum\Blaze\libwebp\imageio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpng16_staticd.lib;libpng16d.lib;imagedec.lib;imageenc.lib;imageioutil.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;zlibd.lib;zlibstaticd.lib;libsass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Projects\StarAthenaeum\Blaze\libsass\win\bin\Debug;D:\Projects\StarAthenaeum\Blaze\build\zlib\Debug;D:\Projects\StarAthenaeum\Blaze\build\libwebp\Debug;D:\Projects\StarAthenaeum\Blaze\build\libpng\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
