@@ -133,7 +133,7 @@
     </Link>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)build\libpng\Debug\libpng16d.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\netstandard2.1\NUglify.dll" "$(OutputPath)"
+copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\net5.0\NUglify.dll" "$(OutputPath)"
 copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
