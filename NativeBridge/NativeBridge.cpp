@@ -92,3 +92,11 @@ string download_data(string& link)
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 	return rstr;
 }
+
+long long get_download_length(string& link)
+{
+	WebClient^ client = gcnew WebClient();
+	client->OpenRead(gcnew String(link.c_str()));
+	WebHeaderCollection^ headers = client->ResponseHeaders;
+	return Convert::ToInt64(headers->Get("Content-Length"));
+}

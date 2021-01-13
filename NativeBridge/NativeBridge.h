@@ -14,4 +14,5 @@ extern "C"
 	//
 
 	__declspec(dllexport) string __stdcall download_data(string& content);
+	__declspec(dllexport) long long __stdcall get_download_length(string& link);
 }
