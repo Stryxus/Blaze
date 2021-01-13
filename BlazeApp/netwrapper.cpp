@@ -26,3 +26,8 @@ string DotNetWrapper::DOTNET_DOWNLOAD_STRING(string& content)
 {
 	return (*reinterpret_cast<string(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "download_data")))(content);
 }
+
+long long DotNetWrapper::DOTNET_GET_DOWNLOAD_LENGTH(string& content)
+{
+	return (*reinterpret_cast<long long(*)(string&)>(get_lib_function(get_library(Globals::LIB_NET_WRAPPER), "get_download_length")))(content);
+}
