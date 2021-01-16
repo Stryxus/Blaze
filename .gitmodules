@@ -22,3 +22,6 @@
 [submodule "FFMpegCore"]
 	path = FFMpegCore
 	url = https://github.com/rosenbjerg/FFMpegCore
+[submodule "curl"]
+	path = curl
+	url = https://github.com/curl/curl
