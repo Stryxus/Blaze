@@ -16,7 +16,7 @@ public:
 	//
 
 	static string DOTNET_DOWNLOAD_STRING(string& content);
-	long long DOTNET_GET_DOWNLOAD_LENGTH(string& content);
+	static long long DOTNET_GET_DOWNLOAD_LENGTH(string& content);
 
 	//
 };
