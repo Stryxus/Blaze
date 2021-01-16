@@ -13,6 +13,6 @@ Memory management is dealt with by coding freely, then afterwards doing a 'memor
 - Visual Studio 2019
 - C++ with Cmake, Clang and CLR
 - .NET 5 SDK
-- Change NUglify and FFMpegCore targetframework to net5, this is found inside the csproj for each project.
+- Change NUglify and FFMpegCore targetframework to net5.0, this is found inside the csproj for each project.
 - [Download FFmpeg 4.3](https://ffmpeg.zeranoe.com/builds/) Dev for Windows x64 and extract the 'include' and 'lib' folders into the 'ffmpeg' folder under the solution directory
 - Run ```build.cmd``` once in the Visual Studio x64 Developer Tools Command Line and when strange errors occure.
