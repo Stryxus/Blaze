@@ -13,6 +13,7 @@
 #include <algorithm> 
 #include <time.h>
 #include <chrono>
+#include <iostream>
 
 #include <vector>
 #include <string>
