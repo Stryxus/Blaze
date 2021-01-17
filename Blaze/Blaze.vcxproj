@@ -120,22 +120,23 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)libsass\include;$(SolutionDir)libwebp\src;$(SolutionDir)libwebp\imageio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)curl\include;$(SolutionDir)libsass\include;$(SolutionDir)libwebp\src;$(SolutionDir)libwebp\imageio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;NativeBridge.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\curl\lib\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;libcurl-d_imp.lib;Blaze.CLR.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AssemblyLinkResource>
       </AssemblyLinkResource>
     </Link>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)build\libpng\Debug\libpng16d.dll" "$(OutputPath)"
 copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\net5.0\NUglify.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
+copy /Y "$(SolutionDir)build\zlib\Debug\zlibd.dll" "$(OutputPath)"
+copy /Y "$(SolutionDir)build\curl\lib\Debug\libcurl-d.dll" "$(OutputPath)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -164,6 +165,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClInclude Include="blazeapp.h" />
     <ClInclude Include="coreproc.h" />
     <ClInclude Include="jsproc.h" />
+    <ClInclude Include="netutils.h" />
     <ClInclude Include="sassproc.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="imgproc.h" />
@@ -181,6 +183,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <ClCompile Include="blazeapp.cpp" />
     <ClCompile Include="coreproc.cpp" />
     <ClCompile Include="jsproc.cpp" />
+    <ClCompile Include="netutils.cpp" />
     <ClCompile Include="sassproc.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="imgproc.cpp" />
