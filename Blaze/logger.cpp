@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "logger.h"
 
+bool Logger::is_using_custom_color = false;
+Logger::COLOR Logger::global_foregronnd_color = COLOR::BRIGHT_WHITE_FOREGROUND;
+
 void Logger::log_info(string message)
 {
 	if (!is_using_custom_color) set_console_color_internal(COLOR::BRIGHT_WHITE_FOREGROUND);

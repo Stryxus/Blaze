@@ -9,7 +9,6 @@ int main(int argc, const char* argv[])
 	MoveWindow(GetConsoleWindow(), 20, 20, 1400, 1000, TRUE);
 
 	Logger::flush_log_buffer();
-	Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 
 	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH = replace_copy(argv[1], "\\", "/");
 	Globals::SPECIFIED_PROJECT_DIRECTORY_PATH_WWWROOT = replace_copy(Globals::SPECIFIED_PROJECT_DIRECTORY_PATH.back() != '\\' ? Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "\\wwwroot" : Globals::SPECIFIED_PROJECT_DIRECTORY_PATH + "wwwroot", "\\", "/");
@@ -23,9 +22,7 @@ int main(int argc, const char* argv[])
 		load_libraries(vector<string> { Globals::LIB_NET_WRAPPER, Globals::LIB_ZLIB, Globals::LIB_PNG, Globals::LIB_CURL });
 		Logger::log_info("Preparing data processors...");
 		if (!Settings::get_settings()) return -1;
-		Logger::set_log_color(Logger::COLOR::GREEN_FOREGROUND);
 		Logger::log_divide();
-		Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
 		start_project_processing();
 		Logger::log_nl();
 		Logger::log_divide();
@@ -40,7 +37,6 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_divide();
 		Logger::log_nl();
-		Logger::set_log_color(Logger::COLOR::RED_FOREGROUND);
 		Logger::log_error("No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close.");
 		Logger::log_nl();
 		getchar();

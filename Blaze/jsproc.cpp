@@ -16,9 +16,9 @@ void minify_js(const char* to)
 	{
 		if (find(currently_cached_dependencies.begin(), currently_cached_dependencies.end(), s) != currently_cached_dependencies.end() == false) 
 		{
-			Logger::set_log_color(Logger::COLOR::WHITE_FOREGROUND);
+			Logger::set_console_color(Logger::COLOR::WHITE_FOREGROUND);
 			Logger::log_info("Downloading JS:     " + s /*+ " [" + to_string(convert_data_magnitude_in_bytes_copy(DotNetWrapper::DOTNET_GET_DOWNLOAD_LENGTH(s), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]"*/);
-			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
+			Logger::clear_console_color;
 			//js_dependencies += DotNetWrapper::DOTNET_DOWNLOAD_STRING(s);
 		}
 	}
