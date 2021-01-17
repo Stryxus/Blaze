@@ -48,7 +48,7 @@ string minify_js(string& content)
 	code_settings->OutputMode = OutputMode::SingleLine;
 	code_settings->PreserveImportantComments = false;
 	code_settings->MinifyCode = true;
-	code_settings->RemoveUnneededCode = false;
+	code_settings->RemoveUnneededCode = true;
 
 	UglifyResult result = Uglify::Js(source, code_settings);
 
