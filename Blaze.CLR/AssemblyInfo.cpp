@@ -6,12 +6,12 @@ using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 using namespace System::Security::Permissions;
 
-[assembly:AssemblyTitleAttribute(L"NativeBridge")];
+[assembly:AssemblyTitleAttribute(L"Blaze.CLR")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
-[assembly:AssemblyProductAttribute(L"NativeBridge")];
-[assembly:AssemblyCopyrightAttribute(L"Copyright (c)  2020")];
+[assembly:AssemblyProductAttribute(L"Blaze.CLR")];
+[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Connor 'Stryxus' Shearer 2020")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];
 
