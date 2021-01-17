@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "AssemblyInfo.h"
 
 using namespace System;
 using namespace System::Reflection;
