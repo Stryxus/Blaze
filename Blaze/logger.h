@@ -69,6 +69,8 @@ private:
 	static wstring get_date_time_wstring();
 	static int get_console_buffer_width();
 
+	static void set_console_color_internal(COLOR color);
+
 	static COLOR global_foregronnd_color;
 	//static COLOR global_background_color;
 };

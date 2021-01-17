@@ -3,44 +3,44 @@
 
 void Logger::log_info(string message)
 {
-	if (!is_using_custom_color) set_console_color(COLOR::BRIGHT_WHITE_FOREGROUND);
+	if (!is_using_custom_color) set_console_color_internal(COLOR::BRIGHT_WHITE_FOREGROUND);
 	printf(string("\n" + get_date_time_string() + "[INFO]:  " + message).c_str());
-	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
+	if (!is_using_custom_color) set_console_color_internal(global_foregronnd_color);
 }
 
 void Logger::log_warn(string message)
 {
-	if (!is_using_custom_color) set_console_color(COLOR::YELLOW_FOREGROUND);
+	if (!is_using_custom_color) set_console_color_internal(COLOR::YELLOW_FOREGROUND);
 	printf(string("\n" + get_date_time_string() + "[WARN]:  " + message).c_str());
-	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
+	if (!is_using_custom_color) set_console_color_internal(global_foregronnd_color);
 }
 
 void Logger::log_error(string message)
 {
-	if (!is_using_custom_color) set_console_color(COLOR::RED_FOREGROUND);
+	if (!is_using_custom_color) set_console_color_internal(COLOR::RED_FOREGROUND);
 	printf(string("\n" + get_date_time_string() + "[ERROR]: " + message).c_str());
-	if (!is_using_custom_color)set_console_color(global_foregronnd_color);
+	if (!is_using_custom_color) set_console_color_internal(global_foregronnd_color);
 } 
 
 void Logger::log_info(wstring message)
 {
-	if (!is_using_custom_color) set_console_color(COLOR::BRIGHT_WHITE_FOREGROUND);
+	if (!is_using_custom_color) set_console_color_internal(COLOR::BRIGHT_WHITE_FOREGROUND);
 	wprintf(wstring(L"\n" + get_date_time_wstring() + L"[INFO]:  " + message).c_str());
-	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
+	if (!is_using_custom_color) set_console_color_internal(global_foregronnd_color);
 }
 
 void Logger::log_warn(wstring message)
 {
-	if (!is_using_custom_color) set_console_color(COLOR::YELLOW_FOREGROUND);
+	if (!is_using_custom_color) set_console_color_internal(COLOR::YELLOW_FOREGROUND);
 	wprintf(wstring(L"\n" + get_date_time_wstring() + L"[WARN]:  " + message).c_str());
-	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
+	if (!is_using_custom_color) set_console_color_internal(global_foregronnd_color);
 }
 
 void Logger::log_error(wstring message)
 {
-	if (!is_using_custom_color) set_console_color(COLOR::RED_FOREGROUND);
+	if (!is_using_custom_color) set_console_color_internal(COLOR::RED_FOREGROUND);
 	wprintf(wstring(L"\n" + get_date_time_wstring() + L"[ERROR]: " + message).c_str());
-	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
+	if (!is_using_custom_color) set_console_color_internal(global_foregronnd_color);
 }
 
 void Logger::log_nl(int amount)
@@ -81,6 +81,12 @@ void Logger::set_console_color(COLOR color)
 void Logger::clear_console_color()
 {
 	is_using_custom_color = false;
+}
+
+void Logger::set_console_color_internal(COLOR color)
+{
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console, (unsigned short)color);
 }
 
 void Logger::flush_log_buffer()
