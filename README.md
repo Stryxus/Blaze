@@ -14,5 +14,5 @@ Memory management is dealt with by coding freely, then afterwards doing a 'memor
 - C++ with Cmake, Clang and CLR
 - .NET 5 SDK
 - Change NUglify and FFMpegCore targetframework to net5.0, this is found inside the csproj for each project.
-- [Download FFmpeg 4.3](https://ffmpeg.zeranoe.com/builds/) Dev for Windows x64 and extract the 'include' and 'lib' folders into the 'ffmpeg' folder under the solution directory
-- Run ```build.cmd``` once in the Visual Studio x64 Developer Tools Command Line and when strange errors occure.
+- [Download FFmpeg 4.3](https://ffmpeg.zeranoe.com/builds/) Dev for Windows x64 and extract the 'include' and 'lib' folders into 'Blaze/ffmpeg/include' & 'Blaze/ffmpeg/lib'.
+- Run ```./build.cmd``` in the View -> Terminal window just once unless the dependencies break.
