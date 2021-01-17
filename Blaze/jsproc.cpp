@@ -19,7 +19,7 @@ void minify_js(const char* to)
 			Logger::set_log_color(Logger::COLOR::WHITE_FOREGROUND);
 			Logger::log_info("Downloading JS:     " + s /*+ " [" + to_string(convert_data_magnitude_in_bytes_copy(DotNetWrapper::DOTNET_GET_DOWNLOAD_LENGTH(s), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]"*/);
 			Logger::set_log_color(Logger::COLOR::BRIGHT_WHITE_FOREGROUND);
-			js_dependencies += DotNetWrapper::DOTNET_DOWNLOAD_STRING(s);
+			//js_dependencies += DotNetWrapper::DOTNET_DOWNLOAD_STRING(s);
 		}
 	}
 	currently_cached_dependencies = Settings::JS_DEPENDENCY_LINKS;
