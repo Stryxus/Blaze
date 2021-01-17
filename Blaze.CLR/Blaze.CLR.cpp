@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "NativeBridge.h"
+#include "Blaze.CLR.h"
 
 using namespace System;
 using namespace System::Net;
