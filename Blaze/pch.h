@@ -31,10 +31,10 @@ using JSON = nlohmann::json;
 #pragma warning(disable : 4081);
 
 #include "netwrapper.h"
-#include "strutils.h"
-#include "timeutils.h"
-#include "ioutils.h"
-#include "jsonutils.h"
+#include "string.h"
+#include "time.h"
+#include "io.h"
+#include "json.h"
 #include "globals.h"
 #include "logger.h"
 #include "libraries.h"

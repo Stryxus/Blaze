@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "strutils.h"
+#include "string.h"
 
 wstring string_to_wstring_copy(const string& str)
 {

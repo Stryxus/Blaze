@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "netutils.h"
+#include "net.h"
 
 void download_file()
 {
