@@ -350,5 +350,4 @@ MigrationBackup/
 .ionide/
 
 ffmpeg/
-libssh/
 build/
