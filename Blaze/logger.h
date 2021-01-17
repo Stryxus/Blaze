@@ -3,7 +3,7 @@
 class Logger
 {
 public:
-	enum COLOR
+	enum class COLOR
 	{
 		BLUE_FOREGROUND = 1,
 		GREEN_FOREGROUND = 2,
@@ -55,12 +55,20 @@ public:
 
 	static void log_last_error();
 
-	static void set_log_color(COLOR color);
+	static void set_global_foreground_color(COLOR color);
+	//static void set_global_background_color(COLOR color);
+	static void set_console_color(COLOR color);
+	static void clear_console_color();
 
 	static void flush_log_buffer();
+
+	static bool is_using_custom_color;
 
 private:
 	static string get_date_time_string();
 	static wstring get_date_time_wstring();
 	static int get_console_buffer_width();
+
+	static COLOR global_foregronnd_color;
+	//static COLOR global_background_color;
 };

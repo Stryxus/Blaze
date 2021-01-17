@@ -3,32 +3,44 @@
 
 void Logger::log_info(string message)
 {
+	if (!is_using_custom_color) set_console_color(COLOR::BRIGHT_WHITE_FOREGROUND);
 	printf(string("\n" + get_date_time_string() + "[INFO]:  " + message).c_str());
+	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
 }
 
 void Logger::log_warn(string message)
 {
+	if (!is_using_custom_color) set_console_color(COLOR::YELLOW_FOREGROUND);
 	printf(string("\n" + get_date_time_string() + "[WARN]:  " + message).c_str());
+	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
 }
 
 void Logger::log_error(string message)
 {
+	if (!is_using_custom_color) set_console_color(COLOR::RED_FOREGROUND);
 	printf(string("\n" + get_date_time_string() + "[ERROR]: " + message).c_str());
-}
+	if (!is_using_custom_color)set_console_color(global_foregronnd_color);
+} 
 
 void Logger::log_info(wstring message)
 {
+	if (!is_using_custom_color) set_console_color(COLOR::BRIGHT_WHITE_FOREGROUND);
 	wprintf(wstring(L"\n" + get_date_time_wstring() + L"[INFO]:  " + message).c_str());
+	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
 }
 
 void Logger::log_warn(wstring message)
 {
+	if (!is_using_custom_color) set_console_color(COLOR::YELLOW_FOREGROUND);
 	wprintf(wstring(L"\n" + get_date_time_wstring() + L"[WARN]:  " + message).c_str());
+	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
 }
 
 void Logger::log_error(wstring message)
 {
+	if (!is_using_custom_color) set_console_color(COLOR::RED_FOREGROUND);
 	wprintf(wstring(L"\n" + get_date_time_wstring() + L"[ERROR]: " + message).c_str());
+	if (!is_using_custom_color) set_console_color(global_foregronnd_color);
 }
 
 void Logger::log_nl(int amount)
@@ -44,10 +56,31 @@ void Logger::log_divide()
 	printf(string("\n" + divide).c_str());
 }
 
-void Logger::set_log_color(COLOR color)
+void Logger::set_global_foreground_color(COLOR color)
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(console, color);
+	SetConsoleTextAttribute(console, (unsigned short)color);
+	global_foregronnd_color = color;
+}
+
+/*
+void Logger::set_global_background_color(COLOR color)
+{
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console, (unsigned short)color);
+}
+*/
+
+void Logger::set_console_color(COLOR color)
+{
+	is_using_custom_color = true;
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console, (unsigned short)color);
+}
+
+void Logger::clear_console_color()
+{
+	is_using_custom_color = false;
 }
 
 void Logger::flush_log_buffer()
