@@ -41,6 +41,10 @@ cmake --build . --target %~dp0\build\libwebp\ALL_BUILD
 echo.
 echo.
 echo.
+cmake --build . --target %~dp0\build\libavif\ALL_BUILD
+echo.
+echo.
+echo.
 cmake --build . --target %~dp0\build\curl\ALL_BUILD
 echo.
 echo.
