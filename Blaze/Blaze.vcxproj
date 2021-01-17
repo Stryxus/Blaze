@@ -198,7 +198,7 @@ copy /Y "$(SolutionDir)build\zlib\Debug" "$(OutputPath)"</Command>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NativeBridge\NativeBridge.vcxproj">
+    <ProjectReference Include="..\Blaze.CLR\Blaze.CLR.vcxproj">
       <Project>{368398da-e84a-481c-a8c7-6cf9a7e19f14}</Project>
     </ProjectReference>
   </ItemGroup>
