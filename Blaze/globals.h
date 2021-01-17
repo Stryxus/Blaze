@@ -17,4 +17,5 @@ public:
 	static string LIB_NET_WRAPPER;
 	static string LIB_ZLIB;
 	static string LIB_PNG;
+	static string LIB_CURL;
 };
