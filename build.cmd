@@ -41,6 +41,10 @@ cmake --build . --target %~dp0\build\libwebp\ALL_BUILD
 echo.
 echo.
 echo.
+cmake --build . --target %~dp0\build\curl\ALL_BUILD
+echo.
+echo.
+echo.
 msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Debug /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
 echo.
 echo.
