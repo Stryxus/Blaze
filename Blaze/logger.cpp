@@ -114,6 +114,13 @@ void Logger::log_last_error()
 	Logger::log_error(message);
 }
 
+void Logger::wait()
+{
+	char c;
+	cin >> std::noskipws;
+	while (cin >> c) cout << c << std::endl;
+}
+
 string Logger::get_date_time_string()
 {
 	time_t now = cr::system_clock::to_time_t(cr::system_clock::now());

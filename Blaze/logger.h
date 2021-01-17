@@ -54,6 +54,7 @@ public:
 	static void log_divide();
 
 	static void log_last_error();
+	static void wait();
 
 	static void set_global_foreground_color(COLOR color);
 	//static void set_global_background_color(COLOR color);

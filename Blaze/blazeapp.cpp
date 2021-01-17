@@ -28,7 +28,7 @@ int main(int argc, const char* argv[])
 		Logger::log_divide();
 		Logger::log_nl();
 		Logger::log_info("Processing has finished! - Press any key to exit.");
-		getchar();
+		Logger::wait();
 		free_libraries();
 		return 1;
 	}
@@ -39,7 +39,7 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 		Logger::log_error("No blaze-settings.json exists in the specified path so one will be created. Pree any key to create the file and close.");
 		Logger::log_nl();
-		getchar();
+		Logger::wait();
 		free_libraries();
 		create_file(Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH);
 		if (!Settings::set_settings(true)) return -1;
