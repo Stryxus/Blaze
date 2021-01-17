@@ -18,41 +18,44 @@ cd build
 echo.
 echo -- Working at %~dp0
 echo.
-echo.
-echo Running CMakeLists
-echo.
+echo -- Running CMakeLists
 echo.
 cmake ../
 echo.
 echo.
-echo Starting to build projects.
+echo -- Starting To Build Projects.
+echo.
+echo.
+echo -------------------- BUILDING ZLIB --------------------
+echo.
+echo.
+cmake --build . --target %~dp0zlib\build\ALL_BUILD
+echo.
+echo.
+echo -------------------- BUILDING LIBPNG --------------------
+echo.
+echo.
+cmake --build . --target %~dp0build\libpng\ALL_BUILD
+echo.
+echo.
+echo -------------------- BUILDING LIBWEBP --------------------
+echo.
+echo.
+cmake --build . --target %~dp0build\libwebp\ALL_BUILD
+echo.
+echo.
+echo -------------------- BUILDING CURL --------------------
+echo.
+echo.
+cmake --build . --target %~dp0build\curl\ALL_BUILD
+echo.
+echo.
+echo -------------------- BUILDING LIBSASS --------------------
+echo.
+echo.
+msbuild -m %~dp0libsass\win\libsass.sln /p:Configuration=Debug /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
 echo.
 echo.
 echo.
-cmake --build . --target %~dp0\build\zlib\ALL_BUILD
+echo -- Build Finished!
 echo.
-echo.
-echo.
-cmake --build . --target %~dp0\build\libpng\ALL_BUILD
-echo.
-echo.
-echo.
-cmake --build . --target %~dp0\build\libwebp\ALL_BUILD
-echo.
-echo.
-echo.
-cmake --build . --target %~dp0\build\libavif\ALL_BUILD
-echo.
-echo.
-echo.
-cmake --build . --target %~dp0\build\curl\ALL_BUILD
-echo.
-echo.
-echo.
-msbuild %~dp0libsass\win\libsass.sln /p:Configuration=Debug /p:Platform=Win64 /p:LIBSASS_STATIC_LIB=1
-echo.
-echo.
-echo.
-echo Build Finished!
-echo.
-PAUSE
