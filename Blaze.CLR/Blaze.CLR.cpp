@@ -72,7 +72,6 @@ void convert_video_to_webm(string& input_path, string& output_path, int bitrate)
 	args->WithAudioCodec(AudioCodec::LibFdk_Aac);
 	args->WithVariableBitrate(bitrate);
 	args->WithAudioBitrate(256);
-	args->UsingThreads(8);
 	args->WithSpeedPreset(Speed::VerySlow);
 	args->UsingMultithreading(true);
 	args->WithFastStart();
