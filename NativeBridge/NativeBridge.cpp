@@ -82,21 +82,3 @@ void convert_video_to_webm(string& input_path, string& output_path, int bitrate)
 }
 
 //
-
-string download_data(string& link)
-{
-	WebClient^ client = gcnew WebClient();
-	string rstr;
-	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(client->DownloadString(gcnew String(link.c_str())))).ToPointer();
-	rstr = chars;
-	Marshal::FreeHGlobal(IntPtr((void*)chars));
-	return rstr;
-}
-
-long long get_download_length(string& link)
-{
-	WebClient^ client = gcnew WebClient();
-	client->OpenRead(gcnew String(link.c_str()));
-	WebHeaderCollection^ headers = client->ResponseHeaders;
-	return Convert::ToInt64(headers->Get("Content-Length"));
-}
