@@ -29,7 +29,7 @@ echo.
 echo -------------------- BUILDING ZLIB --------------------
 echo.
 echo.
-cmake --build . --target %~dp0zlib\build\ALL_BUILD
+cmake --build . --target %~dp0build\zlib\ALL_BUILD
 echo.
 echo.
 echo -------------------- BUILDING LIBPNG --------------------

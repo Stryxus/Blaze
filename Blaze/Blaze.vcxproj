@@ -128,15 +128,13 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)build\curl\lib\Debug;$(SolutionDir)libsass\win\bin\Debug;$(SolutionDir)build\zlib\Debug;$(SolutionDir)build\libpng\Debug;$(SolutionDir)build\libwebp\Debug;$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>zlibstaticd.lib;libpng16d.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;libcurl-d_imp.lib;Blaze.CLR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibstaticd.lib;libpng16_staticd.lib;imageioutil.lib;imagedec.lib;imageenc.lib;webp.lib;webpdecoder.lib;webpdemux.lib;webpmux.lib;libsass.lib;libcurl-d_imp.lib;Blaze.CLR.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AssemblyLinkResource>
       </AssemblyLinkResource>
     </Link>
     <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)build\libpng\Debug\libpng16d.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)NUglify\src\NUglify\bin\Debug\net5.0\NUglify.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)build\zlib\Debug\zlibd.dll" "$(OutputPath)"
-copy /Y "$(SolutionDir)build\curl\lib\Debug\libcurl-d.dll" "$(OutputPath)"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
