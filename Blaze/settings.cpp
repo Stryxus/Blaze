@@ -47,7 +47,7 @@ bool Settings::get_settings()
 	catch (exception e)
 	{
 		Logger::log_error("An error has occured while reading the specified blaze-settings.json file! " + *e.what());
-		getchar();
+		Logger::wait();
 		return false;
 	}
 
@@ -58,7 +58,7 @@ bool Settings::get_settings()
 	catch (exception e)
 	{
 		Logger::log_error("sourceResourceDir was not set! Cannot continue! " + *e.what());
-		getchar();
+		Logger::wait();
 		return false;
 	}
 
@@ -146,7 +146,7 @@ bool Settings::set_settings(bool setDefaultSettings)
 	catch (exception e)
 	{
 		Logger::log_error("An error has occured while writing to the specified blaze-settings.json " + *e.what());
-		getchar();
+		Logger::wait();
 		return false;
 	}
 	*/
