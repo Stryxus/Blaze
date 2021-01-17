@@ -165,36 +165,36 @@ copy /Y "$(SolutionDir)build\curl\lib\Debug\libcurl-d.dll" "$(OutputPath)"</Comm
     <ClInclude Include="blazeapp.h" />
     <ClInclude Include="coreproc.h" />
     <ClInclude Include="jsproc.h" />
-    <ClInclude Include="netutils.h" />
+    <ClInclude Include="net.h" />
     <ClInclude Include="sassproc.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="imgproc.h" />
-    <ClInclude Include="ioutils.h" />
-    <ClInclude Include="jsonutils.h" />
+    <ClInclude Include="io.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="libraries.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="settings.h" />
-    <ClInclude Include="strutils.h" />
-    <ClInclude Include="timeutils.h" />
+    <ClInclude Include="string.h" />
+    <ClInclude Include="time.h" />
     <ClInclude Include="netwrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp" />
     <ClCompile Include="coreproc.cpp" />
     <ClCompile Include="jsproc.cpp" />
-    <ClCompile Include="netutils.cpp" />
+    <ClCompile Include="net.cpp" />
     <ClCompile Include="sassproc.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="imgproc.cpp" />
-    <ClCompile Include="ioutils.cpp" />
-    <ClCompile Include="jsonutils.cpp" />
+    <ClCompile Include="io.cpp" />
+    <ClCompile Include="json.cpp" />
     <ClCompile Include="libraries.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="settings.cpp" />
-    <ClCompile Include="strutils.cpp" />
-    <ClCompile Include="timeutils.cpp" />
+    <ClCompile Include="string.cpp" />
+    <ClCompile Include="time.cpp" />
     <ClCompile Include="netwrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
