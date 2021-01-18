@@ -1,3 +1,5 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Stryxus/Blaze.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Stryxus/Blaze/alerts/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Stryxus/Blaze.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Stryxus/Blaze/alerts/)
 # Blaze
 The optimization and delivery tool for Blazor projects and anything which has a wwwroot for assets.
 ## Distribution
