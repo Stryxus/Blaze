@@ -38,9 +38,9 @@ void convert_data_magnitude_to_bytes(unsigned long long value, BIT_MAGNITUDE fro
 void convert_data_magnitude_in_bits(unsigned long long value, BIT_MAGNITUDE from_magnitude, BIT_MAGNITUDE to_magnitude);
 void convert_data_magnitude_in_bytes(unsigned long long value, BYTE_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude);
 
-unsigned long long convert_data_magnitude_to_bits_copy(unsigned long long value, BYTE_MAGNITUDE from_magnitude, BIT_MAGNITUDE to_magnitude);
-unsigned long long convert_data_magnitude_to_bytes_copy(unsigned long long value, BIT_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude);
-unsigned long long convert_data_magnitude_in_bits_copy(unsigned long long value, BIT_MAGNITUDE from_magnitude, BIT_MAGNITUDE to_magnitude);
-unsigned long long convert_data_magnitude_in_bytes_copy(unsigned long long value, BYTE_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude);
+double convert_data_magnitude_to_bits_copy(double value, BYTE_MAGNITUDE from_magnitude, BIT_MAGNITUDE to_magnitude);
+double convert_data_magnitude_to_bytes_copy(double value, BIT_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude);
+double convert_data_magnitude_in_bits_copy(double value, BIT_MAGNITUDE from_magnitude, BIT_MAGNITUDE to_magnitude);
+double convert_data_magnitude_in_bytes_copy(double value, BYTE_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude);
 
 //
