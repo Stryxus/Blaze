@@ -1,50 +1,50 @@
 #include "pch.h"
 #include "time.h"
 
-long milliseconds_to_seconds(cr::milliseconds mill)
+long long milliseconds_to_seconds(cr::milliseconds mill)
 {
-	return mill.count() / 1000;
+	return mill.count() / 1000L;
 }
 
-long milliseconds_to_minutes(cr::milliseconds mill)
+long long milliseconds_to_minutes(cr::milliseconds mill)
 {
-	return mill.count() / 1000 / 60;
+	return mill.count() / 1000L / 60L;
 }
 
-long milliseconds_to_hours(cr::milliseconds mill)
+long long milliseconds_to_hours(cr::milliseconds mill)
 {
-	return mill.count() / 1000 / 60 / 60;
+	return mill.count() / 1000L / 60L / 60L;
 }
 
-long milliseconds_to_days(cr::milliseconds mill)
+long long milliseconds_to_days(cr::milliseconds mill)
 {
-	return mill.count() / 1000 / 60 / 60 / 24;
+	return mill.count() / 1000L / 60L / 60L / 24L;
 }
 
-long milliseconds_to_weeks(cr::milliseconds mill)
+long long milliseconds_to_weeks(cr::milliseconds mill)
 {
-	return mill.count() / 1000 / 60 / 60 / 24 / 7;
+	return mill.count() / 1000L / 60L / 60L / 24L / 7L;
 }
 
-long milliseconds_to_months(cr::milliseconds mill)
+long long milliseconds_to_months(cr::milliseconds mill)
 {
-	return mill.count() / 1000 / 60 / 60 / 24 / 7 / 4;
+	return mill.count() / 1000L / 60L / 60L / 24L / 7L / 4L;
 }
 
-long milliseconds_to_years(cr::milliseconds mill)
+long long milliseconds_to_years(cr::milliseconds mill)
 {
-	return mill.count() / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
+	return mill.count() / 1000L / 60L / 60L / 24L / 7L / 4L / 12L;
 }
 
 string milliseconds_to_time_string(cr::milliseconds mill)
 {
-	long mi = mill.count();
-	long h = mi / 1000 / 60 / 60;
-	mi = mi - 1000 * 60 * 60 * h;
-	long m = mi / 1000 / 60;
-	mi = mi - 1000 * 60 * m;
-	long s = mi / 1000;
-	mi = mi - 1000 * s;
+	long long mi = mill.count();
+	long long h = mi / 1000L / 60L / 60L;
+	mi = mi - 1000L * 60L * 60L * h;
+	long long m = mi / 1000L / 60L;
+	mi = mi - 1000L * 60L * m;
+	long long s = mi / 1000L;
+	mi = mi - 1000L * s;
 	return (to_string(h).length() > 1 ? to_string(h) : "0" + to_string(h)) + ":" + 
 		(to_string(m).length() > 1 ? to_string(m) : "0" + to_string(m)) + ":" + 
 		(to_string(s).length() > 1 ? to_string(s) : "0" + to_string(s)) + "." + 
@@ -53,13 +53,13 @@ string milliseconds_to_time_string(cr::milliseconds mill)
 
 string milliseconds_to_date_string(cr::milliseconds mill)
 {
-	long mi = mill.count();
-	long y = mi / 1000 / 60 / 60 / 4 / 7 / 4 / 12;
-	mi = mi - 1000 * 60 * 60 * 24 * 7 * 4 * 12 * y;
-	long m = mi / 1000 / 60 / 60 / 24 / 7 / 4;
-	mi = mi - 1000 * 60 * 60 * 24 * 7 * 4 * m;
-	long d = mi / 1000 / 60 / 60 / 24;
-	mi = mi - 1000 * 60 * 60 * 24 * d;
+	long long mi = mill.count();
+	long long y = mi / 1000L / 60L / 60L / 4L / 7L / 4L / 12L;
+	mi = mi - 1000L * 60L * 60L * 24L * 7L * 4L * 12L * y;
+	long long m = mi / 1000L / 60L / 60L / 24L / 7L / 4L;
+	mi = mi - 1000L * 60L * 60L * 24L * 7L * 4L * m;
+	long long d = mi / 1000 / 60L / 60L / 24L;
+	mi = mi - 1000L * 60L * 60L * 24L * d;
 	return (to_string(y).length() > 1 ? to_string(y) : "0" + to_string(y)) + ":" +
 		(to_string(m).length() > 1 ? to_string(m) : "0" + to_string(m)) + ":" +
 		(to_string(d).length() > 1 ? to_string(d) : "0" + to_string(d)) + "." +
