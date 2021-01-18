@@ -55,9 +55,13 @@ string milliseconds_to_date_string(cr::milliseconds mill)
 {
 	long long mi = mill.count();
 	long long y = mi / 1000L / 60L / 60L / 4L / 7L / 4L / 12L;
-	mi = mi - 1000L * 60L * 60L * 24L * 7L * 4L * 12L * y;
+	mi = mi - 1000L * 60L * 60L;
+	mi = mi * 24L * 24L;
+	mi = mi * 7L * 4L * 12L * y;
 	long long m = mi / 1000L / 60L / 60L / 24L / 7L / 4L;
-	mi = mi - 1000L * 60L * 60L * 24L * 7L * 4L * m;
+	mi = mi - 1000L * 60L * 60L;
+	mi = mi * 24L * 24L;
+	mi = mi * 7L * 4L * m;
 	long long d = mi / 1000 / 60L / 60L / 24L;
 	mi = mi - 1000L * 60L * 60L * 24L * d;
 	return (to_string(y).length() > 1 ? to_string(y) : "0" + to_string(y)) + ":" +
