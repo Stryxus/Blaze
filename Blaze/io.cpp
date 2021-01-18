@@ -622,11 +622,14 @@ double convert_data_magnitude_to_bits_copy(double value, BYTE_MAGNITUDE from_mag
 			else if (to_magnitude == BIT_MAGNITUDE::ZETTA_BIT)		return (value / bytes_in_zetta) * base_byte;
 			else if (to_magnitude == BIT_MAGNITUDE::YOTTA_BIT)		return (value / bytes_in_yotta) * base_byte;
 		}
+		else return 0L;
 	}
 	catch (const char* msg)
 	{
 		Logger::log_error(msg);
+		return 0L;
 	}
+	return 0L;
 }
 
 double convert_data_magnitude_to_bytes_copy(double value, BIT_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude)
@@ -741,11 +744,14 @@ double convert_data_magnitude_to_bytes_copy(double value, BIT_MAGNITUDE from_mag
 			else if (to_magnitude == BYTE_MAGNITUDE::ZETTA_BYTE)	return (value / base_byte) * bytes_in_kilo;
 			else if (to_magnitude == BYTE_MAGNITUDE::YOTTA_BYTE)	return value / base_byte;
 		}
+		else return 0L;
 	}
 	catch (const char* msg)
 	{
 		Logger::log_error(msg);
+		return 0L;
 	}
+	return 0L;
 }
 
 double convert_data_magnitude_in_bits_copy(double value, BIT_MAGNITUDE from_magnitude, BIT_MAGNITUDE to_magnitude)
@@ -860,11 +866,14 @@ double convert_data_magnitude_in_bits_copy(double value, BIT_MAGNITUDE from_magn
 			else if (to_magnitude == BIT_MAGNITUDE::ZETTA_BIT)		return value * bits_in_yotta;
 			else if (to_magnitude == BIT_MAGNITUDE::YOTTA_BIT)		throw;
 		}
+		else return 0L;
 	}
 	catch (const char* msg)
 	{
 		Logger::log_error(msg);
+		return 0L;
 	}
+	return 0L;
 }
 
 double convert_data_magnitude_in_bytes_copy(double value, BYTE_MAGNITUDE from_magnitude, BYTE_MAGNITUDE to_magnitude)
@@ -979,11 +988,14 @@ double convert_data_magnitude_in_bytes_copy(double value, BYTE_MAGNITUDE from_ma
 			else if (to_magnitude == BYTE_MAGNITUDE::ZETTA_BYTE)	return value * bytes_in_kilo;
 			else if (to_magnitude == BYTE_MAGNITUDE::YOTTA_BYTE)	throw;
 		}
+		else return 0L;
 	}
 	catch (const char* msg)
 	{
 		Logger::log_error(msg);
+		return 0L;
 	}
+	return 0L;
 }
 
 //
