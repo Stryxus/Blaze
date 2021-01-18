@@ -19,7 +19,6 @@ string download(string& url)
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L); 
         curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "");
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
-        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_mem);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
