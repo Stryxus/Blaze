@@ -34,7 +34,7 @@ void using_directory_check(string& copy_to_path)
 void copy_file(string& path, string& copy_to_path, string& relative_path)
 {
 	using_directory_check(copy_to_path);
-	Logger::log_info("Copying File:       [wwwroot]:" + relative_path);
+	Logger::log_info("Copying File:       [wwwroot]:" + relative_path + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 	fs::copy(path, copy_to_path);
 }
 
@@ -58,7 +58,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			{
 				copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
 				using_directory_check(copy_to_path);
-				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 				start_time = clock.now();
 				convert_png_to_webp(path.c_str(), copy_to_path.c_str(),
 					static_cast<int>(file_config["width"]),
@@ -70,7 +70,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			{
 				copy_to_path = replace_copy(ctp.string(), ".png", ".webp");
 				using_directory_check(copy_to_path);
-				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Processing File:    [wwwroot]:" + copy_to_path_relative + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 				start_time = clock.now();
 				convert_png_to_avif(path.c_str(), copy_to_path.c_str(),
 					static_cast<int>(file_config["width"]),
@@ -81,7 +81,8 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 
 			Logger::set_console_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
 			Logger::log_info("Processed File:     [wwwroot]:" + replace_copy(copy_to_path_relative, ".png", format == "webp" ? ".webp" : ".png") + 
-																				" | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
+																				" | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)) 
+																				+ " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(copy_to_path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 			Logger::clear_console_color();
 		}
 	}
@@ -98,7 +99,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			if (scss_bundle_file_path.empty())
 			{
 				using_directory_check(copy_to_path);
-				Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 				add_scss_for_minification(path.c_str());
 				should_minify_css = true;
 				scss_bundle_file_path = path;
@@ -120,7 +121,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 		if (enabled)
 		{
 			using_directory_check(copy_to_path);
-			Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative);
+			Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 			add_css_for_minification(path.c_str());
 			should_minify_css = true;
 		}
@@ -139,7 +140,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 			if (order != -1) 
 			{
 				using_directory_check(copy_to_path);
-				Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative);
+				Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 				add_js_for_minification(path.c_str(), order);
 				should_minify_js = true;
 			}
@@ -287,7 +288,8 @@ void start_project_processing()
 				long long result_time = cr::duration_cast<cr::milliseconds>(end_time - start_time).count();
 				should_minify_css = false;
 				Logger::set_console_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
-				Logger::log_info("SCSS Compiled:      [wwwroot]:" + css_bundle_path_alt + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
+				Logger::log_info("SCSS Compiled:      [wwwroot]:" + css_bundle_path_alt + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)) 
+																						+ " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(css_bundle_path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 				Logger::clear_console_color();
 				Logger::log_nl();
 			}
@@ -306,7 +308,8 @@ void start_project_processing()
 				long long result_time = cr::duration_cast<cr::milliseconds>(end_time - start_time).count();
 				should_minify_js = false;
 				Logger::set_console_color(Logger::COLOR::BRIGHT_GREEN_FOREGROUND);
-				Logger::log_info("JS Compiled:        [wwwroot]:" + js_bundle_path_alt + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)));
+				Logger::log_info("JS Compiled:        [wwwroot]:" + js_bundle_path_alt + " | Time Taken: " + milliseconds_to_time_string(cr::duration_cast<cr::milliseconds>(end_time - start_time)) 
+																					   + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(js_bundle_path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 				Logger::clear_console_color();
 				Logger::log_nl();
 			}
