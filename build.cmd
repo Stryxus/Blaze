@@ -6,7 +6,7 @@ echo --- Blaze Dependency Build Tool ---
 echo -----------------------------------
 echo IMPORTANT: This tool MUST be opened in Visual Studio's x64 Native Dev Tools Command Prompt!!!
 echo This process may take several minutes depending on how powerful your CPU is.
-echo Entering the Visual Studio year version will delete the current build folder and begin the build process.
+echo Entering the Visual Studio year version will delete the current /solution/build/ folder and begin the build process.
 echo.
 echo.
 set /p id= -- Enter your Visual Studio year version (2019 etc): 
@@ -42,12 +42,6 @@ echo -------------------- BUILDING LIBWEBP --------------------
 echo.
 echo.
 cmake --build . --target %~dp0build\libwebp\ALL_BUILD
-echo.
-echo.
-echo -------------------- BUILDING CURL --------------------
-echo.
-echo.
-cmake --build . --target %~dp0build\curl\ALL_BUILD
 echo.
 echo.
 echo -------------------- BUILDING LIBSASS --------------------

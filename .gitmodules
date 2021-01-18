@@ -16,15 +16,6 @@
 [submodule "zlib"]
 	path = zlib
 	url = https://github.com/madler/zlib
-[submodule "libssh2"]
-	path = libssh2
-	url = https://github.com/libssh2/libssh2
 [submodule "FFMpegCore"]
 	path = FFMpegCore
 	url = https://github.com/rosenbjerg/FFMpegCore
-[submodule "curl"]
-	path = curl
-	url = https://github.com/curl/curl
-[submodule "libavif"]
-	path = libavif
-	url = https://github.com/AOMediaCodec/libavif
