@@ -1,9 +1,10 @@
 #define WIN32_LEAN_AND_MEAN
 
-#pragma warning(push);
-#pragma warning(disable : 6031);
-#pragma warning(disable : 26451);
-#pragma warning(disable : 28020);
+#pragma warning(push)
+#pragma warning(disable : 6031)
+#pragma warning(disable : 26451)
+#pragma warning(disable : 28020)
+#pragma warning(disable : 26812)
 
 #include <Windows.h>
 #include <thread>
@@ -23,15 +24,15 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 
-#pragma warning(pop);
+#pragma warning(pop)
 
 using namespace std;
 namespace cr = std::chrono;
 namespace fs = std::filesystem;
 using JSON = nlohmann::json;
 
-#pragma warning(push);
-#pragma warning(disable : 4081);
+#pragma warning(push)
+#pragma warning(disable : 4081)
 
 #include "netwrapper.h"
 #include "string.h"
@@ -44,4 +45,4 @@ using JSON = nlohmann::json;
 #include "libraries.h"
 #include "settings.h"
 
-#pragma warning(pop);
+#pragma warning(pop)
