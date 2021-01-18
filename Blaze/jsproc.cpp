@@ -16,10 +16,11 @@ void minify_js(const char* to)
 	{
 		if (find(currently_cached_dependencies.begin(), currently_cached_dependencies.end(), s) != currently_cached_dependencies.end() == false) 
 		{
+			string dependency = download(s);
 			Logger::set_console_color(Logger::COLOR::WHITE_FOREGROUND);
-			Logger::log_info("Downloading JS:     " + s + " [" + to_string(convert_data_magnitude_in_bytes_copy(get_content_length(s), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
+			Logger::log_info("Downloaded JS:      " + s + " [" + to_string(convert_data_magnitude_in_bytes_copy(dependency.length(), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
 			Logger::clear_console_color();
-			js_dependencies += download(s);
+			js_dependencies += dependency;
 		}
 	}
 	currently_cached_dependencies = Settings::JS_DEPENDENCY_LINKS;
