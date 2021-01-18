@@ -17,7 +17,7 @@ void minify_js(const char* to)
 		if (find(currently_cached_dependencies.begin(), currently_cached_dependencies.end(), s) != currently_cached_dependencies.end() == false) 
 		{
 			string dependency = download(s);
-			string dependencyLength = to_string(convert_data_magnitude_in_bytes_copy(dependency.length(), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE));
+			string dependencyLength = to_string(convert_data_magnitude_in_bytes_copy(static_cast<double>(dependency.length()), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE));
 			Logger::set_console_color(Logger::COLOR::WHITE_FOREGROUND);
 			Logger::log_info("Downloaded JS:      " + s + " [" + dependencyLength.substr(0, static_cast<int>(dependencyLength.find_first_of(".") + 3)) + " KB]");
 			Logger::clear_console_color();
