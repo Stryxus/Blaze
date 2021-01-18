@@ -18,4 +18,6 @@ public:
 	static string LIB_ZLIB;
 	static string LIB_PNG;
 	static string LIB_CURL;
+	static string LIB_SSL;
+	static string LIB_SSL_CRYPTO;
 };

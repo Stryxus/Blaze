@@ -11,4 +11,6 @@ string Globals::SPECIFIED_PROJECT_DIRECTORY_SETTINGS_JSON_PATH = "";
 string Globals::LIB_NET_WRAPPER = "Blaze.CLR.dll";
 string Globals::LIB_ZLIB = "zlibd.dll";
 string Globals::LIB_PNG = "libpng16d.dll";
-string Globals::LIB_CURL = "libcurl-d.dll";
+string Globals::LIB_CURL = "libcurl-x64.dll";
+string Globals::LIB_SSL = "libssl-1_1-x64.dll";
+string Globals::LIB_SSL_CRYPTO = "libcrypto-1_1-x64.dll";

@@ -20,6 +20,8 @@
 #include <map>
 
 #include <nlohmann/json.hpp>
+#include <curl/curl.h>
+#include <curl/easy.h>
 
 #pragma warning(pop);
 
@@ -36,6 +38,7 @@ using JSON = nlohmann::json;
 #include "time.h"
 #include "io.h"
 #include "json.h"
+#include "net.h"
 #include "globals.h"
 #include "logger.h"
 #include "libraries.h"
