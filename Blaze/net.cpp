@@ -38,7 +38,23 @@ bool download_file(string& url)
 
 //
 
-void get_headers()
+unsigned long long get_content_length(string& url)
 {
-
+    CURL* curl = curl_easy_init();
+    if (curl)
+    {
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
+        curl_easy_setopt(curl, CURLOPT_HTTPPROXYTUNNEL, 1L);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+        curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
+        CURLcode res = curl_easy_perform(curl);
+        if (!res)
+        {
+            unsigned long long cl;
+            res = curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD_T, &cl);
+            if (!res) return cl;
+            else return 0L;
+        }
+    }
 }

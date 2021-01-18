@@ -5,4 +5,4 @@ bool download_file(string& url);
 
 //
 
-void get_headers();
+unsigned long long get_content_length(string& url);
