@@ -1,7 +1,7 @@
-#include "pch.h"
-#include "blazeapp.h"
+#include "pch.hpp"
+#include "blazeapp.hpp"
 
-#include "coreproc.h"
+#include "coreproc.hpp"
 
 int main(int argc, const char* argv[])
 {

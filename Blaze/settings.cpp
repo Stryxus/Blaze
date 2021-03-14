@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "settings.h"
+#include "pch.hpp"
+#include "settings.hpp"
 
 string Settings::SOURCE_RESOURCE_DIR = "";
 bool Settings::FORMAT_RESOURCE_DIR = false;

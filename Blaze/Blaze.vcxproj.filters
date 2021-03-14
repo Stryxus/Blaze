@@ -23,52 +23,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="blazeapp.h">
+    <ClInclude Include="blazeapp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="settings.h">
+    <ClInclude Include="settings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="globals.h">
+    <ClInclude Include="globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="logger.h">
+    <ClInclude Include="logger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="imgproc.h">
+    <ClInclude Include="imgproc.hpp">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="libraries.h">
+    <ClInclude Include="libraries.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="coreproc.h">
+    <ClInclude Include="coreproc.hpp">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="sassproc.h">
+    <ClInclude Include="sassproc.hpp">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="jsproc.h">
+    <ClInclude Include="jsproc.hpp">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="netwrapper.h">
+    <ClInclude Include="netwrapper.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="time.h">
+    <ClInclude Include="time.hpp">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="string.h">
+    <ClInclude Include="string.hpp">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="net.h">
+    <ClInclude Include="net.hpp">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="json.h">
+    <ClInclude Include="json.hpp">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="io.h">
+    <ClInclude Include="io.hpp">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>

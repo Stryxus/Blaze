@@ -1,9 +1,9 @@
-#include "pch.h"
-#include "coreproc.h"
+#include "pch.hpp"
+#include "coreproc.hpp"
 
-#include "imgproc.h"
-#include "sassproc.h"
-#include "jsproc.h"
+#include "imgproc.hpp"
+#include "sassproc.hpp"
+#include "jsproc.hpp"
 
 string minify_js(string(*f)(string&), string content)
 {

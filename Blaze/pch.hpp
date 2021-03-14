@@ -30,15 +30,15 @@ using JSON = nlohmann::json;
 #pragma warning(push)
 #pragma warning(disable : 4081)
 
-#include "netwrapper.h"
-#include "string.h"
-#include "time.h"
-#include "io.h"
-#include "json.h"
-#include "net.h"
-#include "globals.h"
-#include "logger.h"
-#include "libraries.h"
-#include "settings.h"
+#include "netwrapper.hpp"
+#include "string.hpp"
+#include "time.hpp"
+#include "io.hpp"
+#include "json.hpp"
+#include "net.hpp"
+#include "globals.hpp"
+#include "logger.hpp"
+#include "libraries.hpp"
+#include "settings.hpp"
 
 #pragma warning(pop)

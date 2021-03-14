@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "sassproc.h"
+#include "pch.hpp"
+#include "sassproc.hpp"
 
 #include <sass.h>
 using namespace Sass;

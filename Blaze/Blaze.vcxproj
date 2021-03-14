@@ -153,7 +153,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)curl\include;$(SolutionDir)libsass\include;$(SolutionDir)libwebp\src;$(SolutionDir)libwebp\imageio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -247,22 +247,22 @@ copy /Y "$(SolutionDir)curl\bin\libcrypto-1_1-x64.dll" "$(OutputPath)"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="blazeapp.h" />
-    <ClInclude Include="coreproc.h" />
-    <ClInclude Include="jsproc.h" />
-    <ClInclude Include="net.h" />
-    <ClInclude Include="sassproc.h" />
-    <ClInclude Include="globals.h" />
-    <ClInclude Include="imgproc.h" />
-    <ClInclude Include="io.h" />
-    <ClInclude Include="json.h" />
-    <ClInclude Include="libraries.h" />
-    <ClInclude Include="logger.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="settings.h" />
-    <ClInclude Include="string.h" />
-    <ClInclude Include="time.h" />
-    <ClInclude Include="netwrapper.h" />
+    <ClInclude Include="blazeapp.hpp" />
+    <ClInclude Include="coreproc.hpp" />
+    <ClInclude Include="jsproc.hpp" />
+    <ClInclude Include="net.hpp" />
+    <ClInclude Include="sassproc.hpp" />
+    <ClInclude Include="globals.hpp" />
+    <ClInclude Include="imgproc.hpp" />
+    <ClInclude Include="io.hpp" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="libraries.hpp" />
+    <ClInclude Include="logger.hpp" />
+    <ClInclude Include="pch.hpp" />
+    <ClInclude Include="settings.hpp" />
+    <ClInclude Include="string.hpp" />
+    <ClInclude Include="time.hpp" />
+    <ClInclude Include="netwrapper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp" />

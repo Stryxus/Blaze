@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "globals.h"
+#include "pch.hpp"
+#include "globals.hpp"
 
 string References::APP_NAME = "Blaze";
 string References::APP_VERSION = "1.0.0";

@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "time.h"
+#include "pch.hpp"
+#include "time.hpp"
 
 long long milliseconds_to_seconds(cr::milliseconds mill)
 {

@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "net.h"
+#include "pch.hpp"
+#include "net.hpp"
 
 size_t write_mem(void* ptr, size_t size, size_t nmemb, void* stream)
 {

@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "libraries.h"
+#include "pch.hpp"
+#include "libraries.hpp"
 
 map<string, HMODULE> modules;
 

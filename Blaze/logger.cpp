@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "logger.h"
+#include "pch.hpp"
+#include "logger.hpp"
 
 bool Logger::is_using_custom_color = false;
 Logger::COLOR Logger::global_foregronnd_color = COLOR::BRIGHT_WHITE_FOREGROUND;

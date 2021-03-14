@@ -1,6 +1,6 @@
-#include "pch.h"
+#include "pch.hpp"
 
-#include "Blaze.NET.h"
+#include "Blaze.NET.hpp"
 
 using namespace System;
 using namespace System::Net;

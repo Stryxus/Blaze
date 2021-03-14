@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "jsproc.h"
+#include "pch.hpp"
+#include "jsproc.hpp"
 
 map<int, string> js_ordered_content;
 vector<string> currently_cached_dependencies;
