@@ -7,12 +7,12 @@ using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 using namespace System::Security::Permissions;
 
-[assembly:AssemblyTitleAttribute(L"Blaze.CLR")];
+[assembly:AssemblyTitleAttribute(L"Blaze.NET")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
-[assembly:AssemblyProductAttribute(L"Blaze.CLR")];
-[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Connor 'Stryxus' Shearer 2020")];
+[assembly:AssemblyProductAttribute(L"Blaze.NET")];
+[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Connor 'Stryxus' Shearer 2021")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];
 

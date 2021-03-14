@@ -22,10 +22,10 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{368398DA-E84A-481C-A8C7-6CF9A7E19F14}</ProjectGuid>
     <Keyword>NetCoreCProj</Keyword>
-    <RootNamespace>Blaze.CLR</RootNamespace>
+    <RootNamespace>Blaze.NET</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net5.0</TargetFramework>
-    <ProjectName>Blaze.CLR</ProjectName>
+    <ProjectName>Blaze.NET</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,12 +123,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssemblyInfo.h" />
-    <ClInclude Include="Blaze.CLR.h" />
+    <ClInclude Include="Blaze.NET.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="Blaze.CLR.cpp" />
+    <ClCompile Include="Blaze.NET.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
