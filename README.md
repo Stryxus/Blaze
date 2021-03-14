@@ -9,10 +9,8 @@ There is no set code style, everyone can contribute in their own prefered ways a
 
 Memory management is dealt with by coding freely, then afterwards doing a 'memory management pass' to deal with all the leaks and optimizations and so forth.
 #### Requirements & Instructions
-- Windows 10 1909 or later.
-- Visual Studio 2019 16.8.
-- C++ with Cmake, Clang & CLR.
-- .NET 5 SDK.
+- The latest version of Windows 10 and preferably other OS's like Android and a Linux distro.
+- Visual Studio 2019 with .NET 5, C++, CMake & CLR.
 - Change NUglify & FFMpegCore targetframework to net5.0, this is found inside the csproj for each project.
 - [Download FFmpeg 4.3 x64](https://ffmpeg.zeranoe.com/builds/) & extract the 'include' & 'lib' folders into 'Blaze/ffmpeg/include' & 'Blaze/ffmpeg/lib'.
 - [Download curl 7.74 x64](https://curl.se/windows/) & extract the 'include' & 'lib' folders into 'Blaze/curl/include' & 'Blaze/curl/lib' & 'Blaze/curl/bin/libcurl-x64.dll'.
