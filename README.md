@@ -6,8 +6,6 @@ The optimization and delivery tool for many different types of assets in many di
 Everyone is welcome to contribute if interested. Follow the requirements and instructions below!
 #### Code Style
 There is no set code style, everyone can contribute in their own prefered ways as long as it isnt complicated enough that it isnt universally understood across all contributors.
-
-Memory management is dealt with by coding freely, then afterwards doing a 'memory management pass' to deal with all the leaks and optimizations and so forth.
 #### Requirements & Instructions
 - The latest version of Windows 10 and preferably other OS's like Android and a Linux distro.
 - Visual Studio 2019 with .NET 5, C++, CMake & CLR.
