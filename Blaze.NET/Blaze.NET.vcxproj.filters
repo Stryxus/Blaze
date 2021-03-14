@@ -4,10 +4,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Blaze.CLR.cpp">
+    <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AssemblyInfo.cpp">
+    <ClCompile Include="Blaze.NET.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -15,10 +15,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Blaze.CLR.h">
+    <ClInclude Include="AssemblyInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssemblyInfo.h">
+    <ClInclude Include="Blaze.NET.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
