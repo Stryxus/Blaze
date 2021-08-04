@@ -7,7 +7,6 @@ git rm --cached libpng
 git rm --cached libsass
 git rm --cached libwebp
 git rm --cached NUglify
-git rm --cached Sources/css/thirdparty/*
 
 set -e
 
