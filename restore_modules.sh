@@ -1,6 +1,13 @@
 #!/bin/sh
 
 git rm --cached Sources/css/thirdparty/*
+git rm --cached FFMpegCore
+git rm --cached json
+git rm --cached libpng
+git rm --cached libsass
+git rm --cached libwebp
+git rm --cached NUglify
+git rm --cached Sources/css/thirdparty/*
 
 set -e
 
