@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{03E7F2DC-F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middlware", "Middlware", "{E07ADEDE-CF1D-4306-A0AC-22A1246D8F6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blaze.Middleware", "Blaze.Middleware\Blaze.Middleware.csproj", "{EC96DB17-1BDF-44AF-89DF-00EB1A5E0B4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blaze.Middleware", "Blaze.Middleware\Blaze.Middleware.csproj", "{EC96DB17-1BDF-44AF-89DF-00EB1A5E0B4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
