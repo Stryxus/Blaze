@@ -5,7 +5,6 @@
 using namespace Sass;
 
 string scss_data = "";
-string css_data = "";
 
 void add_scss_for_minification(const char* from)
 {
@@ -18,22 +17,6 @@ void add_scss_for_minification(const char* from)
 		{
 			fileIn >> fileData;
 			scss_data += fileData;
-		}
-	}
-	fileIn.close();
-}
-
-void add_css_for_minification(const char* from)
-{
-	string fileData = "";
-
-	ifstream fileIn(from, ios_base::binary);
-	if (fileIn.is_open())
-	{
-		while (!fileIn.eof())
-		{
-			fileIn >> fileData;
-			css_data += fileData;
 		}
 	}
 	fileIn.close();
@@ -67,12 +50,6 @@ void minify_css(const char* to, const char* include_path, int precision)
 	{
 		ofstream fileOut(to, ios_base::binary);
 		fileOut.write(output, strlen(output));
-		if (!css_data.empty())
-		{
-			string result = DotNetWrapper::DOTNET_MINIFY_CSS(css_data);
-			css_data.clear();
-			fileOut.write(result.c_str(), result.length());
-		}
 		fileOut.close();
 	}
 	else Logger::log_error(output);
