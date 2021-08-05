@@ -5,6 +5,7 @@
 using namespace System;
 using namespace System::Net;
 using namespace System::Runtime::InteropServices;
+using namespace System::Threading::Tasks;
 
 using namespace NUglify;
 using namespace NUglify::Css;
@@ -61,23 +62,37 @@ string minify_js(string& content)
 
 //
 
+ref class FFProbeArgumentBitrateCapsule
+{
+	int bitrate;
+public:
+	FFProbeArgumentBitrateCapsule(int br) : bitrate(br) {}
+	void CreateCapsule(FFMpegArgumentOptions^ args)
+	{
+		args->WithVideoCodec(VideoCodec::LibVpx);
+		args->WithAudioCodec(AudioCodec::LibFdk_Aac);
+		args->WithVariableBitrate(bitrate);
+		args->WithAudioBitrate(256);
+		args->WithSpeedPreset(Speed::VerySlow);
+		args->UsingMultithreading(true);
+		args->WithFastStart();
+	}
+};
+
+void CreateFFMpegInArguments(FFMpegArgumentOptions^ args)
+{
+
+}
+
 void convert_video_to_webm(string& input_path, string& output_path, int bitrate)
 {
 	String^ in_path = gcnew String(input_path.c_str());
 	String^ out_path = gcnew String(output_path.c_str());
-	IMediaAnalysis^ probe = FFProbe::Analyse(in_path, int::MaxValue);
+	IMediaAnalysis^ probe = FFProbe::Analyse(in_path, int::MaxValue, gcnew FFOptions());
 
-	FFMpegArguments^ args = FFMpegArguments::FromInputFiles(in_path);
-	args->WithVideoCodec(VideoCodec::LibVpx);
-	args->WithAudioCodec(AudioCodec::LibFdk_Aac);
-	args->WithVariableBitrate(bitrate);
-	args->WithAudioBitrate(256);
-	args->WithSpeedPreset(Speed::VerySlow);
-	args->UsingMultithreading(true);
-	args->WithFastStart();
-	args->Scale(VideoSize::Original);
-	FFMpegArgumentProcessor^ processor = args->OutputToFile(out_path, true);
-	processor->ProcessSynchronously(false);
+	FFMpegArguments^ args = FFMpegArguments::FromFileInput(in_path, true, gcnew Action<FFMpegArgumentOptions^>(CreateFFMpegInArguments));
+	FFMpegArgumentProcessor^ processor = args->OutputToFile(out_path, true, gcnew Action<FFMpegArgumentOptions^>(gcnew FFProbeArgumentBitrateCapsule(bitrate), &FFProbeArgumentBitrateCapsule::CreateCapsule));
+	processor->ProcessAsynchronously(true, gcnew FFOptions());
 }
 
 //
