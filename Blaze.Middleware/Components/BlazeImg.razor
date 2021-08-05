@@ -1,0 +1,24 @@
+﻿<img src=@src alt=@alt width=@width height=@height />
+
+@using Blaze.API;
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        BlazeAPI
+        await base.OnInitializedAsync();
+    }
+
+    [Parameter]
+    public string src { get; set; }
+
+    [Parameter]
+    public string alt { get; set; }
+
+    [Parameter]
+    public int width { get; set; }
+
+    [Parameter]
+    public int height { get; set; }
+}

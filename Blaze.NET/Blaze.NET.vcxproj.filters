@@ -7,7 +7,7 @@
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Blaze.NET.cpp">
+    <ClCompile Include="cpptocsharp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -18,7 +18,10 @@
     <ClInclude Include="AssemblyInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Blaze.NET.hpp">
+    <ClInclude Include="cpptocsharp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="csharptocpp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,5 +32,10 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{86b10bd5-730e-442e-8335-2cefada0994a}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="csharptocpp.cpp">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
