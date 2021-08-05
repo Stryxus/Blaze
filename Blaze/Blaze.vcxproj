@@ -286,7 +286,7 @@ copy /Y "$(SolutionDir)curl\bin\libcrypto-1_1-x64.dll" "$(OutputPath)"</Command>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blaze.CLR\Blaze.CLR.vcxproj">
+    <ProjectReference Include="..\Blaze.NET\Blaze.NET.vcxproj">
       <Project>{368398da-e84a-481c-a8c7-6cf9a7e19f14}</Project>
     </ProjectReference>
   </ItemGroup>
