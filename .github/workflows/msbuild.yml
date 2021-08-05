@@ -26,7 +26,7 @@ jobs:
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build Dependencies
-      run: build.cmd
+      run: ./build.cmd
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
