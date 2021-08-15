@@ -29,7 +29,7 @@ int main(int argc, const char* argv[])
 		Logger::log_nl();
 
 		int mode;
-		string valid_options("1", "2");
+		string valid_options("12");
 		string input;
 		Logger::log_info("Please choose an operating mode number:");
 		Logger::log_info("| 1: Debug mode (Default)");
@@ -37,7 +37,8 @@ int main(int argc, const char* argv[])
 		cin >> input;
 		while (input.size() != 1 || valid_options.find(input) == string::npos)
 		{
-			Logger::log_error("Input invalid, please enter a mode number as shown!");
+			Logger::log_error("Input invalid, please enter a mode number as shown!\n");
+			Logger::log_nl();
 			cin >> input;
 			mode = stoi(input);
 		}
