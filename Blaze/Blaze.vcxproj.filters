@@ -53,9 +53,6 @@
     <ClInclude Include="jsproc.hpp">
       <Filter>Header Files\Processors</Filter>
     </ClInclude>
-    <ClInclude Include="netwrapper.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="time.hpp">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -102,9 +99,6 @@
     </ClCompile>
     <ClCompile Include="jsproc.cpp">
       <Filter>Source Files\Processors</Filter>
-    </ClCompile>
-    <ClCompile Include="netwrapper.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="io.cpp">
       <Filter>Source Files\utils</Filter>

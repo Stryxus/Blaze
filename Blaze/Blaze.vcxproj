@@ -118,7 +118,6 @@ copy /Y "$(SolutionDir)curl\bin\libcrypto-1_1-x64.dll" "$(OutputPath)"</Command>
     <ClInclude Include="settings.hpp" />
     <ClInclude Include="string.hpp" />
     <ClInclude Include="time.hpp" />
-    <ClInclude Include="netwrapper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blazeapp.cpp" />
@@ -136,7 +135,6 @@ copy /Y "$(SolutionDir)curl\bin\libcrypto-1_1-x64.dll" "$(OutputPath)"</Command>
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="string.cpp" />
     <ClCompile Include="time.cpp" />
-    <ClCompile Include="netwrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

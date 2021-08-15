@@ -30,7 +30,6 @@ using JSON = nlohmann::json;
 #pragma warning(push)
 #pragma warning(disable : 4081)
 
-#include "netwrapper.hpp"
 #include "string.hpp"
 #include "time.hpp"
 #include "io.hpp"
