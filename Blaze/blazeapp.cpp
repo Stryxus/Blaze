@@ -26,6 +26,23 @@ int main(int argc, const char* argv[])
 		Logger::log_info("Loading Dependencies...");
 		load_libraries(vector<string> { Globals::LIB_NET_WRAPPER, Globals::LIB_ZLIB, Globals::LIB_PNG, Globals::LIB_CURL, Globals::LIB_SSL, Globals::LIB_SSL_CRYPTO });
 		Logger::log_info("Preparing data processors...");
+		Logger::log_nl();
+
+		int mode;
+		string valid_options("1", "2");
+		string input;
+		Logger::log_info("Please choose an operating mode number:");
+		Logger::log_info("| 1: Debug mode (Default)");
+		Logger::log_info("| 2: Release mode");
+		cin >> input;
+		while (input.size() != 1 || valid_options.find(input) == string::npos)
+		{
+			Logger::log_error("Input invalid, please enter a mode number as shown!");
+			cin >> input;
+			mode = stoi(input);
+		}
+
+		Logger::log_nl();
 		if (!Settings::get_settings()) return -1;
 		Logger::log_divide();
 		start_project_processing();

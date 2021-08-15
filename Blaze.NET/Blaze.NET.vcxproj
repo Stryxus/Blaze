@@ -74,7 +74,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssemblyInfo.hpp" />
-    <ClInclude Include="csharptocpp.hpp" />
     <ClInclude Include="cpptocsharp.hpp" />
     <ClInclude Include="pch.hpp" />
   </ItemGroup>
@@ -93,9 +92,6 @@
     <ProjectReference Include="..\NUglify\src\NUglify\NUglify.csproj">
       <Project>{af1fb158-d6c2-4952-a313-f9a9eeea8e82}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="csharptocpp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

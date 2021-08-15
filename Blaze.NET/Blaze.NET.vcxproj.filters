@@ -21,9 +21,6 @@
     <ClInclude Include="cpptocsharp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="csharptocpp.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -32,10 +29,5 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{86b10bd5-730e-442e-8335-2cefada0994a}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="csharptocpp.cpp">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>
