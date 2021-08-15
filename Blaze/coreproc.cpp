@@ -122,7 +122,7 @@ void process_file(fs::path& ctp, fs::path& extension, JSON file_config, string& 
 		{
 			using_directory_check(copy_to_path);
 			Logger::log_info("Indexing File Data: [wwwroot]:" + copy_to_path_relative + " [" + to_string(convert_data_magnitude_in_bytes_copy(fs::file_size(path), BYTE_MAGNITUDE::BYTE, BYTE_MAGNITUDE::KILO_BYTE)) + " KB]");
-			add_css_for_minification(path.c_str());
+			add_scss_for_minification(path.c_str());
 			should_minify_css = true;
 		}
 	}
