@@ -60,7 +60,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)curl\include;$(SolutionDir)libsass\include;$(SolutionDir)libwebp\src;$(SolutionDir)libwebp\imageio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <CompileAs>Default</CompileAs>
     </ClCompile>
