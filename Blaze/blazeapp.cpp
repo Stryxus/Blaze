@@ -24,7 +24,7 @@ int main(int argc, const char* argv[])
 		SetConsoleTitle(string_to_wstring_copy("Blaze - Working on: " + Globals::SPECIFIED_PROJECT_DIRECTORY_PATH).c_str());
 		Logger::log_info("Initializing...");
 		Logger::log_info("Loading Dependencies...");
-		load_libraries(vector<string> { Globals::LIB_ZLIB, Globals::LIB_PNG, Globals::LIB_CURL, Globals::LIB_SSL, Globals::LIB_SSL_CRYPTO });
+		load_libraries(vector<string> { Globals::LIB_NET_WRAPPER, Globals::LIB_ZLIB, Globals::LIB_PNG, Globals::LIB_CURL, Globals::LIB_SSL, Globals::LIB_SSL_CRYPTO });
 		Logger::log_info("Preparing data processors...");
 		Logger::log_nl();
 
